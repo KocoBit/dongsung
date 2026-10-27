@@ -446,11 +446,11 @@ body.dark .nsep{background:#2C3242}
 .jf i{width:14px;height:14px;border-radius:4px;background:var(--fc)}
 .jf span{margin-left:auto;font-size:20px}
 .jf.on{background:rgba(255,255,255,.08);color:#fff}
-.j2-filter{position:relative;margin-top:16px;display:flex;flex-wrap:nowrap;gap:6px;width:520px}
+.j2-filter{position:relative;margin-top:14px;display:flex;flex-wrap:nowrap;gap:6px;width:520px}
 .j2-filter button{height:44px;padding:0 13px;border-radius:22px;border:2px solid #2C3242;font-size:17px;white-space:nowrap;letter-spacing:-.4px;font-weight:700;color:#C9CDD6;display:flex;align-items:center;gap:8px;transition:all .25s}
 .j2-filter button i{width:9px;height:9px;border-radius:50%;background:var(--c)}
 .j2-filter button.on{background:#fff;color:var(--ink);border-color:#fff}
-#jobs .a-note{color:#6B7280;width:520px;white-space:nowrap;font-size:16px;letter-spacing:-.3px}
+.j2-count em{width:100%;margin-top:4px;font-style:normal;font-size:15px;font-weight:700;color:#6B7280;letter-spacing:-.3px;white-space:nowrap}
 .roll{position:absolute;left:700px;right:0;top:-40px;bottom:-56px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
 .roll-in{position:absolute;left:0;right:0;top:0;text-align:center;will-change:transform}
 .rh{padding:70px 0 18px;font-size:22px;font-weight:900;letter-spacing:8px;color:var(--fc)}
@@ -2076,10 +2076,9 @@ var SPORTS_REC = [
       <div class="j2-left">
         <div class="a-k rv">CREDITS</div>
         <h1 class="j2-title rv" style="--i:1">선배들은<br>어디로 갔을까?</h1>
-        <div class="j2-count rv" style="--i:2"><b id="jc-num">0</b><small id="jc-unit">명</small><span id="jc-lb"></span></div>
+        <div class="j2-count rv" style="--i:2"><b id="jc-num">0</b><small id="jc-unit">명</small><span id="jc-lb"></span><em id="jc-note"></em></div>
         <div class="j2-filter rv" style="--i:3" id="jc-filter"></div>
         <div class="j2-fields rv" style="--i:4" id="jc-fields"></div>
-        <p class="a-note rv" style="--i:5" id="jc-note"></p>
       </div>
       <button class="rm-btn rv" style="--i:6" data-sheet="roadmap"><i>🧭</i><span><b>진로 로드맵</b><small>취업 · 진학 · 선취업 후진학 — 3년 뒤 나의 길</small></span></button>
       <div class="roll rv" style="--i:2"><div class="roll-in" id="roll"></div></div>
