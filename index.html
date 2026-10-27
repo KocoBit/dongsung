@@ -437,17 +437,17 @@ body.dark .nsep{background:#2C3242}
 .j2-left{position:absolute;left:0;top:10px;width:640px;bottom:0}
 #jobs .a-k{color:#8C93A3}
 .j2-title{margin-top:10px;font-size:84px;font-weight:900;letter-spacing:-4px;line-height:1.05}
-.j2-count{margin-top:30px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
-.j2-count b{font-size:150px;font-weight:900;letter-spacing:-6px;line-height:.9;color:var(--gold)}
+.j2-count{margin-top:18px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.j2-count b{font-size:132px;font-weight:900;letter-spacing:-6px;line-height:.9;color:var(--gold)}
 .j2-count small{font-size:52px;font-weight:900;color:var(--gold)}
-.j2-count span{width:100%;margin-top:10px;font-size:24px;font-weight:700;color:#C9CDD6}
-.j2-fields{margin-top:26px;display:flex;flex-direction:column;gap:6px;width:520px}
-.jf{display:flex;align-items:center;gap:14px;height:42px;padding:0 16px;border-radius:12px;font-size:22px;font-weight:700;color:#8C93A3;transition:all .4s}
+.j2-count span{width:100%;margin-top:6px;font-size:24px;font-weight:700;color:#C9CDD6}
+.j2-fields{margin-top:18px;display:flex;flex-direction:column;gap:4px;width:520px}
+.jf{display:flex;align-items:center;gap:14px;height:40px;padding:0 16px;border-radius:12px;font-size:22px;font-weight:700;color:#8C93A3;transition:all .4s}
 .jf i{width:14px;height:14px;border-radius:4px;background:var(--fc)}
 .jf span{margin-left:auto;font-size:20px}
 .jf.on{background:rgba(255,255,255,.08);color:#fff}
-.j2-filter{position:absolute;left:0;bottom:44px;display:flex;flex-wrap:wrap;gap:10px;width:640px}
-.j2-filter button{height:50px;padding:0 20px;border-radius:25px;border:2px solid #2C3242;font-size:19px;font-weight:700;color:#C9CDD6;display:flex;align-items:center;gap:8px;transition:all .25s}
+.j2-filter{position:absolute;left:0;bottom:134px;display:flex;flex-wrap:nowrap;gap:8px;width:640px}
+.j2-filter button{height:48px;padding:0 16px;border-radius:24px;border:2px solid #2C3242;font-size:18px;white-space:nowrap;letter-spacing:-.3px;font-weight:700;color:#C9CDD6;display:flex;align-items:center;gap:8px;transition:all .25s}
 .j2-filter button i{width:10px;height:10px;border-radius:50%;background:var(--c)}
 .j2-filter button.on{background:#fff;color:var(--ink);border-color:#fff}
 #jobs .a-note{color:#6B7280}
@@ -1411,9 +1411,9 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .grid8.sel-A .it.trk-A,.grid8.sel-B .it.trk-B{box-shadow:0 0 0 3.5px var(--c),0 26px 36px -18px rgba(0,0,0,.4)!important;translate:0 -9px}
 
 /* 진로 로드맵 */
-.rm-btn{position:absolute;right:0;top:-6px;z-index:3;display:flex;align-items:center;gap:14px;padding:14px 22px 14px 16px;border-radius:24px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;text-align:left;backdrop-filter:blur(8px);transition:background .3s,transform .3s}
+.rm-btn{position:absolute;left:0;bottom:46px;width:640px;z-index:3;display:flex;align-items:center;gap:14px;padding:12px 22px 12px 14px;border-radius:22px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;text-align:left;backdrop-filter:blur(8px);transition:background .3s,transform .3s}
 .rm-btn:hover{background:rgba(255,255,255,.16);transform:translateY(-3px)}
-.rm-btn i{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-style:normal;font-size:28px;background:linear-gradient(135deg,#F0457E,#E3A008)}
+.rm-btn i{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-style:normal;font-size:28px;background:linear-gradient(135deg,#F0457E,#E3A008)}
 .rm-btn b{display:block;font-size:24px;font-weight:900}
 .rm-btn small{display:block;margin-top:3px;font-size:15px;font-weight:700;color:#C9C3D6}
 .rm-btn em{font-style:normal;font-size:26px;font-weight:900;color:#FFB8D2;margin-left:6px}
@@ -2071,7 +2071,7 @@ var SPORTS_REC = [
         <div class="j2-filter rv" style="--i:4" id="jc-filter"></div>
         <p class="a-note rv" style="--i:5" id="jc-note"></p>
       </div>
-      <button class="rm-btn rv" style="--i:6" data-sheet="roadmap"><i>🧭</i><span><b>진로 로드맵</b><small>취업 · 진학 · 선취업 후진학</small></span><em>→</em></button>
+      <button class="rm-btn rv" style="--i:6" data-sheet="roadmap"><i>🧭</i><span><b>진로 로드맵</b><small>취업 · 진학 · 선취업 후진학 — 3년 뒤 나의 길</small></span></button>
       <div class="roll rv" style="--i:2"><div class="roll-in" id="roll"></div></div>
     </div>
   </section>
@@ -2386,7 +2386,7 @@ $("#s-school").textContent=CONFIG.schoolShort;
 
 /* ── 선배들은 어디로 갔을까 (크레딧) ── */
 var jobFilter=null, roll=$("#roll"), rollY=0, rollH=0, rollOn=false, rollLast=0, rollPaused=false, rollGroups=[];
-$("#jc-filter").innerHTML='<button data-jf="" style="--c:#fff">전체</button>'+DEPTS.map(function(d){return '<button data-jf="'+d.id+'" style="--c:'+d.color+'"><i></i>'+d.name+'</button>'}).join("");
+$("#jc-filter").innerHTML='<button data-jf="" style="--c:#fff">전체</button>'+DEPTS.map(function(d){return '<button data-jf="'+d.id+'" style="--c:'+d.color+'"><i></i>'+d.short.replace(/건강관리$/,"")+'</button>'}).join("");
 $("#jc-note").textContent=JOB_NOTE;
 function buildRoll(){
   var list=jobAgg(jobFilter);
