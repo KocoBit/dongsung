@@ -1495,7 +1495,7 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
  background-image:linear-gradient(180deg,rgba(255,255,255,.95) 0,rgba(255,255,255,.7) 22%,rgba(255,255,255,.15) 40%,rgba(0,0,0,.04) 46%,rgba(0,0,0,.2) 72%,rgba(255,255,255,.45) 86%,rgba(0,0,0,.3) 100%)}
 .mp.ab{background-image:linear-gradient(112deg,rgba(0,0,0,0) 0 49.4%,rgba(255,255,255,.85) 49.4% 50.6%,rgba(0,0,0,.25) 50.6% 52%,rgba(0,0,0,0) 52%),linear-gradient(180deg,rgba(255,255,255,.75) 0,rgba(255,255,255,.55) 22%,rgba(255,255,255,.1) 40%,rgba(0,0,0,.05) 46%,rgba(0,0,0,.22) 72%,rgba(255,255,255,.25) 86%,rgba(0,0,0,.35) 100%),linear-gradient(112deg,#3D6BFF 0 50%,#F0B000 50% 100%);--rim:rgba(40,25,0,.55)}
 .mp i{font-style:normal;position:relative;z-index:2}
-.it .tg.mp{--md:.3s}
+.it .n .tg.mp{position:static;margin-left:8px;--md:.3s;font-size:13px;font-weight:900;color:#14161B}
 body.calm .mp:after{animation:none}
 
 .it.hi{box-shadow:0 0 0 2.5px #F2B705,0 20px 30px -18px rgba(150,95,0,.5);translate:0 -5px}
@@ -2335,7 +2335,7 @@ function miniCol(d){
 function li(items){return items.map(function(x){return '<li><span>'+x[0]+'</span>'+(x[1]?'<small>'+x[1]+'</small>':'')+'</li>'}).join("")}
 $("#dept-host").innerHTML=DEPTS.map(function(d,k){
   var others=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-go="dept-'+o.id+'" style="--oc:'+o.color+'"><i></i>'+o.short+'</button>'}).join("");
-  var learn=d.learn.map(function(x,j){return '<div class="it rv'+(x.hosp?' hosp':'')+(x.trk?x.trk.split('').map(function(k){return ' trk-'+k}).join(''):(d.track?' trk-C':''))+(x.hi?' hi':'')+'" data-card="'+d.id+':'+j+'" style="--i:'+j+'" data-n="'+(j+1)+'"><span class="wave"></span><div class="n">'+String(j+1).padStart(2,"0")+(x.trk?(x.trk==='AB'?'<em class="tk mp ab tk-ab"><i>A</i><i>B</i></em>':'<em class="tk'+(x.trk==='B'?' mp tk-b':'')+'">'+(x.trk+' '+d.track[x.trk].short)+'</em>'):'')+'</div>'+(x.tag?'<span class="tg'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'')+'<h4>'+(x.hi?'<span class="hstar">'+DSTAR+'</span>':'')+x.t+'</h4><p>'+x.d+'</p>'+(x.clip?'<span class="cam"><i></i>장면 보기</span>':'')+'</div>'}).join("");
+  var learn=d.learn.map(function(x,j){return '<div class="it rv'+(x.hosp?' hosp':'')+(x.trk?x.trk.split('').map(function(k){return ' trk-'+k}).join(''):(d.track?' trk-C':''))+(x.hi?' hi':'')+'" data-card="'+d.id+':'+j+'" style="--i:'+j+'" data-n="'+(j+1)+'"><span class="wave"></span><div class="n">'+String(j+1).padStart(2,"0")+(x.trk?(x.trk==='AB'?'<em class="tk mp ab tk-ab"><i>A</i><i>B</i></em>':'<em class="tk'+(x.trk==='B'?' mp tk-b':'')+'">'+(x.trk+' '+d.track[x.trk].short)+'</em>'):'')+(x.tag&&x.mt?'<span class="tg mp silver">'+x.tag+'</span>':'')+'</div>'+(x.tag&&!x.mt?'<span class="tg">'+x.tag+'</span>':'')+'<h4>'+(x.hi?'<span class="hstar">'+DSTAR+'</span>':'')+x.t+'</h4><p>'+x.d+'</p>'+(x.clip?'<span class="cam"><i></i>장면 보기</span>':'')+'</div>'}).join("");
   var stats=d.stats.map(function(s,j){
     var big=s.txt?s.txt:'<span data-count="'+s.big+'">'+s.big+'</span><small>'+(s.unit||"")+'</small>';
     return '<div class="st rv'+(s.txt?' txt':'')+'" style="--i:'+j+'"><div class="big">'+big+'</div><div class="lb">'+s.lb+'</div>'+(s.more?'<button class="morebtn" data-hosp="'+d.id+'" style="position:relative;color:#fff;border-color:#fff">병원 이름 모두 보기 →</button>':'')+'</div>';
