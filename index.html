@@ -2582,13 +2582,18 @@ var ADM=(function(){
           A.forEach(function(yy){ g.beginPath(); g.moveTo(fx,fy); g.bezierCurveTo(fx+22,fy,fx+16,yy,fx+40,yy); g.stroke(); g.beginPath(); g.arc(fx+44,yy,7,0,6.2832); g.fillStyle=d.color; g.fill(); });
           g.font="900 22px DS"; var pre=g.measureText("B ").width, word=g.measureText("산업기사").width, bw=g.measureText("B 산업기사").width;
           // 손그림 별(한붓그리기, 빈 별) — '산업기사' 글자 가운데 위
-          var ch=g.measureText("산").width; g.save(); var sx=fx+58+pre+ch*0.05, sy=A[1]-9; g.translate(sx,sy); g.rotate(-0.2); g.scale(1.85*sc,1.85*sc); g.translate(-12,-12);
+          var ch=g.measureText("산").width; g.save(); var sx=fx+58+pre+ch*0.1, sy=A[1]-19; g.translate(sx,sy); g.rotate(-0.2); g.scale(1.5*sc,1.5*sc); g.translate(-12,-12);
           g.strokeStyle="#E5383B"; g.lineWidth=1.7; g.lineCap="round"; g.lineJoin="round"; g.stroke(new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7")); g.restore();
-          if(now){ g.fillStyle="#E5383B"; [[22,-26,0],[30,0,.04],[-28,18,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*Math.min(1,p3*1.4); spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); g.globalAlpha=Math.min(1,p3*1.4); }
+          if(now){ g.fillStyle="#E5383B"; [[18,-22,0],[25,-2,.04],[-23,13,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*Math.min(1,p3*1.4); spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); g.globalAlpha=Math.min(1,p3*1.4); }
           g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText("B 산업기사",fx+58,A[1]+1);
           g.fillStyle=d.color; g.fillText("A 금융일반",fx+58,A[0]+1); g.fillText("B 산업기사",fx+58,A[1]+1);
-          var bx=fx+58+bw+10; g.font="900 15px DS"; var tw=g.measureText("부산 단 2곳").width;
-          g.fillStyle="#E5383B"; g.beginPath(); g.roundRect?g.roundRect(bx,A[1]-14,tw+18,28,10):g.rect(bx,A[1]-14,tw+18,28); g.fill(); g.fillStyle="#fff"; g.fillText("부산 단 2곳",bx+9,A[1]+1); }
+          // 금속 명판 배지 '부산 단 2곳' — 금빛 그라데이션 + 테두리 + 지나가는 빛
+          var bx=fx+58+bw+12, by=A[1]-17, bh=34; g.font="900 18px DS"; var tw=g.measureText("부산 단 2곳").width, bwid=tw+24;
+          var mg=g.createLinearGradient(bx,by,bx+bwid,by+bh); mg.addColorStop(0,"#FFF1B5"); mg.addColorStop(.35,"#E9B62A"); mg.addColorStop(.6,"#F7DD7A"); mg.addColorStop(1,"#C98E12");
+          g.fillStyle=mg; g.beginPath(); g.roundRect?g.roundRect(bx,by,bwid,bh,9):g.rect(bx,by,bwid,bh); g.fill();
+          g.lineWidth=2; g.strokeStyle="#8A5E05"; g.stroke(); g.lineWidth=1; g.strokeStyle="rgba(255,255,255,.75)"; g.beginPath(); g.roundRect?g.roundRect(bx+2.5,by+2.5,bwid-5,bh-5,7):g.rect(bx+2.5,by+2.5,bwid-5,bh-5); g.stroke();
+          g.lineWidth=3; g.strokeStyle="rgba(255,250,220,.6)"; g.strokeText("부산 단 2곳",bx+12,A[1]+2); g.fillStyle="#4A2400"; g.fillText("부산 단 2곳",bx+12,A[1]+2);
+          if(now){ var gp=((now/2250)%1), gx=bx-30+(bwid+60)*gp; g.save(); g.beginPath(); g.roundRect?g.roundRect(bx,by,bwid,bh,9):g.rect(bx,by,bwid,bh); g.clip(); var sg=g.createLinearGradient(gx-18,by,gx+18,by+bh); sg.addColorStop(0,"rgba(255,255,255,0)"); sg.addColorStop(.5,"rgba(255,255,255,.85)"); sg.addColorStop(1,"rgba(255,255,255,0)"); g.fillStyle=sg; g.fillRect(gx-30,by,60,bh); g.restore(); } }
         g.globalAlpha=1; } });
     // labels
     g.globalAlpha=Math.min(1,p*3); g.fillStyle="#fff"; g.beginPath(); g.arc(x0,y0,40,0,6.2832); g.fill(); g.lineWidth=6; g.strokeStyle="#2E3A8C"; g.stroke();
