@@ -1478,7 +1478,6 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .dt-t.has-star{text-shadow:4px 0px 0 var(--c),-4px 0px 0 var(--c),0px 4px 0 var(--c),0px -4px 0 var(--c),3.0px 3.0px 0 var(--c),-3.0px 3.0px 0 var(--c),3.0px -3.0px 0 var(--c),-3.0px -3.0px 0 var(--c)}
 .dt-t .dt-star{position:absolute;z-index:-1;left:-.6em;top:-.55em;width:1.4em;height:1.4em;color:#FFE36E;transform:rotate(-12deg);pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
 .dt-t .dt-star .dstar{width:100%;height:100%;display:block;overflow:visible}
-.dt-t .dt-star path{stroke-width:1.7}
 
 /* 손그림 별 반짝임: 별이 살짝 커졌다 돌아오고, 끝 근처에 반짝이 3개가 톡톡 */
 .dstar{transform-origin:50% 50%;animation:spop 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
@@ -1495,14 +1494,15 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .dt-t .dt-star .sp{width:.4em;height:.4em}.dt-t .dt-star .sp2{width:.28em;height:.28em}.dt-t .dt-star .sp3{width:.32em;height:.32em}
 body.calm .dstar,body.calm .sp{animation:none}
 
-/* 네온사인 별: 스스로 빛남(두 겹 글로우) + 은은하게 밝기가 오르내림 */
-.it .hstar,.trk-b.trk-B b .ds-on .dstar{color:#FF3D48;filter:drop-shadow(0 0 2px rgba(255,80,95,.95)) drop-shadow(0 0 7px rgba(255,60,80,.7)) drop-shadow(0 0 16px rgba(255,40,70,.45));animation:neon 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
-.trk-b.trk-B b .ds-on .dstar{animation:spop 2.25s ease-in-out infinite,neon 2.25s ease-in-out infinite;animation-delay:calc(var(--sd,0s))}
-.dt-t .dt-star{color:#FFE873;filter:drop-shadow(0 0 2px rgba(255,240,150,.95)) drop-shadow(0 0 8px rgba(255,220,90,.75)) drop-shadow(0 0 18px rgba(255,200,60,.5));animation:neon-y 2.4s ease-in-out infinite;animation-delay:var(--sd,0s)}
+/* 형광등(네온관) 별: 진한 바깥 선 + 밝은 심지, 아주 얇은 빛. 반짝일 때 심지가 지지직 밝아짐 */
+.it .hstar,.trk-b.trk-B b .ds-on .dstar{color:#E0303C;filter:drop-shadow(0 0 1.5px rgba(255,90,105,.9)) drop-shadow(0 0 5px rgba(255,60,80,.35))}
+.dt-t .dt-star{color:#F2B300;filter:drop-shadow(0 0 1.5px rgba(255,235,140,.9)) drop-shadow(0 0 7px rgba(255,215,60,.55))}
+.dt-t .dt-star .core{stroke:#FFFBE0}
+.dstar .core{animation:tube 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
+.trk-b.trk-B b .ds-on .dstar .core{animation-duration:2.25s;animation-delay:var(--sd,0s)}
+@keyframes tube{0%,100%{opacity:.85}2%{opacity:.35}4%{opacity:1}6%{opacity:.5}8%{opacity:1}14%{opacity:1}20%{opacity:.85}}
 .it .hstar .sp,.trk-b.trk-B b .ds-on .sp{color:#FF5560}
-@keyframes neon{0%,100%{filter:drop-shadow(0 0 2px rgba(255,80,95,.95)) drop-shadow(0 0 7px rgba(255,60,80,.65)) drop-shadow(0 0 16px rgba(255,40,70,.4))}8%{filter:drop-shadow(0 0 3px rgba(255,120,130,1)) drop-shadow(0 0 12px rgba(255,60,80,.95)) drop-shadow(0 0 26px rgba(255,40,70,.7))}20%{filter:drop-shadow(0 0 2px rgba(255,80,95,.95)) drop-shadow(0 0 7px rgba(255,60,80,.65)) drop-shadow(0 0 16px rgba(255,40,70,.4))}}
-@keyframes neon-y{0%,100%{filter:drop-shadow(0 0 2px rgba(255,240,150,.95)) drop-shadow(0 0 8px rgba(255,220,90,.7)) drop-shadow(0 0 18px rgba(255,200,60,.45))}8%{filter:drop-shadow(0 0 3px rgba(255,250,200,1)) drop-shadow(0 0 14px rgba(255,220,90,1)) drop-shadow(0 0 30px rgba(255,200,60,.75))}20%{filter:drop-shadow(0 0 2px rgba(255,240,150,.95)) drop-shadow(0 0 8px rgba(255,220,90,.7)) drop-shadow(0 0 18px rgba(255,200,60,.45))}}
-body.calm .hstar,body.calm .ds-on .dstar,body.calm .dt-star{animation:none}
+body.calm .dstar .core{animation:none}
 </style>
 </head>
 <body class="dark">
@@ -1579,7 +1579,7 @@ var CONFIG = {
   admitExtra: ""       // 예: 전형별 모집 인원·지원 자격 한 줄 요약
 };
 
-var DSTAR='<svg class="dstar" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd class="sp sp1"></kbd><kbd class="sp sp2"></kbd><kbd class="sp sp3"></kbd>';
+var DSTAR='<svg class="dstar" viewBox="0 0 24 24" aria-hidden="true"><path class="tube" d="M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7" fill="none" stroke="#FFF0F2" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd class="sp sp1"></kbd><kbd class="sp sp2"></kbd><kbd class="sp sp3"></kbd>';
 var DEPTS = [
 {
   id:"finance", color:"#2E5BFF", name:"금융정보과", short:"금융정보",
@@ -2595,7 +2595,7 @@ var ADM=(function(){
           // 손그림 별(한붓그리기, 빈 별) — '산업기사' 글자 가운데 위
           var ch=g.measureText("산").width; g.save(); var sx=fx+58+pre+ch*0.1, sy=A[1]-19; g.translate(sx,sy); g.rotate(-0.2); g.scale(1.5*sc,1.5*sc); g.translate(-12,-12);
           var sp=new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7"), gl=0.55+0.45*(ph<0.2?Math.sin(Math.PI*ph/0.2):0);
-          g.lineCap="round"; g.lineJoin="round"; g.shadowColor="rgba(255,50,75,"+(0.9*gl)+")"; g.shadowBlur=14*gl; g.strokeStyle="rgba(255,70,90,.55)"; g.lineWidth=4.2; g.stroke(sp); g.shadowBlur=6*gl; g.strokeStyle="#FF3D48"; g.lineWidth=1.7; g.stroke(sp); g.shadowBlur=0; g.shadowColor="transparent"; g.restore();
+          g.lineCap="round"; g.lineJoin="round"; g.shadowColor="rgba(255,60,85,"+(0.5*gl)+")"; g.shadowBlur=5*gl; g.strokeStyle="#E0303C"; g.lineWidth=2.6; g.stroke(sp); g.shadowBlur=0; g.shadowColor="transparent"; g.strokeStyle="rgba(255,240,242,"+(0.55+0.45*gl)+")"; g.lineWidth=0.9; g.stroke(sp); g.restore();
           if(now){ g.fillStyle="#E5383B"; [[18,-22,0],[25,-2,.04],[-23,13,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*Math.min(1,p3*1.4); spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); g.globalAlpha=Math.min(1,p3*1.4); }
           g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText("B 산업기사",fx+58,A[1]+1);
           g.fillStyle=d.color; g.fillText("A 금융일반",fx+58,A[0]+1); g.fillText("B 산업기사",fx+58,A[1]+1);
