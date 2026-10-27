@@ -187,8 +187,8 @@ body.dark #nav .tool:hover{color:#fff;border-color:#fff}
 .it{background:#fff;border-radius:24px;padding:34px 30px;box-shadow:0 2px 0 var(--line);position:relative;overflow:hidden}
 .it .n{font-size:18px;font-weight:900;color:var(--c);letter-spacing:1px}
 .it h4{position:relative;margin-top:16px;font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1.25}
-.it p{position:relative;margin-top:14px;font-size:23px;line-height:1.5;color:var(--ink2);font-weight:400}
-.it:after{content:attr(data-n);position:absolute;right:18px;bottom:-34px;font-size:170px;font-weight:900;letter-spacing:-8px;color:var(--c);opacity:.08;line-height:1}
+.it p{position:relative;margin-top:14px;font-size:23px;line-height:1.5;color:#2A2E36;font-weight:700}
+.it:after{content:attr(data-n);position:absolute;right:18px;bottom:-34px;font-size:170px;font-weight:900;letter-spacing:-8px;color:var(--c);opacity:.05;line-height:1}
 .it.hl:after{color:#fff;opacity:.18}
 .it.hl{background:var(--c);color:#fff}
 .it.hl .n,.it.hl p{color:rgba(255,255,255,.9)}
@@ -207,6 +207,7 @@ body.dark #nav .tool:hover{color:#fff;border-color:#fff}
 .pc{display:flex;flex-direction:column;gap:20px;height:100%}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:none}
 .band{position:relative;flex:1;min-height:150px;border-radius:26px;overflow:hidden;background:#000}
+.band .band-rm{position:absolute;right:22px;bottom:20px;z-index:2;padding:10px 16px;border-radius:14px;background:rgba(255,255,255,.92);color:#14161B;font-size:17px;font-weight:900;box-shadow:0 8px 20px -10px rgba(0,0,0,.6)}
 .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
 .band:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,0) 65%)}
 .band b{position:absolute;left:40px;top:50%;transform:translateY(-50%);z-index:2;color:#fff;font-size:38px;font-weight:900;letter-spacing:-1px;line-height:1.3}
@@ -319,8 +320,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;border-radius:50%;bac
 #notes{position:absolute;right:0;top:0;bottom:0;width:620px;z-index:70;background:#FFFDF6;color:var(--ink);box-shadow:-30px 0 60px rgba(0,0,0,.25);transform:translateX(calc(100% + 100px));transition:transform .5s var(--ease);padding:120px 48px 40px;overflow:hidden}
 #notes.on{transform:none}
 #notes h4{font-size:20px;font-weight:900;letter-spacing:3px;color:#B58A00}
+#notes .n-plan{margin-top:10px;padding:10px 12px;border-radius:12px;background:#FFF3C4;font-size:15px;font-weight:700;color:#6B4E00;line-height:1.5}
 #notes h3{margin-top:8px;font-size:40px;font-weight:900;letter-spacing:-1px}
-#notes ol{margin-top:26px;padding-left:30px;max-height:calc(100% - 300px);overflow:auto;padding-right:8px;scrollbar-width:thin}
+#notes ol{margin-top:20px;padding-left:30px;max-height:calc(100% - 390px);overflow:auto;padding-right:8px;scrollbar-width:thin}
 #notes li{font-size:24px;line-height:1.55;margin-bottom:18px;font-weight:700;color:var(--ink2)}
 #notes li::marker{color:#B58A00;font-weight:900}
 #notes .keys{position:absolute;left:48px;right:48px;bottom:36px;font-size:17px;color:var(--mute);font-weight:700;line-height:1.8;border-top:2px solid var(--line);padding-top:16px}
@@ -408,7 +410,8 @@ body.dark .nsep{background:#2C3242}
 .ac:first-child{--c:var(--gold)}
 .ac-h{display:flex;align-items:baseline;gap:16px}
 .ac-h b{font-size:34px;font-weight:900;letter-spacing:-1px}
-.ac-h span{font-size:20px;font-weight:700;color:var(--mute)}
+.ac-h span{font-size:20px;font-weight:700;color:var(--mute);white-space:nowrap}
+.ac-h .ac-head{margin-left:auto;margin-right:150px;font-style:normal;font-size:19px;white-space:nowrap;font-weight:900;color:#0B4A30;background:#C8F1DF;padding:6px 14px;border-radius:12px}
 .ac-go{margin-left:auto;font-size:19px;font-weight:700;color:var(--spo);border-bottom:2px solid var(--spo)}
 .cr{display:grid;grid-template-columns:250px 1fr;align-items:center;height:76px;border-bottom:2px solid var(--paper2)}
 .cr:last-child{border-bottom:0}
@@ -459,7 +462,7 @@ body.dark .nsep{background:#2C3242}
 .ri{padding:16px 0}
 .ri b{display:block;font-size:44px;font-weight:700;letter-spacing:-1px;color:#E9ECF2}
 .ri.star b{font-size:60px;font-weight:900;color:#fff}
-.ri span{display:block;margin-top:6px;font-size:19px;font-weight:700;color:#7D8494}
+.ri span{display:block;margin-top:6px;font-size:21px;font-weight:700;color:#A9B0BE}
 .ri span i{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 6px 1px 0;vertical-align:middle}
 
 /* ── 학과 진로 탭: 미니 크레딧 ── */
@@ -1099,11 +1102,11 @@ body.dark .tr-dot.on{border-color:#141823}
 #trail.hide{transform:translateY(-30px)}
 #trail:before{display:none}
 .tr-in{height:96px;gap:16px}
-.tr-w{font-size:25px;letter-spacing:-1px;color:#B9AEC3}
+.tr-w{font-size:25px;letter-spacing:-1px;color:#8E8299}
 .tr-w.on{color:#F0457E;text-shadow:0 0 18px rgba(240,69,126,.35)}
 .tr-w.past{color:#D58DAE}
 .tr-seg{height:6px;border-radius:3px;background:linear-gradient(90deg,#F0457E 0,#F0457E var(--fill,0%),#E6DDE9 var(--fill,0%))}
-.tr-dot{width:13px;height:13px;border-width:2.5px}
+.tr-dot{width:16px;height:16px;border-width:2.5px}
 .tr-dot.past{border:2px solid #fff!important;box-shadow:0 0 0 1px rgba(60,30,70,.18),0 1px 4px rgba(60,30,70,.3)}
 .tr-dot span{top:24px!important}
 .tr-dot span{bottom:auto;top:30px;font-size:15px;left:auto;right:calc(50% + 12px);transform:none}
@@ -1229,6 +1232,8 @@ body.dark #ap-btn{background:rgba(255,255,255,.08);color:#FFB8D2;border-color:rg
 .jc-qr{margin-top:14px;width:214px;height:214px;padding:12px;border-radius:20px;background:#fff;box-shadow:0 0 0 4px rgba(240,69,126,.55),0 18px 40px -16px rgba(240,69,126,.8)}
 .jc-qr svg{width:100%;height:100%;display:block}
 .jc-t{margin-top:16px;font-size:24px;font-weight:900;letter-spacing:-.5px}
+.jc-url{margin-top:6px;font-size:21px;font-weight:900;color:var(--gold);letter-spacing:-.3px}
+.jc-url small{display:block;font-size:13px;color:#C9C3D6;font-weight:700;letter-spacing:0}
 .jc-go{margin-top:14px;width:100%;height:62px;padding:0!important;border-radius:31px!important;display:flex;align-items:center;justify-content:center;gap:10px;font-size:23px!important;font-weight:900;text-align:center!important}
 .jc-go i{position:static!important;transform:none!important;font-size:24px!important}
 .jc-ig{margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);width:100%;display:flex;align-items:center;gap:14px}
@@ -1300,6 +1305,8 @@ body.dark #ap-btn{background:rgba(255,255,255,.08);color:#FFB8D2;border-color:rg
 .aps-box svg{width:100%;height:100%;display:block}
 .aps-t b{display:block;font-size:30px;font-weight:900;letter-spacing:-1px;line-height:1.3}
 .aps-t span{display:block;margin-top:12px;font-size:20px;font-weight:700;color:var(--mute);line-height:1.5}
+.aps-url{margin-top:12px;font-size:20px;font-weight:900;color:#C2407A}
+.aps-url small{display:block;font-size:13px;color:var(--mute);font-weight:700}
 .aps-t .lock{margin-top:22px;display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:#F6EEF2;font-size:17px;font-weight:700;color:#7A5A6C;line-height:1.45}
 
 #cvs .sh-card{background:#F4ECDF;color:var(--ink)}
@@ -1556,6 +1563,8 @@ var CONFIG = {
   formLabel: "관심 학생 신청",
   api: "https://script.google.com/macros/s/AKfycbxIFP0vOzKgDCdlqgVXE4TFBSo25e3q0sUjx-ljDAmJ_KjTDF7VoyhREtNRSbnSe7rf/exec",                 // 구글 Apps Script 웹 앱 주소 (…/exec) — 실시간 Q&A를 불러옴
   applyUrl: "https://kocobit.github.io/dongsung/apply/",   // 학생용 신청 사이트 공개 주소 (GitHub Pages: KocoBit/dongsung 의 apply 폴더)
+  shortSite: "숏.한국/동성여고/오는길",   // 외워서 칠 수 있는 짧은 주소 (QR 아래에 큰 글자로 보여 줌 · 비우면 숨김)
+  shortApply: "숏.한국/동성여고/신청",
   // 진로체험 갤러리: 사진은 media/career/blur(흐림)·media/career/orig(원본) 두 폴더에 같은 이름으로 넣고 파일 이름만 적으세요
   // ※ 중학생 얼굴이 나온 사진은 게시 동의를 받은 것만 넣어 주세요
   // 진로 로드맵 (취업 화면의 [진로 로드맵] 버튼) — 지금은 일반적인 특성화고 로드맵. 취업부·진학 자료를 받으면 items를 우리 학교 프로그램으로 바꾸세요
@@ -2094,7 +2103,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
           <div id="contests"></div>
         </div>
         <div class="ac rv" style="--i:3;--c:var(--spo)">
-          <div class="ac-h"><b>학교스포츠클럽</b><span>스포츠건강관리과 · 2024~2026</span><button class="ac-go" data-go="dept-sports">학과 보기 →</button></div>
+          <div class="ac-h"><b>학교스포츠클럽</b><span>스포츠건강관리과 · 2024~2026</span><em class="ac-head">축구·풋살·티볼 부산 1위 · 3년 연속</em><button class="ac-go" data-go="dept-sports">학과 보기 →</button></div>
           <div id="sportsrec"></div>
         </div>
       </div>
@@ -2183,6 +2192,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
         <div class="jc-k">입학상담 · 진로체험</div>
         <div class="jc-qr" id="jc-qr"></div>
         <div class="jc-t">휴대폰으로 찍어서 신청</div>
+        <div class="jc-url" id="jc-url"></div>
         <button class="jc-go" data-form="consult">바로 신청하기</button>
         <div class="qr" style="display:none"><div class="box" id="qr2"></div><b id="qr2-l"></b></div>
       </div>
@@ -2203,7 +2213,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
     <div class="aps-bg"></div><img class="aps-chr" src="media/char/wave.webp" alt="">
     <div class="aps-r"><h2>휴대폰으로 <em>신청해요</em></h2>
       <div class="aps-tabs" id="aps-tabs"><button data-t="consult" class="on">입학상담</button><button data-t="career">진로체험</button></div>
-      <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div><button class="aps-form" id="aps-form" data-form="consult">이 화면에서 바로 신청하기</button></div></div>
+      <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div><div class="aps-url" id="aps-url"></div><button class="aps-form" id="aps-form" data-form="consult">이 화면에서 바로 신청하기</button></div></div>
     </div></div></div>
   <div class="sh" id="apf"><div class="sh-card"><div class="apf-top"><b>바로 신청하기</b><span>입학상담 · 진로체험</span><button class="sh-x">✕ 닫기</button></div><iframe id="apf-fr" title="신청서"></iframe></div></div>
   <div class="sh" id="rmp"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
@@ -2272,6 +2282,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
   <!-- 선생님 메모 -->
   <aside id="notes">
     <h4>선생님 메모</h4>
+    <div class="n-plan">⏱ 권장 15~16분 · 오프닝 1′ → 홈 1′ → 입학 안내 2′ → 학과 4개 × 2′ → 수상 1′ → 취업 1′ → 엔딩·신청 2′ &nbsp;|&nbsp; 학과당 영상은 1개만, 나머지는 ‘선배 언니 한마디’(13초) · 막 카드·옷 갈아입기는 아무 키로 건너뛰기 · ↓↑ 탭 이동</div>
     <h3 id="n-title"></h3>
     <ol id="n-list"></ol>
     <div class="keys"><kbd>←</kbd><kbd>→</kbd>이동 · <kbd>0</kbd>홈 · <kbd>L</kbd>학교생활 · <kbd>I</kbd>입학 안내 · <kbd>1</kbd>~<kbd>4</kbd>학과 · <kbd>5</kbd>학과 찾기(상담용) · <kbd>6</kbd>함께해요 · <kbd>7</kbd>숫자 · <kbd>8</kbd>수상 · <kbd>9</kbd>취업 · <kbd>Q</kbd>Q&amp;A · <kbd>E</kbd>엔딩<br><b>학교 이름(왼쪽 위)</b> 오프닝 다시 · <kbd>V</kbd>영상 재생 · <kbd>A</kbd>전체 영상 · <kbd>M</kbd>상담 모드 · <kbd>N</kbd>메모 · <kbd>F</kbd>전체 화면 · <kbd>Esc</kbd>닫기</div>
@@ -2378,7 +2389,7 @@ $("#dept-host").innerHTML=DEPTS.map(function(d,k){
       '</div>'+
       '<div class="panel" data-panel="l">'+(d.track?trackBand(d):'')+'<div class="grid8'+(d.track?' has-trk':'')+'">'+learn+'</div></div>'+
       '<div class="panel" data-panel="c"><div class="pc"><div class="stats">'+stats+'</div><div class="cols">'+miniCol(d)+col2+'</div>'+
-        '<div class="band rv" style="--i:4"><img src="'+d.band+'" alt=""><b>'+d.bandText+'</b></div></div></div>'+
+        '<div class="band rv" style="--i:4"><img src="'+d.band+'" alt=""><b>'+d.bandText+'</b><button class="band-rm" data-sheet="roadmap">🧭 진학은? 진로 로드맵 →</button></div></div></div>'+
     '</div></div></section>';
 }).join("");
 
@@ -3600,6 +3611,7 @@ qrCard($("#qr2"),CONFIG.form); $("#qr2-l").textContent=CONFIG.formLabel;
 qrCard($("#qr3"),CONFIG.applyUrl||CONFIG.form||"");
 (function(){ var b=$("#jc-qr"); if(CONFIG.applyUrl&&window.makeQR){ b.innerHTML=qrSvg(CONFIG.applyUrl); } else { b.style.display="none"; } })();
 (function(){ var u=CONFIG.applyUrl?CONFIG.applyUrl.replace(/#.*$/,"")+"#qa":""; if(u){ setQR($("#qa-qr"),u); } else { $("#qa-qr").closest(".qa-ask").style.display="none"; } })();
+(function(){ if(CONFIG.shortApply){ var ju=$("#jc-url"), au=$("#aps-url"); if(ju)ju.innerHTML='<small>휴대폰을 못 쓰면 나중에 주소창에</small>'+CONFIG.shortApply; if(au)au.innerHTML='<small>나중에 주소창에 치면 돼요</small>'+CONFIG.shortApply; } })();
 (function(){ var u=CONFIG.applyUrl?CONFIG.applyUrl.replace(/#.*$/,""):CONFIG.instagram, l=CONFIG.applyUrl?"휴대폰으로 신청":CONFIG.instagramLabel; if(u&&window.makeQR){$("#lqr").style.display="";$("#lqr-box").innerHTML=qrSvg(u);$("#lqr-l").textContent=l;} })();
 
 /* ── 클릭 처리 ── */
@@ -3648,6 +3660,7 @@ document.addEventListener("keydown",function(e){
   else if(k==="7")go("stats");
   else if(k==="8")go("awards");
   else if(k==="9"){jobFilter=null;go("jobs");}
+  else if((k==="ArrowDown"||k==="ArrowUp")&&cur&&cur.indexOf("dept-")===0){ e.preventDefault(); var sc=document.getElementById(cur), T=["v","l","c"], on=$(".tab.on",sc), i=T.indexOf(on?on.dataset.tab:"v"); setTab(sc,T[(i+(k==="ArrowDown"?1:T.length-1))%T.length]); }
   else if(k==="v"||k==="V"){ if(cur&&cur.indexOf("dept-")===0)play(cur.slice(5)); }
   else if(k==="a"||k==="A")play("all");
   else if(k==="m"||k==="M")lounge(true);
@@ -3979,7 +3992,7 @@ html.m #m{display:block}
       R.ways.map(function(w,i){return '<details class="m-way" style="--wc:'+w.c+'"'+(i===0?' m-open':'')+'><summary><em>'+w.ic+'</em>'+w.k+'<small>'+w.lead+'</small></summary><ul>'+w.items.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></details>'}).join("");
     var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(fut?'모집 중':(d?md(d):'')))+'</small></button>'; }).join("");
     root.innerHTML=
-      '<section class="m-hero"><div class="m-top"><img src="media/logo/logo_h_w.png" alt="동성여자고등학교"><button data-pc>발표 화면으로</button></div>'+
+      '<section class="m-hero"><div class="m-top"><img src="media/logo/logo_h_w.png" alt="동성여자고등학교"></div>'+
       '<img class="m-chr" src="media/char/wave.webp" alt="">'+
       '<div class="m-txt"><div class="m-k2">2027 NEW START</div><h1>동성여고로<br>오는 길<small>2027. 3. 2. 우리, 여기서 만나<br>동성여자고등학교 (현 '+CONFIG.oldName+')</small></h1>'+
       (ai.dd?'<div class="m-dd">'+ai.dd+'<span>· '+ai.head+'</span></div>':'')+
@@ -4001,7 +4014,7 @@ html.m #m{display:block}
       '<section id="m-qa" style="padding-top:0"><div class="m-k">LIVE Q&amp;A</div><h2>궁금한 건 바로 물어봐!</h2><p class="m-lead">중학생 친구들이 남긴 질문에 선배·선생님이 직접 답했어요.</p><div class="m-qa" id="m-qalist"><div class="m-q"><b>불러오는 중…</b></div></div><div style="margin-top:14px"><a class="m-btn m-w" href="'+applyLink("qa")+'">질문 남기기</a></div></section>'+
       '<section id="m-admit" style="padding-top:0"><div class="m-k">2027 ADMISSION</div><h2>입학 안내</h2><div class="m-adm"><div style="font-size:13px;font-weight:900;color:#C9CDD6;margin-bottom:6px">'+ai.head+'</div>'+ai.rows+'</div>'+
       '<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><a class="m-btn" href="'+applyLink("consult")+'">입학상담 신청</a>'+(CONFIG.instagram?'<a class="m-btn m-o" href="'+CONFIG.instagram+'" target="_blank" rel="noopener">인스타그램 ↗</a>':'')+'</div></section>'+
-      '<footer><img src="media/logo/logo_h_w.png" alt=""><div>'+CONFIG.school+' · 현 '+CONFIG.oldName+'</div><div>2027 입학설명회 · 중학교 방문 홍보</div><button data-pc>발표 화면으로 보기</button></footer>'+
+      '<footer><img src="media/logo/logo_h_w.png" alt=""><div>'+CONFIG.school+' · 현 '+CONFIG.oldName+'</div><div>2027 입학설명회 · 중학교 방문 홍보</div><button data-pc>선생님용 · 발표 화면으로 보기</button></footer>'+
       '<div class="m-bar"><a class="m-b1" href="'+applyLink("consult")+'">신청하기</a><a class="m-b2" href="'+applyLink("qa")+'">Q&amp;A</a><button class="m-b3" data-scroll="m-career">진로체험</button></div>'+
       '<div class="m-sh" id="m-sh"><div class="m-pn" id="m-pn"></div></div><div class="m-toast" id="m-toast"></div>';
     careerTab(pickRound());
@@ -4050,7 +4063,7 @@ html.m #m{display:block}
     var other=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-dept="'+o.id+'" style="--c:'+o.color+'"><i></i>'+o.name+'</button>'}).join("");
     return '<div class="m-hd" style="--c:'+d.color+'"><i>0'+(i+1)+'</i><b>'+d.name+'</b><button data-close>✕</button></div><div class="m-body" style="--c:'+d.color+'">'+
       '<div class="m-hook">'+d.hook+'</div><p class="m-sub">'+d.sub+'</p>'+
-      '<div class="m-vid" data-video="'+d.video+'"><img src="'+d.poster+'" alt=""><div class="m-pl"><i>▶</i>'+d.posterTitle+'<small>'+d.dur+' · 누르면 재생</small></div></div><p class="m-vnote">영상은 약 30MB예요. Wi-Fi에서 보는 걸 추천해요.</p>'+
+      '<div class="m-vid" data-video="'+d.video+'"><img src="'+d.poster+'" alt=""><div class="m-pl"><i>▶</i></div></div><p class="m-vnote"><b style="color:#fff">'+d.posterTitle+'</b> · '+d.dur+' · 누르면 재생 · 약 30MB(Wi-Fi 추천)</p>'+
       trk+'<h3>이런 걸 배워요 <small>'+d.learn.length+'가지 · 눌러서 자세히</small></h3><div class="m-learn">'+learn+'</div>'+
       '<h3>졸업 후 진로 <small>취업 · 진학</small></h3><div class="m-st2">'+stats+'</div>'+(jobs?'<h3>선배들이 간 곳 <small>2024~2026</small></h3><div class="m-cos">'+jobs+'</div>':'')+col+quote+
       '<div class="m-other">'+other+'</div><div style="margin-top:18px;display:flex;gap:8px"><a class="m-btn" href="'+applyLink("consult")+'">이 학과 상담 신청</a><a class="m-btn m-o" href="'+applyLink("career")+'">진로체험</a></div></div>';
