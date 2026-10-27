@@ -1370,6 +1370,43 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 #apf-fr{flex:1;width:100%;border:0;background:#FBF7F9}
 .aps-form{margin-top:16px;height:54px;padding:0 24px;border-radius:27px;background:#3A1E52;color:#fff;font-size:19px;font-weight:900}
 .aps-form:hover{background:#F0457E}
+
+.qa-go{display:block;margin-top:14px;height:50px;padding:0 22px;font-size:18px}
+.ig-go{margin-top:10px;height:40px;padding:0 16px;border-radius:20px;background:linear-gradient(90deg,#F58529,#DD2A7B,#8134AF);color:#fff;font-size:15px;font-weight:900}
+.ig-go.dark{margin-top:0;height:58px;padding:0 20px;border-radius:29px;font-size:18px}
+.adq-b{display:flex;gap:10px;align-items:center;margin-top:14px}
+.adq-b .ap-go{margin-top:0}
+.cv-info .cv-go{margin-top:14px;height:52px;padding:0 24px;border-radius:26px;background:#7A4BE0;color:#fff;font-size:19px;font-weight:900;box-shadow:0 12px 22px -12px rgba(122,75,224,.9)}
+.cv-steps{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.cv-steps span{padding:10px 16px;border-radius:16px;background:#fff;font-size:20px;font-weight:900;color:#5A3A2A;box-shadow:0 8px 16px -12px rgba(60,40,20,.6)}
+.cv-steps i{font-style:normal;color:#E0453A;font-weight:900;align-self:center}
+
+/* 전공심화 투트랙 띠 */
+.trk{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:96px 40px;gap:10px 14px;margin-bottom:16px}
+.trk-b{position:relative;display:flex;align-items:center;gap:16px;padding:0 70px 0 18px;border-radius:22px;background:#fff;text-align:left;box-shadow:0 2px 0 var(--line);border:2.5px solid transparent;transition:border-color .25s,transform .25s}
+.trk-b:hover{transform:translateY(-3px)}
+.trk-b.on{border-color:var(--c)}
+.trk-b i{width:56px;height:56px;flex:none;border-radius:16px;display:grid;place-items:center;font-style:normal;font-size:30px;font-weight:900;color:#fff;background:var(--c)}
+.trk-b.trk-B i{background:#14161B}
+.trk-b small{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:900;color:var(--c);letter-spacing:.5px}
+.trk-b.trk-B small{color:#14161B}
+.trk-b small em{font-style:normal;font-size:12.5px;font-weight:900;padding:3px 8px;border-radius:9px;background:#FFE36E;color:#6B4E00;letter-spacing:0}
+.trk-b b{display:block;margin-top:2px;font-size:27px;font-weight:900;letter-spacing:-1px;line-height:1.15}
+.trk-b span{display:block;margin-top:3px;font-size:15px;font-weight:700;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trk-b div{min-width:0}
+.trk-b u{position:absolute;right:16px;top:50%;transform:translateY(-50%);text-decoration:none;font-size:14px;font-weight:900;color:var(--mute);padding:6px 10px;border-radius:12px;background:var(--paper)}
+.trk-c{grid-column:1/-1;display:flex;align-items:center;gap:8px;padding:0 6px}
+.trk-c small{font-size:14px;font-weight:900;color:var(--mute);margin-right:4px}
+.trk-c button{height:36px;padding:0 15px;border-radius:18px;background:#fff;font-size:15.5px;font-weight:900;color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.trk-c button:hover{background:var(--c);color:#fff}
+.grid8.has-trk{height:calc(100% - 162px)}
+.grid8.has-trk .it{padding:24px 26px}
+.grid8.has-trk .it h4{margin-top:10px;font-size:30px}
+.grid8.has-trk .it p{margin-top:10px;font-size:20px}
+.it .tk{margin-left:8px;font-style:normal;font-size:13px;font-weight:900;padding:3px 8px;border-radius:9px;background:var(--c);color:#fff;letter-spacing:0;vertical-align:2px}
+.it.trk-B .tk{background:#14161B}
+.grid8.sel-A .it:not(.trk-A),.grid8.sel-B .it:not(.trk-B){opacity:.28;filter:grayscale(.6);transition:opacity .35s,filter .35s}
+.grid8.sel-A .it.trk-A,.grid8.sel-B .it.trk-B{box-shadow:0 0 0 3px var(--c),0 20px 30px -18px rgba(0,0,0,.35);transform:translateY(-4px)}
 </style>
 </head>
 <body class="dark">
@@ -1418,7 +1455,7 @@ var CONFIG = {
       {tag:"박람회", src:"c1-v313969.webp", cap:"진로 박람회 · 대학 진학 부스"},
       {tag:"박람회", src:"c1-v319000.webp", cap:"퍼스널 컬러 진단 부스"}
     ]},
-    {n:"2차", date:"2026-11-06", info:"학과 4곳을 직접 체험해요", photos:[]},
+    {n:"2차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], photos:[]},
     {n:"3차", date:"2026-11-14", info:"학과 4곳을 직접 체험해요", photos:[]},
     {n:"4차", date:"2026-11-21", info:"학과 4곳을 직접 체험해요", photos:[]}
   ],
@@ -1443,13 +1480,24 @@ var DEPTS = [
   posterTitle:"금융정보과, 이런 곳이에요",
   posterSub:"금융정보의 날부터 여름 캠프까지",
   tags:["금융정보의 날","은행 채용매칭데이","여름 캠프","금융 골든벨"],
+  track:{
+    title:"2학년부터 <b>전공심화 투트랙</b>",
+    A:{name:"금융일반", short:"금융일반", club:"금융마스터반", line:"은행·공공기관 취업 트랙", body:"금융마스터반에서 은행·공공기관 취업을 목표로 금융 실무와 면접을 준비해요. 부산은행·하나은행·신용보증기금 등에 선배들이 취업했어요."},
+    B:{name:"사무자동화산업기사", short:"산업기사", club:"산업기사반", line:"대학 졸업 없이 고교 과정만으로 산업기사", badge:"2026년 기준 부산 단 2곳", body:"산업기사는 원래 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형으로, 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 2026년 기준 사무자동화산업기사 과정을 운영하는 고등학교는 부산에서 단 2곳이에요."},
+    common:[
+      {t:"학기별 캠프", d:"학기마다 한 번, 캠프에서 집중해서 공부하고 친구들과 추억도 쌓아요."},
+      {t:"대회 · 부스 운영", d:"각종 대회에 나가고, 행사에서 직접 부스를 운영하며 대외 활동 경험을 쌓아요."},
+      {t:"비즈쿨 · 창업", d:"중소벤처기업부·창업진흥원의 청소년 창업 교육(비즈쿨)에 참여해요. 내 아이디어를 사업으로 키워 보고, 창업 행사에서 부스도 운영해요."},
+      {t:"IP 마이스터 · 특허", d:"특허청·교육부·중소벤처기업부가 함께 여는 직업계고 아이디어 대회예요. 우리 아이디어로 특허 출원까지 도전하고, 우수 팀은 장관 표창과 시제품 제작 지원을 받아요."}
+    ]
+  },
   learn:[
     {t:"금융정보의 날", d:"학과 친구들이 다 함께 즐기는 우리 과만의 축제", clip:"media/clip/finance1.mp4", at:11.0, more:"학과 친구들이 다 함께 모여 즐기는 금융정보과만의 축제예요."},
     {t:"금융 골든벨 & 경매", d:"퀴즈로 모은 돈으로 선생님 애장품 경매에 도전", clip:"media/clip/finance2.mp4", at:52.0, more:"금융 퀴즈를 많이 맞힌 사람은 상금을 받고, 그 돈으로 원하는 물건과 선생님들의 애장품(향수·화장품·옷 등) 경매에 참여해요."},
-    {t:"은행·공공기관 체험", d:"부산은행 금융 교육, 캠코 청소년 직장 체험", clip:"media/clip/finance3.mp4", at:26.8, more:"부산은행 금융 교육, 캠코(한국자산관리공사) 청소년 직장 체험으로 금융 현장을 직접 경험해요."},
-    {t:"하나은행과 함께", d:"채용 매칭 데이와 초청 특강으로 취업 준비", clip:"media/clip/finance4.mp4", at:30.0, more:"하나은행 채용 매칭 데이와 초청 특강으로 은행 취업을 미리 준비해요."},
-    {t:"산업기사 자격증반", d:"여름 캠프에서 집중 공부하고 해양 체험까지", tag:"캠프", clip:"media/clip/finance5.mp4", at:43.0, more:"산업기사 자격증반은 여름 캠프에서 집중해서 공부하고, 해양 체험도 함께 해요."},
-    {t:"NCS 역량 강화 캠프", d:"금융경영정보서비스 현장 직무 교육", clip:"media/clip/finance6.mp4", at:41.0, more:"금융경영정보서비스 현장 직무 교육 캠프로 실무 역량을 키워요."},
+    {trk:"A", t:"은행·공공기관 체험", d:"부산은행 금융 교육, 캠코 청소년 직장 체험", clip:"media/clip/finance3.mp4", at:26.8, more:"부산은행 금융 교육, 캠코(한국자산관리공사) 청소년 직장 체험으로 금융 현장을 직접 경험해요."},
+    {trk:"A", t:"하나은행과 함께", d:"채용 매칭 데이와 초청 특강으로 취업 준비", clip:"media/clip/finance4.mp4", at:30.0, more:"하나은행 채용 매칭 데이와 초청 특강으로 은행 취업을 미리 준비해요."},
+    {trk:"B", t:"산업기사반", d:"고교 과정만으로 사무자동화산업기사 응시 · 여름 캠프 집중", tag:"부산 단 2곳", clip:"media/clip/finance5.mp4", at:43.0, more:"산업기사 자격증반은 여름 캠프에서 집중해서 공부하고, 해양 체험도 함께 해요."},
+    {trk:"A", t:"NCS 역량 강화 캠프", d:"금융경영정보서비스 현장 직무 교육", clip:"media/clip/finance6.mp4", at:41.0, more:"금융경영정보서비스 현장 직무 교육 캠프로 실무 역량을 키워요."},
     {t:"졸업생 멘토링", d:"먼저 취업한 선배와 함께하는 취업 뽀개기", clip:"media/clip/finance7.mp4", at:24.4, more:"먼저 취업한 졸업생 선배와 함께하는 ‘취업 뽀개기’ 멘토링이에요."},
     {t:"스포츠 부전공", d:"금융 공부하면서 체육도 함께 하고 싶다면", tag:"NEW", clip:"media/clip/finance8.mp4", at:66.0, more:"금융 공부와 체육을 함께 하고 싶은 학생을 위한 스포츠 부전공이 있어요."}
   ],
@@ -1461,6 +1509,8 @@ var DEPTS = [
   senior:{t0:76.5, t1:89, label:"선배 언니 한마디"},
   band:"media/img/finance2.jpg", bandText:"공부도 캠프도 <span>함께</span>,<br>취업까지 같이 가요",
   notes:[
+    "전공심화 투트랙 강조: A 금융일반(금융마스터반) / B 사무자동화산업기사(산업기사반) → 띠의 A·B를 누르면 해당 카드가 강조돼요",
+    "산업기사: 원래 대졸·경력이 있어야 응시 → 우리는 학교 정규 과정만 이수하면 응시(과정평가형) · 2026년 기준 사무자동화산업기사 과정은 부산 단 2곳 (상업계 고교에서 산업기사 과정은 거의 없어요)",
     "“금융정보과는 맨날 돈 계산만 할 것 같죠? 수학 못해도 괜찮아요.”로 시작하기",
     "대학을 나와도 공기업·금융권 취업은 어렵다 → 고등학교에서 미리 준비하면 기회가 온다",
     "실제 선배 취업처: 신용보증기금·부산은행(3년간 4명)·하나은행·하나증권 → 또박또박 읽어 주기",
@@ -1929,7 +1979,7 @@ var SPORTS_REC = [
         <div class="dd rv" style="--i:2"><small id="dd-lb"></small><div class="dd-n" id="dd-n"></div><div class="dd-live" id="dd-live"></div><span id="dd-date"></span></div>
         <div class="adtl rv" style="--i:3" id="tl"></div>
         <div class="ad-info rv" style="--i:4" id="ad-info"></div>
-        <div class="ad-qr rv" style="--i:5"><div class="box" id="qr3"></div><div><b>관심 학생 신청</b><span>궁금한 점을 남기면 연락드려요</span><button class="ap-go" data-apply="consult">QR 크게 보기</button></div></div>
+        <div class="ad-qr rv" style="--i:5"><div class="box" id="qr3"></div><div><b>입학상담 · 진로체험 신청</b><span>휴대폰으로 찍거나 버튼을 눌러요</span><div class="adq-b"><button class="ap-go" data-form="consult">바로 신청하기</button><button class="ig-go dark" data-ig="1">인스타그램 ↗</button></div></div></div>
       </div>
     </div>
   </section>
@@ -1943,7 +1993,7 @@ var SPORTS_REC = [
         <div class="qa-k rv"><i></i>LIVE Q&amp;A</div>
         <h1 class="qa-t rv" style="--i:1">궁금한 건<br><em>바로</em> 물어봐!</h1>
         <p class="qa-s rv" style="--i:2">중학생 친구들이 남긴 질문에<br>선배·선생님이 직접 답했어요.</p>
-        <div class="qa-ask rv" style="--i:3"><div class="box" id="qa-qr"></div><div><b>질문 남기기</b><span id="qa-ask-s">휴대폰 카메라로 찍으면<br>바로 질문할 수 있어요</span></div></div>
+        <div class="qa-ask rv" style="--i:3"><div class="box" id="qa-qr"></div><div><b>질문 남기기</b><span id="qa-ask-s">휴대폰 카메라로 찍거나<br>아래 버튼을 눌러 질문해요</span><button class="ap-go qa-go" data-form="qa">이 화면에서 질문하기</button></div></div>
         <div class="qa-meta rv" style="--i:4" id="qa-meta"></div>
       </div>
       <div class="qa-feed rv" style="--i:2" id="qa-feed"><div class="qa-roll" id="qa-roll"></div></div>
@@ -1979,13 +2029,13 @@ var SPORTS_REC = [
         <p class="j-s rv" style="--i:2" id="j-s"></p>
       </div>
       <div class="j-cta rv" style="--i:3">
-        <div class="jc-k">입학상담 · 진로체험 · Q&amp;A</div>
+        <div class="jc-k">입학상담 · 진로체험</div>
         <div class="jc-qr" id="jc-qr"></div>
         <div class="jc-t">휴대폰으로 찍어서 신청</div>
         <button class="jc-go" data-form="consult">바로 신청하기</button>
         <div class="qr" style="display:none"><div class="box" id="qr2"></div><b id="qr2-l"></b></div>
       </div>
-      <div class="j-ig rv" style="--i:4"><div class="box" id="qr1"></div><div><small>INSTAGRAM</small><b id="qr1-l"></b><span>학교 소식은 인스타그램에서</span></div></div>
+      <div class="j-ig rv" style="--i:4"><div class="box" id="qr1"></div><div><small>INSTAGRAM</small><b id="qr1-l"></b><span>학교 소식은 인스타그램에서</span><button class="ig-go" data-ig="1">인스타그램 열기 ↗</button></div></div>
       <div class="chr j-chr"><img class="b" src="media/char/wave.webp" alt=""><span class="bub">언니들이 기다릴게!</span></div>
       <div class="j-depts" id="j-depts"></div>
     </div>
@@ -2001,10 +2051,10 @@ var SPORTS_REC = [
   <div class="sh" id="aps"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
     <div class="aps-bg"></div><img class="aps-chr" src="media/char/wave.webp" alt="">
     <div class="aps-r"><h2>휴대폰으로 <em>신청해요</em></h2>
-      <div class="aps-tabs" id="aps-tabs"><button data-t="consult" class="on">입학상담</button><button data-t="career">진로체험</button><button data-t="qa">Q&amp;A 질문</button></div>
+      <div class="aps-tabs" id="aps-tabs"><button data-t="consult" class="on">입학상담</button><button data-t="career">진로체험</button></div>
       <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div><button class="aps-form" id="aps-form" data-form="consult">이 화면에서 바로 신청하기</button></div></div>
     </div></div></div>
-  <div class="sh" id="apf"><div class="sh-card"><div class="apf-top"><b>바로 신청하기</b><span>입학상담 · 진로체험 · Q&amp;A</span><button class="sh-x">✕ 닫기</button></div><iframe id="apf-fr" title="신청서"></iframe></div></div>
+  <div class="sh" id="apf"><div class="sh-card"><div class="apf-top"><b>바로 신청하기</b><span>입학상담 · 진로체험</span><button class="sh-x">✕ 닫기</button></div><iframe id="apf-fr" title="신청서"></iframe></div></div>
   <div class="sh" id="cvs"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
     <div class="cv-h"><h2>진로체험 <em>갤러리</em></h2><p>동성여고에서 직접 해 본 하루</p></div>
     <div class="cv-tabs" id="cv-tabs"></div>
@@ -2140,7 +2190,7 @@ function miniCol(d){
 function li(items){return items.map(function(x){return '<li><span>'+x[0]+'</span>'+(x[1]?'<small>'+x[1]+'</small>':'')+'</li>'}).join("")}
 $("#dept-host").innerHTML=DEPTS.map(function(d,k){
   var others=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-go="dept-'+o.id+'" style="--oc:'+o.color+'"><i></i>'+o.short+'</button>'}).join("");
-  var learn=d.learn.map(function(x,j){return '<div class="it rv'+(x.hosp?' hosp':'')+'" data-card="'+d.id+':'+j+'" style="--i:'+j+'" data-n="'+(j+1)+'"><span class="wave"></span><div class="n">'+String(j+1).padStart(2,"0")+'</div>'+(x.tag?'<span class="tg">'+x.tag+'</span>':'')+'<h4>'+x.t+'</h4><p>'+x.d+'</p>'+(x.clip?'<span class="cam"><i></i>장면 보기</span>':'')+'</div>'}).join("");
+  var learn=d.learn.map(function(x,j){return '<div class="it rv'+(x.hosp?' hosp':'')+(x.trk?' trk-'+x.trk:(d.track?' trk-C':''))+'" data-card="'+d.id+':'+j+'" style="--i:'+j+'" data-n="'+(j+1)+'"><span class="wave"></span><div class="n">'+String(j+1).padStart(2,"0")+(x.trk?'<em class="tk">'+x.trk+' '+d.track[x.trk].short+'</em>':'')+'</div>'+(x.tag?'<span class="tg">'+x.tag+'</span>':'')+'<h4>'+x.t+'</h4><p>'+x.d+'</p>'+(x.clip?'<span class="cam"><i></i>장면 보기</span>':'')+'</div>'}).join("");
   var stats=d.stats.map(function(s,j){
     var big=s.txt?s.txt:'<span data-count="'+s.big+'">'+s.big+'</span><small>'+(s.unit||"")+'</small>';
     return '<div class="st rv'+(s.txt?' txt':'')+'" style="--i:'+j+'"><div class="big">'+big+'</div><div class="lb">'+s.lb+'</div>'+(s.more?'<button class="morebtn" data-hosp="'+d.id+'" style="position:relative;color:#fff;border-color:#fff">병원 이름 모두 보기 →</button>':'')+'</div>';
@@ -2169,7 +2219,7 @@ $("#dept-host").innerHTML=DEPTS.map(function(d,k){
         '<div class="cap"><b>'+d.posterTitle+'</b><span>'+d.posterSub+'</span></div><div class="dur">'+d.dur+'</div></button>'+
         '<div class="chips rv" style="--i:4">'+d.tags.map(function(t){return '<b>'+t+'</b>'}).join("")+(d.senior?'<button class="senior" data-senior="'+d.id+'"><i></i>'+d.senior.label+'<small>'+Math.round(d.senior.t1-d.senior.t0)+'초</small></button>':'')+'</div>'+
       '</div>'+
-      '<div class="panel" data-panel="l"><div class="grid8">'+learn+'</div></div>'+
+      '<div class="panel" data-panel="l">'+(d.track?trackBand(d):'')+'<div class="grid8'+(d.track?' has-trk':'')+'">'+learn+'</div></div>'+
       '<div class="panel" data-panel="c"><div class="pc"><div class="stats">'+stats+'</div><div class="cols">'+miniCol(d)+col2+'</div>'+
         '<div class="band rv" style="--i:4"><img src="'+d.band+'" alt=""><b>'+d.bandText+'</b></div></div></div>'+
     '</div></div></section>';
@@ -2408,7 +2458,7 @@ var ADM=(function(){
   var cv=$("#br"), g=cv.getContext("2d"), raf=0;
   function draw(p){
     g.clearRect(0,0,1040,400);
-    var x0=52,y0=200,xs=340,xe=760, ys=[52,151,249,348];
+    var x0=52,y0=200,xs=310,xe=560, ys=[52,151,249,348];
     function lerp(a,b,t){return a+(b-a)*t}
     var p1=Math.min(1,p/0.35), p2=Math.max(0,Math.min(1,(p-0.35)/0.45)), p3=Math.max(0,Math.min(1,(p-0.75)/0.25));
     // trunk
@@ -2418,7 +2468,16 @@ var ADM=(function(){
     DEPTS.forEach(function(d,i){ if(p2<=0)return; g.strokeStyle=d.color; g.lineWidth=18; g.beginPath(); g.moveTo(xs,y0);
       var N=40; for(var k=1;k<=N*p2;k++){ var t=k/N, x=lerp(xs,xe,t), e=t*t*(3-2*t), y=lerp(y0,ys[i],e); g.lineTo(x,y);} g.stroke();
       if(p3>0){ g.globalAlpha=p3; g.fillStyle=d.color; g.beginPath(); g.arc(xe,ys[i],16,0,6.2832); g.fill();
-        g.fillStyle="#14161B"; g.font="900 30px DS"; g.textBaseline="middle"; g.fillText(d.name,xe+34,ys[i]+2); g.globalAlpha=1; } });
+        g.fillStyle="#14161B"; g.font="900 30px DS"; g.textBaseline="middle"; g.fillText(d.name,xe+34,ys[i]+2);
+        if(d.track){ // 금융정보과: 전공심화 두 갈래
+          var w=g.measureText(d.name).width, fx=xe+34+w+18, fy=ys[i], q=Math.min(1,p3*1.4), A=[fy-26,fy+26];
+          g.globalAlpha=q; g.lineWidth=7; g.strokeStyle=d.color;
+          A.forEach(function(yy){ g.beginPath(); g.moveTo(fx,fy); g.bezierCurveTo(fx+22,fy,fx+16,yy,fx+40,yy); g.stroke(); g.beginPath(); g.arc(fx+44,yy,7,0,6.2832); g.fillStyle=d.color; g.fill(); });
+          g.font="900 21px DS"; g.fillStyle="#2E5BFF"; g.fillText("A 금융일반",fx+58,A[0]+1);
+          g.fillStyle="#14161B"; g.fillText("B 산업기사",fx+58,A[1]+1);
+          var bw=g.measureText("B 산업기사").width, bx=fx+58+bw+10; g.font="900 15px DS"; var tw=g.measureText("부산 단 2곳").width;
+          g.fillStyle="#FFE36E"; g.beginPath(); g.roundRect?g.roundRect(bx,A[1]-13,tw+16,26,9):g.rect(bx,A[1]-13,tw+16,26); g.fill(); g.fillStyle="#6B4E00"; g.fillText("부산 단 2곳",bx+8,A[1]+1); }
+        g.globalAlpha=1; } });
     // labels
     g.globalAlpha=Math.min(1,p*3); g.fillStyle="#fff"; g.beginPath(); g.arc(x0,y0,40,0,6.2832); g.fill(); g.lineWidth=6; g.strokeStyle="#2E3A8C"; g.stroke();
     g.fillStyle="#2E3A8C"; g.font="900 22px DS"; g.textAlign="center"; g.textBaseline="middle"; g.fillText("입학",x0,y0+1);
@@ -2969,7 +3028,9 @@ var SHEET=(function(){
     var el=document.getElementById(id); cur=k; el.classList.add("on"); el.classList.remove("in");
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add("in"); }); });
     if(k==="apply")aps(arg||"consult");
-    if(k==="form"){ var local=location.protocol==="file:"||/github\.io$/.test(location.hostname); $("#apf-fr").src=(local?"apply/index.html":base())+"?kiosk=1&shared=1&tab="+(arg||"consult"); }
+    if(k==="form"){ var local=location.protocol==="file:"||/github\.io$/.test(location.hostname), q=(arg==="qa");
+      $("#apf b").textContent=q?"이 화면에서 질문하기":"바로 신청하기"; $("#apf .apf-top span").textContent=q?"이름은 가려서 공개돼요 · 답이 달리면 Q&A 화면에 올라와요":"입학상담 · 진로체험";
+      $("#apf-fr").src=(local?"apply/index.html":base())+"?kiosk=1&shared=1&tabs="+(q?"qa":"consult,career")+"&tab="+(arg||"consult"); }
     if(k==="qa")QAW.load(true);
     if(k==="career")CV.show(arg);
   }
@@ -2978,6 +3039,7 @@ var SHEET=(function(){
     el.addEventListener("click",function(e){ if(e.target===el||e.target.closest(".sh-x")){ e.stopPropagation(); hide(); } });
   });
   document.addEventListener("click",function(e){
+    var ig=e.target.closest("[data-ig]"); if(ig){ e.stopPropagation(); if(CONFIG.instagram)window.open(CONFIG.instagram,"_blank"); return; }
     var b=e.target.closest("[data-sheet],[data-apply],[data-form]"); if(!b)return; e.stopPropagation();
     if(b.dataset.form){ var t=b.id==="aps-form"?aTab:b.dataset.form;
       // 휴대폰·태블릿(터치)은 개인 기기 → 신청 사이트를 새 창으로 그대로(가리지 않음)
@@ -3008,7 +3070,7 @@ var CV=(function(){
     $("#cv-grid").scrollTop=0;
   }
   function draw(){
-    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(future(r)?'<i>모집 중</i>':''))+'</button>'; }).join("");
+    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(future(r)?'<i>모집 중</i>':''))+'</button>'; }).join("");
     var r=L[sel]; if(!r){ body.innerHTML=""; return; }
     var ph=(r.photos||[]).map(P);
     if(ph.length){
@@ -3022,8 +3084,8 @@ var CV=(function(){
     } else if(future(r)){
       var d=dt(r.date), u=new URL((CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""),location.href).href+"#career";
       body.innerHTML='<div class="cv-soon"><div class="cv-cal"><b>'+(d.getMonth()+1)+'월</b><strong>'+d.getDate()+'</strong><span>'+WK[d.getDay()]+'요일</span></div>'+
-        '<div class="cv-info"><h3>진로체험 '+r.n+',<br><em>이날 만나요!</em></h3><p>'+(r.info||"학과 4곳을 직접 체험해요")+'<br>체험이 끝나면 사진이 여기에 올라와요.</p>'+
-        '<div class="cv-q"><div class="box">'+(window.makeQR?qrSvg(u):"")+'</div><div><b>휴대폰으로 신청</b><span>카메라로 찍으면<br>진로체험 신청이 열려요</span></div></div></div></div>';
+        '<div class="cv-info"><h3>진로체험 '+r.n+',<br><em>'+(r.name||"이날 만나요!")+'</em></h3><p>'+(r.info||"학과 4곳을 직접 체험해요")+'<br>체험이 끝나면 사진이 여기에 올라와요.</p>'+(r.steps?'<div class="cv-steps">'+r.steps.map(function(x){return '<span>'+x+'</span>'}).join('<i>→</i>')+'</div>':'')+
+        '<div class="cv-q"><div class="box">'+(window.makeQR?qrSvg(u):"")+'</div><div><b>휴대폰으로 신청</b><span>카메라로 찍거나<br>아래 버튼을 눌러요</span><button class="cv-go" data-form="career">진로체험 신청하기</button></div></div></div></div>';
     } else {
       body.innerHTML='<div class="cv-wait"><div><b>📷 사진을 정리하고 있어요</b>진로체험 '+r.n+' 사진이 곧 올라와요!</div></div>';
     }
@@ -3325,6 +3387,19 @@ $("#win-play").onclick=function(){play(topId)};
 $("#win-pick").onclick=function(){openReveal()};
 $("#win-go").onclick=function(){go("dept-"+topId)};
 
+/* ── 전공심화 투트랙 띠 (금융정보과) ── */
+function trackBand(d){ var T=d.track;
+  return '<div class="trk rv" style="--i:0">'+
+    ['A','B'].map(function(k){ var x=T[k]; return '<button class="trk-b trk-'+k+'" data-trk="'+k+'"><i>'+k+'</i><div><small>2학년 전공심화 '+k+(x.badge?'<em>'+x.badge+'</em>':'')+'</small><b>'+x.name+'</b><span>'+x.club+' · '+x.line+'</span></div><u>보기</u></button>'; }).join('')+
+    '<div class="trk-c"><small>두 트랙 모두</small>'+T.common.map(function(c,j){return '<button data-tchip="'+d.id+':'+j+'">'+c.t+'</button>'}).join('')+'</div></div>'; }
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-trk]"); if(b){ e.stopPropagation(); var sc=b.closest(".scene"), g=$(".grid8",sc), k=b.dataset.trk, D0=D[sc.id.slice(5)], on=g.classList.contains("sel-"+k);
+    g.classList.remove("sel-A","sel-B"); $$(".trk-b",sc).forEach(function(x){x.classList.remove("on")});
+    if(!on){ g.classList.add("sel-"+k); b.classList.add("on"); var x=D0.track[k]; showPop(D0.color,'전공심화 '+k+' · '+x.name,[x.club].concat(x.badge?[x.badge]:[]),x.body); }
+    return; }
+  var c=e.target.closest("[data-tchip]"); if(c){ e.stopPropagation(); var p=c.dataset.tchip.split(":"), D1=D[p[0]], it=D1.track.common[+p[1]]; showPop(D1.color,it.t,["두 트랙 모두"],it.d); }
+},true);
+
 /* ── QR ── */
 function qrSvg(text){
   var m=window.makeQR(text), n=m.length, q=2, s=n+q*2, p="";
@@ -3338,9 +3413,7 @@ function setQR(box,url){
 function qrCard(box,url){ var card=box.closest(".qr,.ad-qr"); if(!url){ if(card)card.style.display="none"; return; } if(card)card.style.display=""; setQR(box,url); }
 qrCard($("#qr1"),CONFIG.instagram); $("#qr1-l").textContent=CONFIG.instagramLabel;
 qrCard($("#qr2"),CONFIG.form); $("#qr2-l").textContent=CONFIG.formLabel;
-if(CONFIG.form){ qrCard($("#qr3"),CONFIG.form); }
-else if(CONFIG.instagram){ qrCard($("#qr3"),CONFIG.instagram); var ac=$("#qr3").closest(".ad-qr"); $("b",ac).textContent="학교 인스타그램"; $("span",ac).textContent="입학 소식과 선배들의 학교생활을 볼 수 있어요"; }
-else qrCard($("#qr3"),"");
+qrCard($("#qr3"),CONFIG.applyUrl||CONFIG.form||"");
 (function(){ var b=$("#jc-qr"); if(CONFIG.applyUrl&&window.makeQR){ b.innerHTML=qrSvg(CONFIG.applyUrl); } else { b.style.display="none"; } })();
 (function(){ var u=CONFIG.applyUrl?CONFIG.applyUrl.replace(/#.*$/,"")+"#qa":""; if(u){ setQR($("#qa-qr"),u); } else { $("#qa-qr").closest(".qa-ask").style.display="none"; } })();
 (function(){ var u=CONFIG.applyUrl?CONFIG.applyUrl.replace(/#.*$/,""):CONFIG.instagram, l=CONFIG.applyUrl?"휴대폰으로 신청":CONFIG.instagramLabel; if(u&&window.makeQR){$("#lqr").style.display="";$("#lqr-box").innerHTML=qrSvg(u);$("#lqr-l").textContent=l;} })();
@@ -3419,6 +3492,8 @@ document.addEventListener("keydown",function(e){
   });
   document.addEventListener("pointerup",function(){ p.classList.remove("down"); });
   document.addEventListener("mouseleave",function(){ p.classList.remove("show"); });
+  // 신청서(작은 창) 안에서는 그 페이지의 종이비행기 커서를 쓰므로, 바깥 비행기는 숨김
+  var fr=document.getElementById("apf-fr"); if(fr){ fr.addEventListener("mouseenter",function(){ p.style.visibility="hidden"; }); fr.addEventListener("mouseleave",function(){ p.style.visibility=""; }); }
 })();
 
 /* 시작: 주소 끝에 #home 처럼 붙이면 그 장면부터 */
