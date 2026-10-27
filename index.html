@@ -1104,7 +1104,8 @@ body.dark .tr-dot.on{border-color:#141823}
 .tr-dot{width:13px;height:13px;border-width:2.5px}
 .tr-dot.past{border:2px solid #fff!important;box-shadow:0 0 0 1px rgba(60,30,70,.18),0 1px 4px rgba(60,30,70,.3)}
 .tr-dot span{top:24px!important}
-.tr-dot span{bottom:auto;top:30px;font-size:15px}
+.tr-dot span{bottom:auto;top:30px;font-size:15px;left:auto;right:calc(50% + 12px);transform:none}
+.tr-pl{pointer-events:none}
 .tr-pl{width:46px;height:30px;transition:transform .95s cubic-bezier(.35,1.25,.45,1)}
 #nav .brand{margin-right:0}
 body.dark .tr-seg{background:linear-gradient(90deg,#FF5C93 0,#FF5C93 var(--fill,0%),#2C3242 var(--fill,0%))}
@@ -1132,7 +1133,8 @@ html.ptr-on,html.ptr-on *{cursor:none!important}
 @keyframes spk{from{transform:scale(.3) rotate(0);opacity:1}to{transform:scale(1.6) rotate(45deg);opacity:0}}
 
 /* 여정 길: 종이비행기가 선 위에서 지금 위치를 표시 */
-.tr-dot.on{opacity:0;transform:scale(.5)}
+.tr-dot.on{background:transparent!important;border-color:transparent!important;box-shadow:none!important;transform:scale(.5)}
+.tr-dot.on span{transform:scale(2);transform-origin:right top}
 .tr-pl{z-index:2;filter:drop-shadow(0 0 6px rgba(240,69,126,.55)) drop-shadow(0 2px 3px rgba(60,20,50,.35))}
 .tr-pl svg path:first-child{stroke:#F0457E;stroke-width:2.2;stroke-linejoin:round}
 .tr-pl svg path:nth-child(2){stroke:#F0457E;stroke-width:2.2;stroke-linejoin:round}
@@ -2950,12 +2952,13 @@ var ACT=(function(){
   var el=$("#act"), seen={}, timers=[], busy=false, done=null;
   var MAP={life:1,admit:1,finder:2,stats:2,awards:2,jobs:3,fly:3,join:3};
   function of(id){ return id.indexOf("dept-")===0?2:(MAP[id]||0); }
+  var last=0; // 마지막으로 보여 준(또는 머문) 막 번호. 막이 바뀔 때마다(앞·뒤 모두) 다시 보여 주고, 같은 막 안에서는 안 보여 줌
   function want(id){
-    var a=of(id); if(!a||seen[a]||busy||!cur||cur===id)return false;
+    var a=of(id); if(!a||busy||!cur||cur===id)return false;
     if(document.body.classList.contains("lounge"))return false;
-    if(of(cur)===a){ seen[a]=true; return false; }
-    if(id==="fly"){ seen[3]=true; return false; }
-    if(REDUCED){ seen[a]=true; return false; }
+    if(a===last||of(cur)===a){ last=a; return false; }
+    if(id==="fly"){ last=3; return false; }
+    if(REDUCED){ last=a; return false; }
     return true;
   }
   var TX={
@@ -2983,10 +2986,10 @@ var ACT=(function(){
       path.style.strokeDashoffset=0; path.setAttribute("stroke-dasharray",(L*e)+" "+L);
       if(p<1)requestAnimationFrame(f); })(t0);
   }
-  function show(a,cb){
-    busy=true; seen[a]=true; done=cb; timers.forEach(clearTimeout); timers=[];
+  function show(a,cb,late){
+    busy=true; last=a; done=cb; timers.forEach(clearTimeout); timers=[];
     build(a); el.classList.add("on"); void el.offsetWidth; el.classList.add("in"); SND.whoosh();
-    timers.push(setTimeout(function(){ if(done){var c=done;done=null;c();} },600));
+    if(!late)timers.push(setTimeout(function(){ if(done){var c=done;done=null;c();} },600));
     timers.push(setTimeout(out,a===2?2300:2100));
   }
   function out(){
@@ -2995,8 +2998,8 @@ var ACT=(function(){
     el.classList.add("out");
     timers.push(setTimeout(function(){ el.className=""; busy=false; },650));
   }
-  el.addEventListener("click",function(){ if(busy)out(); });
-  return {want:want,show:show,of:of,mark:function(a){seen[a]=true;},reset:function(){seen={};},get busy(){return busy}};
+  el.addEventListener("click",function(e){ e.stopPropagation(); if(busy)out(); });
+  return {skip:function(){ if(busy)out(); },want:want,show:show,of:of,mark:function(a){last=a;},reset:function(){last=0;},get busy(){return busy}};
 })();
 
 /* ── 엔딩: 세상으로 비상하라 ── */
@@ -3311,8 +3314,8 @@ var DRESS=(function(){
     timers.push(setTimeout(function(){ el.classList.add("sw"); SND.chime(); },280+550));
     timers.push(setTimeout(finish,2350));
   }
-  el.addEventListener("click",function(){ if(busy)finish(); });
-  return {run:run,get busy(){return busy}};
+  el.addEventListener("click",function(e){ e.stopPropagation(); if(busy)finish(); });
+  return {run:run,skip:function(){ if(busy)finish(); },get busy(){return busy}};
 })();
 
 /* ── 장면 전환 ── */
@@ -3320,7 +3323,9 @@ function replay(el){el.classList.remove("in");void el.offsetWidth;el.classList.a
 function go(id){
   if(id==="intro"&&OPENING==="calendar")id="open";
   if(!document.getElementById(id))return;
-  if(id.indexOf("dept-")===0 && cur && cur!==id){ DRESS.run(id); return; }
+  if(id.indexOf("dept-")===0 && cur && cur!==id){
+    if(ACT.want(id)){ ACT.show(2,function(){ DRESS.run(id); },true); return; } // 막 2 → 옷 갈아입기
+    DRESS.run(id); return; }
   if(ACT.want(id)){ ACT.show(ACT.of(id),function(){goNow(id)}); return; }
   if(id.indexOf("dept-")===0 && cur && cur!==id && !document.body.classList.contains("lounge")){ var d=D[id.slice(5)]; WIPE(d.color,function(){goNow(id)}); return; }
   goNow(id);
@@ -3568,7 +3573,8 @@ document.addEventListener("keydown",function(e){
   var k=e.key;
   if(SHEET.cur){ if(SHEET.cur==="career"&&CV.key(k)){ e.preventDefault(); return; } if(k==="Escape")SHEET.close(); return; }
   if(cur==="open"&&OP.waiting){ if(k==="Enter"||k===" "||k==="ArrowRight"){ e.preventDefault(); OP.begin(); } return; }
-  if(DRESS.busy) return;
+  if(DRESS.busy){ if(!/^(Shift|Control|Alt|Meta|CapsLock|Tab|F\d+)$/.test(k)){ e.preventDefault(); DRESS.skip(); } return; }
+  if(ACT.busy){ if(!/^(Shift|Control|Alt|Meta|CapsLock|Tab|F\d+)$/.test(k)){ e.preventDefault(); ACT.skip(); } return; }
   if(pop.classList.contains("on")&&k==="Escape"){ pop.classList.remove("on"); return; }
   if(DT.on){ if(k==="Escape")DT.close(); else if(k==="ArrowRight")DT.step(1); else if(k==="ArrowLeft")DT.step(-1); e.preventDefault(); return; }
   if(k==="Escape"){ if(rv.classList.contains("on"))closeReveal(); else if(lbox.classList.contains("on"))lbox.classList.remove("on"); else if(pop.classList.contains("on"))pop.classList.remove("on"); else if(lg.classList.contains("on"))lounge(false); else if(th.classList.contains("on"))closeTheater(); else if(notes.classList.contains("on"))notes.classList.remove("on"); return; }
