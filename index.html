@@ -1407,6 +1407,42 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .it.trk-B .tk{background:#14161B}
 .grid8.sel-A .it:not(.trk-A),.grid8.sel-B .it:not(.trk-B){opacity:.28;filter:grayscale(.6);transition:opacity .35s,filter .35s}
 .grid8.sel-A .it.trk-A,.grid8.sel-B .it.trk-B{box-shadow:0 0 0 3px var(--c),0 20px 30px -18px rgba(0,0,0,.35);transform:translateY(-4px)}
+
+/* 진로 로드맵 */
+.rm-btn{position:absolute;right:0;top:-6px;z-index:3;display:flex;align-items:center;gap:14px;padding:14px 22px 14px 16px;border-radius:24px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;text-align:left;backdrop-filter:blur(8px);transition:background .3s,transform .3s}
+.rm-btn:hover{background:rgba(255,255,255,.16);transform:translateY(-3px)}
+.rm-btn i{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-style:normal;font-size:28px;background:linear-gradient(135deg,#F0457E,#E3A008)}
+.rm-btn b{display:block;font-size:24px;font-weight:900}
+.rm-btn small{display:block;margin-top:3px;font-size:15px;font-weight:700;color:#C9C3D6}
+.rm-btn em{font-style:normal;font-size:26px;font-weight:900;color:#FFB8D2;margin-left:6px}
+#rmp .sh-card{background:#F7F2EA;color:var(--ink)}
+#rmp .sh-x{background:#fff;color:#5A4A3A;border-color:rgba(0,0,0,.06);box-shadow:0 8px 20px -10px rgba(0,0,0,.3)}
+.rm-h{position:absolute;left:90px;top:64px;right:300px}
+.rm-h small{font-size:20px;font-weight:900;letter-spacing:6px;color:#E0457E}
+.rm-h h2{margin-top:6px;font-size:72px;font-weight:900;letter-spacing:-3px;line-height:1.05}
+.rm-h h2 em{font-style:normal;color:#E0457E}
+.rm-h p{margin-top:12px;font-size:24px;font-weight:700;color:#8A7A6A}
+.rm-steps{position:absolute;left:90px;right:90px;top:300px;display:flex;align-items:stretch;gap:0}
+.rm-st{flex:1;padding:22px 26px;border-radius:24px;background:#fff;box-shadow:0 16px 30px -22px rgba(60,40,20,.6)}
+.rm-st b{display:inline-block;padding:4px 12px;border-radius:12px;background:#2B2140;color:#fff;font-size:17px;font-weight:900}
+.rm-st h3{margin-top:10px;font-size:32px;font-weight:900;letter-spacing:-1px}
+.rm-st p{margin-top:6px;font-size:18px;font-weight:700;color:#7A6A5A;line-height:1.45}
+.rm-st div{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.rm-st span{padding:5px 11px;border-radius:12px;background:#F3ECE2;font-size:15px;font-weight:800;color:#5A4A3A}
+.rm-ar{flex:none;width:44px;position:relative}
+.rm-ar:before{content:"";position:absolute;left:10px;top:50%;width:22px;height:22px;margin-top:-11px;border-top:5px solid #E0457E;border-right:5px solid #E0457E;transform:rotate(45deg)}
+.rm-ways{position:absolute;left:90px;right:90px;top:610px;bottom:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.rm-ways:before{content:"3학년, 나에게 맞는 세 갈래 길";position:absolute;left:50%;top:-50px;transform:translateX(-50%);padding:6px 18px;border-radius:16px;background:#E0457E;color:#fff;font-size:19px;font-weight:900;letter-spacing:.5px;white-space:nowrap}
+.rm-ways:after{content:"";position:absolute;left:16.6%;right:16.6%;top:-22px;height:22px;border:3px solid #E0457E;border-bottom:0;border-radius:14px 14px 0 0}
+.rm-w{position:relative;padding:24px 28px;border-radius:26px;background:#fff;border-top:8px solid var(--wc);box-shadow:0 20px 34px -24px rgba(60,40,20,.7);display:flex;flex-direction:column}
+.rm-wh{display:flex;align-items:center;gap:14px}
+.rm-wh i{width:60px;height:60px;flex:none;border-radius:18px;display:grid;place-items:center;font-style:normal;font-size:32px;background:color-mix(in srgb,var(--wc) 14%,#fff)}
+.rm-wh b{display:block;font-size:38px;font-weight:900;letter-spacing:-1px;color:var(--wc)}
+.rm-wh span{display:block;margin-top:2px;font-size:19px;font-weight:800;color:#5A4A3A}
+.rm-w ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+.rm-w li{position:relative;padding-left:22px;font-size:21px;font-weight:700;color:#3A2E28;line-height:1.4}
+.rm-w li:before{content:"";position:absolute;left:4px;top:11px;width:9px;height:9px;border-radius:50%;background:var(--wc)}
+.rm-go{margin-top:auto;align-self:flex-start;height:44px;padding:0 18px;border-radius:22px;background:var(--wc);color:#fff;font-size:16px;font-weight:900}
 </style>
 </head>
 <body class="dark">
@@ -1430,6 +1466,19 @@ var CONFIG = {
   applyUrl: "https://kocobit.github.io/dongsung/apply/",   // 학생용 신청 사이트 공개 주소 (GitHub Pages: KocoBit/dongsung 의 apply 폴더)
   // 진로체험 갤러리: 사진은 media/career/blur(흐림)·media/career/orig(원본) 두 폴더에 같은 이름으로 넣고 파일 이름만 적으세요
   // ※ 중학생 얼굴이 나온 사진은 게시 동의를 받은 것만 넣어 주세요
+  // 진로 로드맵 (취업 화면의 [진로 로드맵] 버튼) — 지금은 일반적인 특성화고 로드맵. 취업부·진학 자료를 받으면 items를 우리 학교 프로그램으로 바꾸세요
+  roadmap: {
+    steps: [
+      {y:"1학년", t:"함께 시작", d:"공통 과목으로 기초를 다지고, 네 학과를 가까이서 보며 나의 길을 찾아요", chips:["진로 탐색","기초 자격증","학교생활"]},
+      {y:"2학년", t:"나의 학과", d:"학과를 골라 전공을 배우고, 전공 자격증에 도전해요", chips:["전공 수업","전공 자격증","전공심화 과정"]},
+      {y:"3학년", t:"나의 진로", d:"취업 · 진학 · 선취업 후진학 중 나에게 맞는 길을 골라요", chips:["진로 상담","포트폴리오"]}
+    ],
+    ways: [
+      {k:"취업", c:"#F0457E", ic:"💼", lead:"특성화고의 가장 큰 강점, 고졸 취업", items:["취업 상담과 맞춤 지도","자기소개서 · 모의 면접","현장실습으로 미리 일 경험","기업 채용 연계","공공기관 · 금융권 고졸 채용 도전"], go:"jobs", goLb:"선배들이 간 곳 보기"},
+      {k:"진학", c:"#2E5BFF", ic:"🎓", lead:"특성화고 학생을 위한 대학 전형이 따로 있어요", items:["특성화고 졸업자 특별전형(동일계열)","수시 학생부 전형","진학 상담과 내신 관리","전문대학 · 4년제 대학 진학"]},
+      {k:"선취업 후진학", c:"#E3A008", ic:"🚀", lead:"먼저 취업하고, 일하면서 대학까지", items:["재직자 특별전형: 일정 기간 일한 뒤 대학 진학","일과 공부를 함께하는 계약학과","회사에 따라 사내대학 · 학비 지원","경력과 학위를 동시에"]}
+    ]
+  },
   // 얼굴 처리: "blur" = 중학생 얼굴 흐리게(기본) · "orig" = 원본 (게시 동의를 모두 받았을 때만)
   careerFaces: "blur",
   career: [
@@ -1961,6 +2010,7 @@ var SPORTS_REC = [
         <div class="j2-filter rv" style="--i:4" id="jc-filter"></div>
         <p class="a-note rv" style="--i:5" id="jc-note"></p>
       </div>
+      <button class="rm-btn rv" style="--i:6" data-sheet="roadmap"><i>🧭</i><span><b>진로 로드맵</b><small>취업 · 진학 · 선취업 후진학</small></span><em>→</em></button>
       <div class="roll rv" style="--i:2"><div class="roll-in" id="roll"></div></div>
     </div>
   </section>
@@ -2055,6 +2105,11 @@ var SPORTS_REC = [
       <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div><button class="aps-form" id="aps-form" data-form="consult">이 화면에서 바로 신청하기</button></div></div>
     </div></div></div>
   <div class="sh" id="apf"><div class="sh-card"><div class="apf-top"><b>바로 신청하기</b><span>입학상담 · 진로체험</span><button class="sh-x">✕ 닫기</button></div><iframe id="apf-fr" title="신청서"></iframe></div></div>
+  <div class="sh" id="rmp"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
+    <div class="rm-h"><small>CAREER ROADMAP</small><h2>3년 뒤, <em>나의 길</em>은?</h2><p>1학년은 다 함께, 2학년은 나의 학과, 3학년은 나에게 맞는 진로로</p></div>
+    <div class="rm-steps" id="rm-steps"></div>
+    <div class="rm-ways" id="rm-ways"></div>
+  </div></div>
   <div class="sh" id="cvs"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
     <div class="cv-h"><h2>진로체험 <em>갤러리</em></h2><p>동성여고에서 직접 해 본 하루</p></div>
     <div class="cv-tabs" id="cv-tabs"></div>
@@ -3013,7 +3068,7 @@ var CD=(function(){
 
 /* ── 현장 접수: 선생님·홍보대사가 이 화면에서 대신 입력 ── */
 var SHEET=(function(){
-  var cur=null, ids={apply:"aps",qa:"qa",career:"cvs",form:"apf"}, aTab="consult";
+  var cur=null, ids={apply:"aps",qa:"qa",career:"cvs",form:"apf",roadmap:"rmp"}, aTab="consult";
   function base(){ return (CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""); }
   function abs(u){ try{ return new URL(u,location.href).href; }catch(e){ return u; } }
   var TXT={consult:["카메라로 QR을 찍으면<br>입학상담 신청이 열려요","성적은 적지 않아도 괜찮아요.<br>적으면 더 자세히 상담해 드려요."],
@@ -3051,6 +3106,13 @@ var SHEET=(function(){
   return {open:open,close:hide,get cur(){return cur}};
 })();
 
+
+/* ── 진로 로드맵 ── */
+(function(){ var R=CONFIG.roadmap; if(!R){ var b=$(".rm-btn"); if(b)b.style.display="none"; return; }
+  $("#rm-steps").innerHTML=R.steps.map(function(x,i){ return '<div class="rm-st rv" style="--i:'+(i+1)+'"><b>'+x.y+'</b><h3>'+x.t+'</h3><p>'+x.d+'</p><div>'+x.chips.map(function(c){return '<span>'+c+'</span>'}).join('')+'</div></div>'+(i<R.steps.length-1?'<i class="rm-ar rv" style="--i:'+(i+1)+'"></i>':''); }).join('');
+  $("#rm-ways").innerHTML=R.ways.map(function(w,i){ return '<div class="rm-w rv" style="--i:'+(i+4)+';--wc:'+w.c+'"><div class="rm-wh"><i>'+w.ic+'</i><div><b>'+w.k+'</b><span>'+w.lead+'</span></div></div><ul>'+w.items.map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul>'+(w.go?'<button class="rm-go" data-rmgo="'+w.go+'">'+w.goLb+' →</button>':'')+'</div>'; }).join('');
+  document.addEventListener("click",function(e){ var g=e.target.closest("[data-rmgo]"); if(!g)return; e.stopPropagation(); SHEET.close(); go(g.dataset.rmgo); },true);
+})();
 /* ── 진로체험 갤러리 ── */
 var CV=(function(){
   var L=CONFIG.career||[], tabs=$("#cv-tabs"), body=$("#cv-body"), big=$("#cv-big"), sel=-1, tag="전체", list=[], bi=0, WK=["일","월","화","수","목","금","토"];
