@@ -1494,6 +1494,15 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .dt-t .dt-star{--sd:.8s;overflow:visible}
 .dt-t .dt-star .sp{width:.4em;height:.4em}.dt-t .dt-star .sp2{width:.28em;height:.28em}.dt-t .dt-star .sp3{width:.32em;height:.32em}
 body.calm .dstar,body.calm .sp{animation:none}
+
+/* 네온사인 별: 스스로 빛남(두 겹 글로우) + 은은하게 밝기가 오르내림 */
+.it .hstar,.trk-b.trk-B b .ds-on .dstar{color:#FF3D48;filter:drop-shadow(0 0 2px rgba(255,80,95,.95)) drop-shadow(0 0 7px rgba(255,60,80,.7)) drop-shadow(0 0 16px rgba(255,40,70,.45));animation:neon 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
+.trk-b.trk-B b .ds-on .dstar{animation:spop 2.25s ease-in-out infinite,neon 2.25s ease-in-out infinite;animation-delay:calc(var(--sd,0s))}
+.dt-t .dt-star{color:#FFE873;filter:drop-shadow(0 0 2px rgba(255,240,150,.95)) drop-shadow(0 0 8px rgba(255,220,90,.75)) drop-shadow(0 0 18px rgba(255,200,60,.5));animation:neon-y 2.4s ease-in-out infinite;animation-delay:var(--sd,0s)}
+.it .hstar .sp,.trk-b.trk-B b .ds-on .sp{color:#FF5560}
+@keyframes neon{0%,100%{filter:drop-shadow(0 0 2px rgba(255,80,95,.95)) drop-shadow(0 0 7px rgba(255,60,80,.65)) drop-shadow(0 0 16px rgba(255,40,70,.4))}8%{filter:drop-shadow(0 0 3px rgba(255,120,130,1)) drop-shadow(0 0 12px rgba(255,60,80,.95)) drop-shadow(0 0 26px rgba(255,40,70,.7))}20%{filter:drop-shadow(0 0 2px rgba(255,80,95,.95)) drop-shadow(0 0 7px rgba(255,60,80,.65)) drop-shadow(0 0 16px rgba(255,40,70,.4))}}
+@keyframes neon-y{0%,100%{filter:drop-shadow(0 0 2px rgba(255,240,150,.95)) drop-shadow(0 0 8px rgba(255,220,90,.7)) drop-shadow(0 0 18px rgba(255,200,60,.45))}8%{filter:drop-shadow(0 0 3px rgba(255,250,200,1)) drop-shadow(0 0 14px rgba(255,220,90,1)) drop-shadow(0 0 30px rgba(255,200,60,.75))}20%{filter:drop-shadow(0 0 2px rgba(255,240,150,.95)) drop-shadow(0 0 8px rgba(255,220,90,.7)) drop-shadow(0 0 18px rgba(255,200,60,.45))}}
+body.calm .hstar,body.calm .ds-on .dstar,body.calm .dt-star{animation:none}
 </style>
 </head>
 <body class="dark">
@@ -2585,7 +2594,8 @@ var ADM=(function(){
           g.font="900 22px DS"; var pre=g.measureText("B ").width, word=g.measureText("산업기사").width, bw=g.measureText("B 산업기사").width;
           // 손그림 별(한붓그리기, 빈 별) — '산업기사' 글자 가운데 위
           var ch=g.measureText("산").width; g.save(); var sx=fx+58+pre+ch*0.1, sy=A[1]-19; g.translate(sx,sy); g.rotate(-0.2); g.scale(1.5*sc,1.5*sc); g.translate(-12,-12);
-          g.strokeStyle="#E5383B"; g.lineWidth=1.7; g.lineCap="round"; g.lineJoin="round"; g.stroke(new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7")); g.restore();
+          var sp=new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7"), gl=0.55+0.45*(ph<0.2?Math.sin(Math.PI*ph/0.2):0);
+          g.lineCap="round"; g.lineJoin="round"; g.shadowColor="rgba(255,50,75,"+(0.9*gl)+")"; g.shadowBlur=14*gl; g.strokeStyle="rgba(255,70,90,.55)"; g.lineWidth=4.2; g.stroke(sp); g.shadowBlur=6*gl; g.strokeStyle="#FF3D48"; g.lineWidth=1.7; g.stroke(sp); g.shadowBlur=0; g.shadowColor="transparent"; g.restore();
           if(now){ g.fillStyle="#E5383B"; [[18,-22,0],[25,-2,.04],[-23,13,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*Math.min(1,p3*1.4); spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); g.globalAlpha=Math.min(1,p3*1.4); }
           g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText("B 산업기사",fx+58,A[1]+1);
           g.fillStyle=d.color; g.fillText("A 금융일반",fx+58,A[0]+1); g.fillText("B 산업기사",fx+58,A[1]+1);
@@ -2957,6 +2967,7 @@ var ACT=(function(){
     var a=of(id); if(!a||busy||!cur||cur===id)return false;
     if(document.body.classList.contains("lounge"))return false;
     if(a===last||of(cur)===a){ last=a; return false; }
+    if(ORDER.indexOf(id)<ORDER.indexOf(cur)){ last=a; return false; } // 뒤로 갈 때는 막을 보여 주지 않음
     if(id==="fly"){ last=3; return false; }
     if(REDUCED){ last=a; return false; }
     return true;
