@@ -1361,6 +1361,15 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .cv-cap small{font-size:17px;color:#A8988A;font-weight:700}
 .cv-nav{width:76px;height:76px;border-radius:50%;background:#fff;color:#2B2140;font-size:46px;font-weight:700;line-height:1;box-shadow:0 14px 26px -14px rgba(0,0,0,.4)}
 .cv-nav:hover{background:#2B2140;color:#fff}
+
+#apf .sh-card{width:900px;height:1010px;margin:-505px 0 0 -450px;transform:none;background:#FBF7F9;display:flex;flex-direction:column;border-radius:32px}
+.apf-top{height:70px;flex:none;display:flex;align-items:center;gap:14px;padding:0 20px 0 28px;background:#3A1E52;color:#fff}
+.apf-top b{font-size:24px;font-weight:900}
+.apf-top span{font-size:17px;font-weight:700;color:#E7B9CC}
+#apf .sh-x{position:static;margin-left:auto;height:46px;font-size:18px;padding:0 20px}
+#apf-fr{flex:1;width:100%;border:0;background:#FBF7F9}
+.aps-form{margin-top:16px;height:54px;padding:0 24px;border-radius:27px;background:#3A1E52;color:#fff;font-size:19px;font-weight:900}
+.aps-form:hover{background:#F0457E}
 </style>
 </head>
 <body class="dark">
@@ -1973,7 +1982,7 @@ var SPORTS_REC = [
         <div class="jc-k">입학상담 · 진로체험 · Q&amp;A</div>
         <div class="jc-qr" id="jc-qr"></div>
         <div class="jc-t">휴대폰으로 찍어서 신청</div>
-        <button class="jc-go" data-apply="consult">바로 신청하기</button>
+        <button class="jc-go" data-form="consult">바로 신청하기</button>
         <div class="qr" style="display:none"><div class="box" id="qr2"></div><b id="qr2-l"></b></div>
       </div>
       <div class="j-ig rv" style="--i:4"><div class="box" id="qr1"></div><div><small>INSTAGRAM</small><b id="qr1-l"></b><span>학교 소식은 인스타그램에서</span></div></div>
@@ -1993,8 +2002,9 @@ var SPORTS_REC = [
     <div class="aps-bg"></div><img class="aps-chr" src="media/char/wave.webp" alt="">
     <div class="aps-r"><h2>휴대폰으로 <em>신청해요</em></h2>
       <div class="aps-tabs" id="aps-tabs"><button data-t="consult" class="on">입학상담</button><button data-t="career">진로체험</button><button data-t="qa">Q&amp;A 질문</button></div>
-      <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div></div></div>
+      <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div><button class="aps-form" id="aps-form" data-form="consult">이 화면에서 바로 신청하기</button></div></div>
     </div></div></div>
+  <div class="sh" id="apf"><div class="sh-card"><div class="apf-top"><b>바로 신청하기</b><span>입학상담 · 진로체험 · Q&amp;A</span><button class="sh-x">✕ 닫기</button></div><iframe id="apf-fr" title="신청서"></iframe></div></div>
   <div class="sh" id="cvs"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
     <div class="cv-h"><h2>진로체험 <em>갤러리</em></h2><p>동성여고에서 직접 해 본 하루</p></div>
     <div class="cv-tabs" id="cv-tabs"></div>
@@ -2944,7 +2954,7 @@ var CD=(function(){
 
 /* ── 현장 접수: 선생님·홍보대사가 이 화면에서 대신 입력 ── */
 var SHEET=(function(){
-  var cur=null, ids={apply:"aps",qa:"qa",career:"cvs"}, aTab="consult";
+  var cur=null, ids={apply:"aps",qa:"qa",career:"cvs",form:"apf"}, aTab="consult";
   function base(){ return (CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""); }
   function abs(u){ try{ return new URL(u,location.href).href; }catch(e){ return u; } }
   var TXT={consult:["카메라로 QR을 찍으면<br>입학상담 신청이 열려요","성적은 적지 않아도 괜찮아요.<br>적으면 더 자세히 상담해 드려요."],
@@ -2959,17 +2969,23 @@ var SHEET=(function(){
     var el=document.getElementById(id); cur=k; el.classList.add("on"); el.classList.remove("in");
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add("in"); }); });
     if(k==="apply")aps(arg||"consult");
+    if(k==="form"){ var local=location.protocol==="file:"||/github\.io$/.test(location.hostname); $("#apf-fr").src=(local?"apply/index.html":base())+"?kiosk=1&shared=1&tab="+(arg||"consult"); }
     if(k==="qa")QAW.load(true);
     if(k==="career")CV.show(arg);
   }
-  function hide(quick){ if(!cur)return; var el=document.getElementById(ids[cur]); el.classList.remove("on","in"); if(cur==="career")CV.closeBig(); cur=null; }
+  function hide(quick){ if(!cur)return; var el=document.getElementById(ids[cur]); el.classList.remove("on","in"); if(cur==="career")CV.closeBig(); if(cur==="form"){ try{ $("#apf-fr").blur(); window.focus(); document.body.focus(); }catch(e){} setTimeout(function(){ if(cur!=="form")$("#apf-fr").src="about:blank"; },350); } cur=null; }
   $$(".sh").forEach(function(el){
     el.addEventListener("click",function(e){ if(e.target===el||e.target.closest(".sh-x")){ e.stopPropagation(); hide(); } });
   });
   document.addEventListener("click",function(e){
-    var b=e.target.closest("[data-sheet],[data-apply]"); if(!b)return; e.stopPropagation();
+    var b=e.target.closest("[data-sheet],[data-apply],[data-form]"); if(!b)return; e.stopPropagation();
+    if(b.dataset.form){ var t=b.id==="aps-form"?aTab:b.dataset.form;
+      // 휴대폰·태블릿(터치)은 개인 기기 → 신청 사이트를 새 창으로 그대로(가리지 않음)
+      if(window.matchMedia&&matchMedia("(pointer:coarse)").matches&&!matchMedia("(any-pointer:fine)").matches){ window.open(abs(base())+"#"+t,"_blank"); return; }
+      open("form",t); return; }
     if(b.dataset.sheet)open(b.dataset.sheet); else open("apply",b.dataset.apply);
   },true);
+  window.addEventListener("message",function(e){ if(e.data&&e.data.ds==="close-form"&&cur==="form")hide(); });
   return {open:open,close:hide,get cur(){return cur}};
 })();
 

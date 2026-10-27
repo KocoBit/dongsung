@@ -171,6 +171,16 @@ body.kiosk .qtick{display:none}
 .ac button.etc{color:var(--ink2);font-size:14.5px;background:#FAF7FB}
 .ac button.etc em{font-style:normal;font-weight:900;color:var(--plum)}
 .ac .none{padding:12px 14px;font-size:14px;font-weight:700;color:var(--mute)}
+
+/* 공유 화면(발표용 노트북)에서 열었을 때: 연락처·성적 가리기 */
+.shbar{display:none;align-items:center;gap:10px;padding:10px 18px;background:#FFF4D6;color:#6B4E00;font-size:13.5px;font-weight:800;border-bottom:1px solid #F3E1A8}
+body.shared .shbar{display:flex}
+body.shared .msk{-webkit-text-security:disc;text-security:disc;letter-spacing:2px}
+body.shared .msk.show{-webkit-text-security:none;text-security:none;letter-spacing:normal}
+.f.mf{position:relative}
+.eye{display:none;position:absolute;right:8px;top:31px;height:36px;padding:0 10px;border-radius:10px;background:var(--bg);color:var(--ink2);font-size:13px;font-weight:800;border:1px solid var(--line)}
+body.shared .eye{display:block}
+body.shared .f.mf .in{padding-right:72px}
 </style>
 </head>
 <body>
@@ -193,6 +203,7 @@ var APPLY = {
 /* ═════════════ 여기까지 수정 ═════════════ */
 </script>
 
+<div class="shbar">🔒 발표 화면에서 접수 중이에요 · 연락처와 성적은 가려져요(👁 눌러 확인) · 화면이 공유 중이면 휴대폰 QR로 신청해도 돼요</div>
 <div class="kbar"><b>현장 접수</b><span>중3 학생 정보를 받아 대신 입력해요 · 접수 후 [다음 학생]을 누르면 학교 이름은 그대로 남아요</span></div>
 
 <header class="hero">
@@ -228,8 +239,8 @@ var APPLY = {
       <input class="in" name="cls" inputmode="numeric" placeholder="반" autocomplete="off">
       <input class="in" name="num" inputmode="numeric" placeholder="번호" autocomplete="off"></div></div>
     <div class="f"><label>이름<i>*</i></label><input class="in" name="name" placeholder="이름" autocomplete="off"></div>
-    <div class="f"><label>연락처<i>*</i></label><input class="in" name="phone" type="tel" inputmode="tel" placeholder="010-0000-0000" autocomplete="off"></div>
-    <div class="f"><label>성적<small>선택 · 소수점 둘째 자리까지</small></label><input class="in" name="score" inputmode="decimal" maxlength="6" autocomplete="off">
+    <div class="f mf"><label>연락처<i>*</i></label><button type="button" class="eye">👁 보기</button><input class="in msk" name="phone" type="tel" inputmode="tel" placeholder="010-0000-0000" autocomplete="off"></div>
+    <div class="f mf"><label>성적<small>선택 · 소수점 둘째 자리까지</small></label><button type="button" class="eye">👁 보기</button><input class="in msk" name="score" inputmode="decimal" maxlength="6" autocomplete="off">
       <div class="tip">성적을 적어 주면 합격 가능성까지 함께 보는 자세한 1:1 입학상담을 받을 수 있어요.</div></div>
     <div class="f"><span class="lb">동성여고에 지원할 생각이 있나요?<i>*</i></span><div class="opts">
       <label class="opt"><input type="radio" name="intent" value="꼭 지원할 거예요"><span class="dot"></span>꼭 지원할 거예요</label>
@@ -257,7 +268,7 @@ var APPLY = {
       <input class="in" name="cls" inputmode="numeric" placeholder="반" autocomplete="off">
       <input class="in" name="num" inputmode="numeric" placeholder="번호" autocomplete="off"></div></div>
     <div class="f"><label>이름<i>*</i></label><input class="in" name="name" placeholder="이름" autocomplete="off"></div>
-    <div class="f"><label>연락처<i>*</i></label><input class="in" name="phone" type="tel" inputmode="tel" placeholder="010-0000-0000" autocomplete="off"></div>
+    <div class="f mf"><label>연락처<i>*</i></label><button type="button" class="eye">👁 보기</button><input class="in msk" name="phone" type="tel" inputmode="tel" placeholder="010-0000-0000" autocomplete="off"></div>
     <div class="f"><span class="lb">관심 있는 학과<i>*</i><small>여러 개 골라도 돼요</small></span><div class="chips">
       <label class="opt chk" style="--c:var(--fin)"><input type="checkbox" name="dept" value="금융정보과"><span class="dot"></span><i></i>금융정보과</label>
       <label class="opt chk" style="--c:var(--tou)"><input type="checkbox" name="dept" value="관광서비스과"><span class="dot"></span><i></i>관광서비스과</label>
@@ -317,7 +328,7 @@ var APPLY = {
 (function(){
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var Q=new URLSearchParams(location.search), KIOSK=Q.get("kiosk")==="1";
-if(KIOSK)document.body.classList.add("kiosk"); if(KIOSK&&window.innerWidth>=700&&window.self!==window.top)document.documentElement.style.zoom="1.3";
+if(KIOSK)document.body.classList.add("kiosk"); if(Q.get("shared")==="1")document.body.classList.add("shared"); if(KIOSK&&window.innerWidth>=700&&window.self!==window.top)document.documentElement.style.zoom="1.3";
 var WK=["일","월","화","수","목","금","토"];
 function pd(s){var a=s.split(/[- :]/);return new Date(+a[0],+a[1]-1,+a[2],+(a[3]||0),+(a[4]||0));}
 function md(d){return (d.getMonth()+1)+". "+d.getDate()+".("+WK[d.getDay()]+")";}
@@ -450,6 +461,13 @@ var SCH_UI=(function(){
   });
   return {open:open,auto:auto};
 })();
+
+/* 공유 화면: 👁 누르는 동안(또는 3초) 보이기 */
+$$(".eye").forEach(function(b){ var inp=b.parentNode.querySelector(".msk"), t=null;
+  b.addEventListener("click",function(){ inp.classList.add("show"); b.textContent="보이는 중"; clearTimeout(t); t=setTimeout(function(){ inp.classList.remove("show"); b.textContent="👁 보기"; },3000); }); });
+
+/* 발표 화면 안(iframe)에서 Esc → 신청서 창 닫기 */
+if(window.self!==window.top) document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ try{ window.parent.postMessage({ds:"close-form"},"*"); }catch(_){} } });
 })();
 </script>
 </body>
