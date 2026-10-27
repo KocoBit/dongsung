@@ -1418,7 +1418,10 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .trk-b span{display:block;margin-top:3px;font-size:15px;font-weight:700;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trk-b div{min-width:0}
 .trk-b u{position:absolute;right:16px;top:auto;bottom:12px;transform:none;text-decoration:none;font-size:14px;font-weight:900;color:var(--mute);padding:6px 10px;border-radius:12px;background:var(--paper)}
-.trk-c{grid-column:1/-1;display:flex;align-items:center;gap:8px;padding:0 6px}
+.trk-c{display:flex;align-items:center;gap:8px;padding:0 6px}
+.trk-cB small{color:#A15C00}
+.trk-cB button{background:#FFF6D6;box-shadow:0 1px 0 #E3C27A}
+.trk-cB button:hover{background:#E08A00;color:#fff}
 .trk-c small{font-size:14px;font-weight:900;color:var(--mute);margin-right:4px}
 .trk-c button{height:36px;padding:0 15px;border-radius:18px;background:#fff;font-size:15.5px;font-weight:900;color:var(--ink);box-shadow:0 1px 0 var(--line)}
 .trk-c button:hover{background:var(--c);color:#fff}
@@ -1635,11 +1638,13 @@ var DEPTS = [
     title:"2학년부터 <b>전공심화 투트랙</b>",
     A:{name:"금융일반", short:"금융일반", club:"금융마스터반", line:"은행·공공기관 취업 트랙", body:"금융마스터반에서 은행·공공기관 취업을 목표로 금융 실무와 면접을 준비해요. 부산은행·하나은행·신용보증기금 등에 선배들이 취업했어요."},
     B:{name:"사무자동화산업기사", short:"산업기사", club:"산업기사반", line:"성적보다 꾸준함! 누구나 도전하는 산업기사", badge:"2026년 기준 부산 단 2곳", body:"기능사 → 산업기사 → 기사. 산업기사는 기능사보다 한 단계 위 등급이라, 원래는 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형이라 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 2026년 기준 사무자동화산업기사 과정을 운영하는 고등학교는 부산에서 단 2곳이에요. 상위권만을 위한 반이 아니에요. 꾸준히 도전하는 학생이라면 누구나 산업기사반에서 함께 준비하고, 썸머·윈터캠프로 끝까지 이끌어 줘요."},
-    common:[
-      {t:"대회 · 부스 운영", d:"각종 대회에 나가고, 행사에서 직접 부스를 운영하며 대외 활동 경험을 쌓아요."},
+    // 대회는 A·B 모두 참가. 아래 활동은 B코스(산업기사반)만
+    bOnly:[
+      {t:"부스 운영", s:"벡스코 · 비즈쿨 페스티벌", d:"산업기사반은 벡스코에서 열리는 행사와 비즈쿨 페스티벌에서 직접 부스를 운영해요. 손님을 맞고 설명하며 대외 활동 경험을 쌓아요."},
       {t:"비즈쿨 · 창업", d:"중소벤처기업부·창업진흥원의 청소년 창업 교육(비즈쿨)에 참여해요. 내 아이디어를 사업으로 키워 보고, 창업 행사에서 부스도 운영해요."},
       {t:"IP 마이스터 · 특허", d:"특허청·교육부·중소벤처기업부가 함께 여는 직업계고 아이디어 대회예요. 우리 아이디어로 특허 출원까지 도전하고, 우수 팀은 장관 표창과 시제품 제작 지원을 받아요."}
-    ]
+    ],
+    common:[{t:"각종 대회 참가", d:"A·B코스 모두 교내외 각종 대회에 참가해요."}]
   },
   learn:[
     {t:"금융정보의 날", d:"매년 열리는 우리 과 축제", tag:"매년", clip:"media/clip/finance1.mp4", at:11.0, more:"금융정보과 친구들이 다 함께 즐기는 우리 과만의 축제예요. 해마다 프로그램이 바뀌는데, 올해는 금융 골든벨과 경매를 했어요. 퀴즈를 맞혀 모은 상금으로 선생님들의 애장품(향수·화장품·옷 등) 경매에 도전했답니다."},
@@ -1660,6 +1665,7 @@ var DEPTS = [
   band:"media/img/finance2.jpg", bandText:"공부도 캠프도 <span>함께</span>,<br>취업까지 같이 가요",
   notes:[
     "전공심화 투트랙 강조: A 금융일반(금융마스터반) / B 사무자동화산업기사(산업기사반) → 띠의 A·B를 누르면 해당 카드가 강조돼요",
+    "대회는 A·B 모두 참가. 부스 운영(벡스코·비즈쿨 페스티벌)·비즈쿨·창업·IP 마이스터·특허는 산업기사반(B)만 — B가 대외 활동이 많다는 걸 짚어 주기",
     "“공부를 아주 잘하지 않아도 괜찮아요. 꾸준히 하면 누구나 산업기사에 도전할 수 있어요” — 중간 성적 학생에게 특히 눈을 맞추며 (산업기사반은 꾸준히 도전하는 누구나)",
     "산업기사: 원래 대졸·경력이 있어야 응시 → 우리는 학교 정규 과정만 이수하면 응시(과정평가형) · 2026년 기준 사무자동화산업기사 과정은 부산 단 2곳 (상업계 고교에서 산업기사 과정은 거의 없어요)",
     "자격 등급 짚어 주기: 기능사 → 산업기사 → 기사. 관광서비스과의 조주기능사도 과정평가형이지만, 우리 사무자동화산업기사는 기능사보다 한 단계 위 등급이에요 (관광을 깎아내리지 않게, 등급 차이만 담백하게)",
@@ -3586,13 +3592,13 @@ $("#win-go").onclick=function(){go("dept-"+topId)};
 function trackBand(d){ var T=d.track;
   return '<div class="trk rv" style="--i:0">'+
     ['A','B'].map(function(k){ var x=T[k]; return '<button class="trk-b trk-'+k+'" data-trk="'+k+'"><i>'+k+'</i><div><small>2학년 전공심화 '+k+(k==='B'?' · 과정평가형':'')+'</small><b>'+(k==='B'?'<mark class="ds-on">'+DSTAR+'</mark>'+x.name:x.name)+(x.badge?'<em class="bdg">'+x.badge+'</em>':'')+'</b><span>'+x.club+' · '+x.line+'</span></div><u>보기</u></button>'; }).join('')+
-    '<div class="trk-c"><small>두 트랙 모두</small>'+T.common.map(function(c,j){return '<button data-tchip="'+d.id+':'+j+'">'+c.t+'</button>'}).join('')+'</div></div>'; }
+    '<div class="trk-c trk-cA"><small>A · B 모두</small><button data-tchip="'+d.id+':c">각종 대회 참가</button></div><div class="trk-c trk-cB"><small>B 산업기사반만</small>'+(T.bOnly||[]).map(function(c,j){return '<button data-tchip="'+d.id+':'+j+'">'+c.t+'</button>'}).join('')+'</div></div>'; }
 document.addEventListener("click",function(e){
   var b=e.target.closest("[data-trk]"); if(b){ e.stopPropagation(); var sc=b.closest(".scene"), g=$(".grid8",sc), k=b.dataset.trk, D0=D[sc.id.slice(5)], on=g.classList.contains("sel-"+k);
     g.classList.remove("sel-A","sel-B"); $$(".trk-b",sc).forEach(function(x){x.classList.remove("on")});
     if(!on){ g.classList.add("sel-"+k); b.classList.add("on"); var x=D0.track[k]; showPop(D0.color,'전공심화 '+k+' · '+x.name,[x.club].concat(x.badge?[x.badge]:[]),x.body); }
     return; }
-  var c=e.target.closest("[data-tchip]"); if(c){ e.stopPropagation(); var p=c.dataset.tchip.split(":"), D1=D[p[0]], it=D1.track.common[+p[1]]; showPop(D1.color,it.t,["두 트랙 모두"],it.d); }
+  var c=e.target.closest("[data-tchip]"); if(c){ e.stopPropagation(); var p=c.dataset.tchip.split(":"), D1=D[p[0]], cm=p[1]==="c", it=cm?D1.track.common[0]:D1.track.bOnly[+p[1]]; showPop(D1.color,it.t+(it.s?' · '+it.s:''),[cm?"A · B 모두":"B 산업기사반"],it.d); }
 },true);
 
 /* ── QR ── */
@@ -4055,7 +4061,7 @@ html.m #m{display:block}
       '<div class="m-more">'+esc(x.more||(x.hosp?'병원 '+d.hospitals.length+'곳: '+d.hospitals.join(", "):''))+(x.certs?'<br>'+x.certs.map(function(c){return c.n+'('+c.k+')'}).join(" · "):'')+'</div>'+(x.clip?'<div class="m-cl" data-clip="'+x.clip+'"></div>':'')+'</button>'; }).join("");
     var trk="";
     if(d.track){ var T=d.track; trk='<h3>2학년부터 전공심화 투트랙</h3><div class="m-trk">'+['A','B'].map(function(k){var x=T[k];return '<div class="m-tb m-'+k+'"><i>'+k+'</i><div><small>2학년 전공심화 '+k+(k==='B'?' · 과정평가형':'')+'</small><b>'+x.name+(x.badge?'<span class="m-bdg">'+x.badge+'</span>':'')+'</b><span>'+x.club+' · '+x.line+'</span></div></div>'}).join("")+'</div>'+
-      '<div class="m-chips"><small>두 트랙 모두</small>'+T.common.map(function(c){return '<span>'+c.t+'</span>'}).join("")+'</div>'; }
+      '<div class="m-chips"><small>B 산업기사반만</small>'+(T.bOnly||[]).map(function(c){return '<span>'+c.t+(c.s?' <i style="font-style:normal;opacity:.7">'+c.s+'</i>':'')+'</span>'}).join("")+'</div>'; }
     var stats=(d.stats||[]).map(function(s){return '<div class="m-sb"><b>'+s.big+'<small>'+s.unit+'</small></b><span>'+s.lb+'</span></div>'}).join("");
     var jobs=JOBS.filter(function(j){return j[2]===d.id[0]}).sort(function(a,b){return (b[5]?1:0)-(a[5]?1:0)}).slice(0,8).map(function(j){return '<span class="m-co'+(j[5]?' m-star':'')+'">'+j[1]+'<small>'+j[0]+'</small></span>'}).join("");
     var col=d.college?'<h3>'+d.college.title+'</h3><div class="m-col">'+d.college.items.map(function(c){return '<div>'+c[0]+'<span>'+c[1]+'</span></div>'}).join("")+'</div>':'';
