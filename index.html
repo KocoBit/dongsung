@@ -1105,8 +1105,19 @@ body.dark .tr-dot.on{border-color:#141823}
 .tr-dot.past{border:2px solid #fff!important;box-shadow:0 0 0 1px rgba(60,30,70,.18),0 1px 4px rgba(60,30,70,.3)}
 .tr-dot span{top:24px!important}
 .tr-dot span{bottom:auto;top:30px;font-size:15px;left:auto;right:calc(50% + 12px);transform:none}
-.tr-pl{pointer-events:none}
-.tr-pl{width:46px;height:30px;transition:transform .95s cubic-bezier(.35,1.25,.45,1)}
+.tr-pl{width:46px;height:30px;transition:transform .95s cubic-bezier(.35,1.25,.45,1),filter .25s}
+/* 여정 길: 점 근처만 가도 이름이 뜨고 점이 커진다(보이지 않는 넓은 터치 영역) · 종이비행기에 올리면 현재 화면 이름 */
+.tr-dot:before{content:"";position:absolute;left:50%;top:50%;width:44px;height:48px;transform:translate(-50%,-50%);border-radius:14px}
+.tr-dot:hover{transform:scale(1.5)}
+.tr-dot.on:hover{transform:scale(.5)}
+.tr-dot.tr-home span{left:calc(50% + 14px);right:auto}
+.tr-dot.on span{right:auto;left:calc(50% + 26px);top:38px;transform:scale(2);transform-origin:left top;color:#fff;background:#F0457E;box-shadow:0 6px 14px -4px rgba(240,69,126,.6)}
+.tr-dot.on span:before{content:"지금 · ";font-weight:700;opacity:.85}
+.tr-pl{pointer-events:auto;cursor:pointer}
+.tr-pl:hover{filter:drop-shadow(0 0 10px rgba(240,69,126,.8)) drop-shadow(0 2px 3px rgba(60,20,50,.35))}
+#trail:has(.tr-pl:hover) .tr-dot.on span{opacity:1}
+.tr-w{padding:10px 10px;margin:0 -6px}
+
 #nav .brand{margin-right:0}
 body.dark .tr-seg{background:linear-gradient(90deg,#FF5C93 0,#FF5C93 var(--fill,0%),#2C3242 var(--fill,0%))}
 .ha-live{display:block;margin-top:4px;font-size:16px;font-weight:900;color:#C2407A;font-variant-numeric:tabular-nums}
@@ -1134,7 +1145,6 @@ html.ptr-on,html.ptr-on *{cursor:none!important}
 
 /* 여정 길: 종이비행기가 선 위에서 지금 위치를 표시 */
 .tr-dot.on{background:transparent!important;border-color:transparent!important;box-shadow:none!important;transform:scale(.5)}
-.tr-dot.on span{transform:scale(2);transform-origin:right top}
 .tr-pl{z-index:2;filter:drop-shadow(0 0 6px rgba(240,69,126,.55)) drop-shadow(0 2px 3px rgba(60,20,50,.35))}
 .tr-pl svg path:first-child{stroke:#F0457E;stroke-width:2.2;stroke-linejoin:round}
 .tr-pl svg path:nth-child(2){stroke:#F0457E;stroke-width:2.2;stroke-linejoin:round}
@@ -3091,6 +3101,7 @@ var FLY=(function(){
 /* ── 아래쪽 여정 길 ── */
 var TRAIL=(function(){
   var el=$("#trail"), inner=$("#tr-in"), pl=$("#tr-pl");
+  pl.addEventListener("click",function(e){ e.stopPropagation(); if(cur)goNow(cur); });
   var NAMES={life:"학교생활",admit:"입학 안내",stats:"숫자",awards:"수상",jobs:"취업",qa:"Q&A",fly:"엔딩",join:"함께해요"};
   var SEG=[{w:"배움으로",ids:["life","admit"]},{w:"이루고",ids:DEPTS.map(function(d){return "dept-"+d.id}).concat(["awards"])},{w:"세상으로 비상하라!",ids:["jobs","fly","join"]}];
   var ALL=["home"]; SEG.forEach(function(g){ALL=ALL.concat(g.ids)});
