@@ -1452,7 +1452,8 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .trk-b b em.bdg{position:absolute;right:14px;top:10px;font-style:normal;font-size:13px;font-weight:900;padding:4px 9px;border-radius:9px;background:#E5383B;color:#fff;letter-spacing:0}
 .trk-b.trk-B b{color:#1B2150}
 .trk-b.trk-B b .ds-on{position:relative;display:inline;background:none;color:inherit;font:inherit;padding:0}
-.trk-b.trk-B b .ds-on .dstar{position:absolute;left:50%;top:-22px;width:28px;height:28px;margin-left:-14px;color:#E5383B;transform:rotate(-10deg);overflow:visible}
+.trk-b.trk-B b .ds-on{position:relative;display:inline-block;width:0;height:0;vertical-align:top}
+.trk-b.trk-B b .ds-on .dstar{position:absolute;left:-14px;top:-12px;width:34px;height:34px;margin-left:0;color:#E5383B;transform:rotate(-10deg);overflow:visible}
 .trk-b.trk-B span{color:#6B4E00}
 .trk-b.trk-B u{background:#fff;color:#A15C00}
 .trk-b.trk-B:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite;pointer-events:none}
@@ -1465,9 +1466,13 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .it.hi{box-shadow:0 0 0 2.5px #F2B705,0 20px 30px -18px rgba(150,95,0,.5);translate:0 -5px}
 .it.hi:hover{box-shadow:0 0 0 3px #E3A008,0 26px 36px -18px rgba(150,95,0,.55)}
 .it.hi h4{position:relative}
-.it .hstar{position:absolute;left:1.6em;top:-.62em;width:.72em;height:.72em;color:#E5383B;transform:rotate(-12deg);pointer-events:none}
+.it .hstar{position:absolute;left:-.46em;top:-.5em;width:1.25em;height:1.25em;color:#E5383B;transform:rotate(-12deg);pointer-events:none}
 .it .hstar .dstar{width:100%;height:100%;display:block;overflow:visible}
 .it.hi .n{color:var(--c)}
+
+.dt-t .dt-star{position:absolute;left:-.34em;top:-.36em;width:1.05em;height:1.05em;color:#FFE36E;transform:rotate(-12deg);pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.dt-t .dt-star .dstar{width:100%;height:100%;display:block;overflow:visible}
+.dt-t .dt-star path{stroke-width:1.7}
 </style>
 </head>
 <body class="dark">
@@ -2479,7 +2484,7 @@ var DT=(function(){
     else if(x.certs){ media.innerHTML='<canvas></canvas><div class="certs">'+x.certs.map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
     else { media.innerHTML='<canvas></canvas><div class="ht">'+x.t.replace(/ /g,"<br>")+'</div>'; halftone($("canvas",media),d.color); }
     $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag">'+x.tag+'</span>':'');
-    var tt=x.t.replace(/<br\s*\/?>/g,""); $("#dt-t").innerHTML=tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-d").textContent=x.d.replace(/<br\s*\/?>/g," "); $("#dt-m").textContent=x.more||"";
+    var tt=x.t.replace(/<br\s*\/?>/g,""); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-d").textContent=x.d.replace(/<br\s*\/?>/g," "); $("#dt-m").textContent=x.more||"";
     var acts="";
     if(x.clip&&x.at!=null) acts+='<button data-dtplay="1">▶ 영상에서 이 장면 보기</button>';
     if(x.hosp) acts+='<button class="g" data-hosp="'+dep+'">병원 이름 모두 보기</button>';
@@ -2557,7 +2562,7 @@ var ADM=(function(){
           g.font="900 22px DS"; g.fillStyle=d.color; g.fillText("A 금융일반",fx+58,A[0]+1); g.fillText("B 산업기사",fx+58,A[1]+1);
           var pre=g.measureText("B ").width, word=g.measureText("산업기사").width, bw=g.measureText("B 산업기사").width;
           // 손그림 별(한붓그리기, 빈 별) — '산업기사' 글자 가운데 위
-          g.save(); g.translate(fx+58+pre+word*0.5,A[1]-29); g.rotate(-0.18); g.scale(1.45,1.45); g.translate(-12,-12);
+          var ch=g.measureText("산").width; g.save(); g.translate(fx+58+pre+ch*0.2,A[1]-12); g.rotate(-0.2); g.scale(1.35,1.35); g.translate(-12,-12);
           g.strokeStyle="#E5383B"; g.lineWidth=1.9; g.lineCap="round"; g.lineJoin="round"; g.stroke(new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7")); g.restore();
           var bx=fx+58+bw+10; g.font="900 15px DS"; var tw=g.measureText("부산 단 2곳").width;
           g.fillStyle="#E5383B"; g.beginPath(); g.roundRect?g.roundRect(bx,A[1]-14,tw+18,28,10):g.rect(bx,A[1]-14,tw+18,28); g.fill(); g.fillStyle="#fff"; g.fillText("부산 단 2곳",bx+9,A[1]+1); }
@@ -3481,7 +3486,7 @@ $("#win-go").onclick=function(){go("dept-"+topId)};
 /* ── 전공심화 투트랙 띠 (금융정보과) ── */
 function trackBand(d){ var T=d.track;
   return '<div class="trk rv" style="--i:0">'+
-    ['A','B'].map(function(k){ var x=T[k]; return '<button class="trk-b trk-'+k+'" data-trk="'+k+'"><i>'+k+'</i><div><small>2학년 전공심화 '+k+'</small><b>'+(k==='B'?x.name.replace("산업기사",'<mark class="ds-on">산업기사'+DSTAR+'</mark>'):x.name)+(x.badge?'<em class="bdg">'+x.badge+'</em>':'')+'</b><span>'+x.club+' · '+x.line+'</span></div><u>보기</u></button>'; }).join('')+
+    ['A','B'].map(function(k){ var x=T[k]; return '<button class="trk-b trk-'+k+'" data-trk="'+k+'"><i>'+k+'</i><div><small>2학년 전공심화 '+k+'</small><b>'+(k==='B'?'<mark class="ds-on">'+DSTAR+'</mark>'+x.name:x.name)+(x.badge?'<em class="bdg">'+x.badge+'</em>':'')+'</b><span>'+x.club+' · '+x.line+'</span></div><u>보기</u></button>'; }).join('')+
     '<div class="trk-c"><small>두 트랙 모두</small>'+T.common.map(function(c,j){return '<button data-tchip="'+d.id+':'+j+'">'+c.t+'</button>'}).join('')+'</div></div>'; }
 document.addEventListener("click",function(e){
   var b=e.target.closest("[data-trk]"); if(b){ e.stopPropagation(); var sc=b.closest(".scene"), g=$(".grid8",sc), k=b.dataset.trk, D0=D[sc.id.slice(5)], on=g.classList.contains("sel-"+k);
