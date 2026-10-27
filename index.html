@@ -1405,17 +1405,17 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .cv-steps i{font-style:normal;color:#E0453A;font-weight:900;align-self:center}
 
 /* 전공심화 투트랙 띠 */
-.trk{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:96px 40px;gap:10px 14px;margin-bottom:16px}
+.trk{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:80px 32px;gap:6px 14px;margin-bottom:10px}
 .trk-b{position:relative;display:flex;align-items:center;gap:16px;padding:0 70px 0 18px;border-radius:22px;background:#fff;text-align:left;box-shadow:0 2px 0 var(--line);border:2.5px solid transparent;transition:border-color .25s,transform .25s}
 .trk-b:hover{transform:translateY(-3px)}
 .trk-b.on{border-color:var(--c)}
-.trk-b i{width:56px;height:56px;flex:none;border-radius:16px;display:grid;place-items:center;font-style:normal;font-size:30px;font-weight:900;color:#fff;background:var(--c)}
+.trk-b i{width:48px;height:48px;flex:none;border-radius:14px;display:grid;place-items:center;font-style:normal;font-size:26px;font-weight:900;color:#fff;background:var(--c)}
 .trk-b.trk-B i{background:#14161B}
-.trk-b small{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:900;color:var(--c);letter-spacing:.5px}
+.trk-b small{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:900;color:var(--c);letter-spacing:.5px}
 .trk-b.trk-B small{color:#14161B}
 .trk-b small em{font-style:normal;font-size:12.5px;font-weight:900;padding:3px 8px;border-radius:9px;background:#FFE36E;color:#6B4E00;letter-spacing:0}
-.trk-b b{display:block;margin-top:2px;font-size:27px;font-weight:900;letter-spacing:-1px;line-height:1.15}
-.trk-b span{display:block;margin-top:3px;font-size:15px;font-weight:700;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trk-b b{display:block;margin-top:1px;font-size:25px;font-weight:900;letter-spacing:-1px;line-height:1.15}
+.trk-b span{display:block;margin-top:2px;font-size:14px;font-weight:700;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trk-b div{min-width:0}
 .trk-b u{position:absolute;right:16px;top:auto;bottom:12px;transform:none;text-decoration:none;font-size:14px;font-weight:900;color:var(--mute);padding:6px 10px;border-radius:12px;background:var(--paper)}
 .trk-c{display:flex;align-items:center;gap:8px;padding:0 6px}
@@ -1423,9 +1423,9 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .trk-cB button{background:#FFF6D6;box-shadow:0 1px 0 #E3C27A}
 .trk-cB button:hover{background:#E08A00;color:#fff}
 .trk-c small{font-size:14px;font-weight:900;color:var(--mute);margin-right:4px}
-.trk-c button{height:36px;padding:0 15px;border-radius:18px;background:#fff;font-size:15.5px;font-weight:900;color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.trk-c button{height:32px;padding:0 13px;border-radius:16px;background:#fff;font-size:15px;font-weight:900;color:var(--ink);box-shadow:0 1px 0 var(--line)}
 .trk-c button:hover{background:var(--c);color:#fff}
-.grid8.has-trk{height:calc(100% - 162px)}
+.grid8.has-trk{height:calc(100% - 128px)}
 .grid8.has-trk .it{padding:24px 26px}
 .grid8.has-trk .it h4{margin-top:10px;font-size:30px}
 .it h4.h4-long,.grid8.has-trk .it h4.h4-long{font-size:24px;letter-spacing:-1.5px;margin-right:-10px}
@@ -2305,7 +2305,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var stage=$("#stage"), nav=$("#nav");
 var D={}; DEPTS.forEach(function(d){D[d.id]=d;});
-var ORDER=["intro","home","life","admit"].concat(DEPTS.map(function(d){return "dept-"+d.id})).concat(["awards","jobs","fly","join"]);
+var ORDER=["intro","home","life","admit"].concat(DEPTS.map(function(d){return "dept-"+d.id})).concat(["stats","awards","jobs","fly","join"]);
 var cur=null;
 if(window.IS_MOBILE){ $$("#stage video,#stage audio").forEach(function(v){ try{ v.removeAttribute("autoplay"); v.preload="none"; v.src=""; v.load(); }catch(e){} }); return; }
 
@@ -3151,7 +3151,7 @@ var TRAIL=(function(){
   var el=$("#trail"), inner=$("#tr-in"), pl=$("#tr-pl");
   pl.addEventListener("click",function(e){ e.stopPropagation(); if(cur)goNow(cur); });
   var NAMES={life:"학교생활",admit:"입학 안내",stats:"숫자",awards:"수상",jobs:"취업",qa:"Q&A",fly:"엔딩",join:"함께해요"};
-  var SEG=[{w:"배움으로",ids:["life","admit"]},{w:"이루고",ids:DEPTS.map(function(d){return "dept-"+d.id}).concat(["awards"])},{w:"세상으로 비상하라!",ids:["jobs","fly","join"]}];
+  var SEG=[{w:"배움으로",ids:["life","admit"]},{w:"이루고",ids:DEPTS.map(function(d){return "dept-"+d.id}).concat(["stats","awards"])},{w:"세상으로 비상하라!",ids:["jobs","fly","join"]}];
   var ALL=["home"]; SEG.forEach(function(g){ALL=ALL.concat(g.ids)});
   inner.innerHTML='<button class="tr-dot tr-home" data-go="home" data-i="0"><span>교실</span></button>'+SEG.map(function(g,k){
     return '<button class="tr-w" data-actgo="'+(k+1)+'">'+g.w+'</button><div class="tr-seg">'+g.ids.map(function(id){
