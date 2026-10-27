@@ -320,7 +320,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;border-radius:50%;bac
 #notes.on{transform:none}
 #notes h4{font-size:20px;font-weight:900;letter-spacing:3px;color:#B58A00}
 #notes h3{margin-top:8px;font-size:40px;font-weight:900;letter-spacing:-1px}
-#notes ol{margin-top:26px;padding-left:30px}
+#notes ol{margin-top:26px;padding-left:30px;max-height:calc(100% - 300px);overflow:auto;padding-right:8px;scrollbar-width:thin}
 #notes li{font-size:24px;line-height:1.55;margin-bottom:18px;font-weight:700;color:var(--ink2)}
 #notes li::marker{color:#B58A00;font-weight:900}
 #notes .keys{position:absolute;left:48px;right:48px;bottom:36px;font-size:17px;color:var(--mute);font-weight:700;line-height:1.8;border-top:2px solid var(--line);padding-top:16px}
@@ -505,7 +505,7 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .strip img:hover{transform:scale(1.03);filter:brightness(1.06)}
 .sf-foot{height:64px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px}
 .sf-foot b{font-size:21px;font-weight:900;letter-spacing:-.5px}
-.sf-foot span{font-size:12px;font-weight:700;letter-spacing:3px;opacity:.7}
+.sf-foot span{font-size:11px;font-weight:700;letter-spacing:2px;opacity:.7;white-space:nowrap}
 .scene.in .strip{animation:sdrop .95s cubic-bezier(.2,.85,.3,1.18) both;animation-delay:calc(var(--k)*280ms + 250ms)}
 @keyframes sdrop{0%{opacity:1;transform:translateY(-1150px) rotate(calc(var(--r)*-3))}100%{opacity:1;transform:rotate(var(--r))}}
 .lflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5}
@@ -1344,6 +1344,7 @@ body.dark #ap-btn{background:rgba(255,255,255,.08);color:#FFB8D2;border-color:rg
 body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 #lounge.see{pointer-events:none}
 #lounge.see .lqr{pointer-events:none}
+#lounge .lqr-go{display:block;width:100%;margin-top:10px;padding:10px 0;border-radius:12px;background:#F0457E;color:#fff;font-size:16px;font-weight:900}
 #lounge .lhint{pointer-events:none}
 #lounge.see .lhint{display:block}
 
@@ -1472,7 +1473,7 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .trk-b.trk-B b .ds-on{position:relative;display:inline;background:none;color:inherit;font:inherit;padding:0}
 .trk-b.trk-B b .ds-on{position:relative;display:inline-block;width:0;height:0;vertical-align:top}
 .trk-b.trk-B b{isolation:isolate;text-shadow:2.5px 0px 0 #FFF3CF,-2.5px 0px 0 #FFF3CF,0px 2.5px 0 #FFF3CF,0px -2.5px 0 #FFF3CF,1.875px 1.875px 0 #FFF3CF,-1.875px 1.875px 0 #FFF3CF,1.875px -1.875px 0 #FFF3CF,-1.875px -1.875px 0 #FFF3CF}
-.trk-b.trk-B b .ds-on .dstar{position:absolute;z-index:-1;left:-27px;top:-15px;width:50px;height:50px;margin-left:0;color:#E5383B;transform:rotate(-10deg);overflow:visible}
+.trk-b.trk-B b .ds-on .dstar{position:absolute;z-index:-1;left:-24px;top:-8px;width:50px;height:50px;margin-left:0;color:#E5383B;transform:rotate(-10deg);overflow:visible}
 .trk-b.trk-B span{color:#6B4E00}
 .trk-b.trk-B u{background:#fff;color:#A15C00}
 .trk-b.trk-B:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite;pointer-events:none}
@@ -1503,7 +1504,7 @@ body.calm .mp:after{animation:none}
 .it.hi:hover{box-shadow:0 0 0 3px #E3A008,0 26px 36px -18px rgba(150,95,0,.55)}
 .it.hi h4{position:relative;z-index:0;isolation:isolate}
 .it.hi h4{text-shadow:3px 0px 0 #fff,-3px 0px 0 #fff,0px 3px 0 #fff,0px -3px 0 #fff,2.25px 2.25px 0 #fff,-2.25px 2.25px 0 #fff,2.25px -2.25px 0 #fff,-2.25px -2.25px 0 #fff}
-.it .hstar{position:absolute;z-index:-1;left:-.75em;top:-.68em;width:1.65em;height:1.65em;color:#E5383B;transform:rotate(-12deg);pointer-events:none}
+.it .hstar{position:absolute;z-index:-1;left:-.72em;top:-.56em;width:1.65em;height:1.65em;color:#E5383B;transform:rotate(-12deg);pointer-events:none}
 .it .hstar .dstar{width:100%;height:100%;display:block;overflow:visible}
 .it.hi .n{color:var(--c)}
 
@@ -1716,7 +1717,7 @@ var DEPTS = [
     {t:"건강관리사", d:"건강 관리 전문 자격", tag:"자격", clip:"media/clip/health5.mp4", at:13.0, more:"건강 관리 전문 자격이에요."},
     {t:"나이팅게일 선서식", d:"간호인의 마음을 다짐하는 특별한 날", clip:"media/clip/health6.mp4", at:0.0, more:"간호인의 마음을 다짐하는 특별한 날이에요."},
     {t:"동아리 3개", d:"수의테크니션반 · 한방동아리반 · 보건심화반", clip:"media/clip/health7.mp4", at:7.5, more:"수의테크니션반, 한방동아리반, 보건심화반 중에서 진로에 맞게 활동해요."},
-    {hi:1, t:"협약 병원 21곳", d:"본교와 협약을 맺은 병원", hosp:true, clip:"media/clip/health8.mp4", at:37.5}
+    {hi:1, t:"협약 병원 21곳", d:"본교와 협약을 맺은 병원", hosp:true, clip:"media/clip/health8.mp4", at:37.5, more:"부산의료원·부산성모병원·동래봉생병원 등 종합병원·의원·한방병원 21곳과 협약을 맺었어요. 졸업하면 이 병원들로 바로 취업할 수 있는 길이 열려 있어요. '병원 이름 모두 보기'를 누르면 전체 목록이 나와요."}
   ],
   stats:[
     {big:"62.5", unit:"%", lb:"간호학과 진학<br><small>최근 졸업생 기준</small>"},
@@ -1744,7 +1745,7 @@ var DEPTS = [
   posterSub:"대회 1위부터 대학 진학까지",
   tags:["학교스포츠클럽","골프 수업","해양 레저","대학 진학"],
   learn:[
-    {hi:1, t:"학교스포츠클럽", d:"최다 종목 출전! 축구·풋살·티볼 등 대회 도전", clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고, 부산교육감배 축구·풋살·티볼 3년 연속 1위를 했어요."},
+    {hi:1, t:"학교스포츠클럽", d:"최다 종목 출전! 축구·풋살·티볼 등 대회 도전", tag:"3년 연속 1위", mt:1, clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고, 부산교육감배 축구·풋살·티볼 3년 연속 1위를 했어요."},
     {t:"골프 수업", d:"학교 안에서 배우는 골프", clip:"media/clip/sports2.mp4", at:54.8, more:"골프 수업으로 골프를 배워요."},
     {t:"해양 레저 체험", d:"래프팅 같은 바다 위 체험 활동", clip:"media/clip/sports3.mp4", at:50.8, more:"래프팅 같은 해양 레저를 직접 체험해요."},
     {t:"수영 강습", d:"기초부터 차근차근 배우는 수영", clip:"media/clip/sports4.mp4", at:53.2, more:"수영 강습으로 수영을 배워요."},
@@ -2228,7 +2229,7 @@ var SPORTS_REC = [
   <!-- 상담 모드 -->
   <div id="lounge">
     <video src="media/all.mp4" muted playsinline preload="none"></video>
-    <div class="lqr" id="lqr" style="display:none"><div id="lqr-box"></div><div id="lqr-l" style="margin-top:8px"></div></div>
+    <div class="lqr" id="lqr" style="display:none"><div id="lqr-box"></div><div id="lqr-l" style="margin-top:8px"></div><button class="lqr-go" data-form="consult">이 화면에서 신청</button></div>
     <div class="tick"><div id="l-tick"></div></div>
     <div class="lhint">상담 모드 · 화면을 누르면 종료</div>
   </div>
