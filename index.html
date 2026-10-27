@@ -441,16 +441,16 @@ body.dark .nsep{background:#2C3242}
 .j2-count b{font-size:132px;font-weight:900;letter-spacing:-6px;line-height:.9;color:var(--gold)}
 .j2-count small{font-size:52px;font-weight:900;color:var(--gold)}
 .j2-count span{width:100%;margin-top:6px;font-size:24px;font-weight:700;color:#C9CDD6}
-.j2-fields{margin-top:18px;display:flex;flex-direction:column;gap:4px;width:520px}
+.j2-fields{margin-top:14px;display:flex;flex-direction:column;gap:4px;width:520px}
 .jf{display:flex;align-items:center;gap:14px;height:40px;padding:0 16px;border-radius:12px;font-size:22px;font-weight:700;color:#8C93A3;transition:all .4s}
 .jf i{width:14px;height:14px;border-radius:4px;background:var(--fc)}
 .jf span{margin-left:auto;font-size:20px}
 .jf.on{background:rgba(255,255,255,.08);color:#fff}
-.j2-filter{position:absolute;left:0;bottom:134px;display:flex;flex-wrap:nowrap;gap:8px;width:640px}
-.j2-filter button{height:48px;padding:0 16px;border-radius:24px;border:2px solid #2C3242;font-size:18px;white-space:nowrap;letter-spacing:-.3px;font-weight:700;color:#C9CDD6;display:flex;align-items:center;gap:8px;transition:all .25s}
-.j2-filter button i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.j2-filter{position:relative;margin-top:16px;display:flex;flex-wrap:nowrap;gap:6px;width:520px}
+.j2-filter button{height:44px;padding:0 13px;border-radius:22px;border:2px solid #2C3242;font-size:17px;white-space:nowrap;letter-spacing:-.4px;font-weight:700;color:#C9CDD6;display:flex;align-items:center;gap:8px;transition:all .25s}
+.j2-filter button i{width:9px;height:9px;border-radius:50%;background:var(--c)}
 .j2-filter button.on{background:#fff;color:var(--ink);border-color:#fff}
-#jobs .a-note{color:#6B7280}
+#jobs .a-note{color:#6B7280;width:520px;white-space:nowrap;font-size:16px;letter-spacing:-.3px}
 .roll{position:absolute;left:700px;right:0;top:-40px;bottom:-56px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
 .roll-in{position:absolute;left:0;right:0;top:0;text-align:center;will-change:transform}
 .rh{padding:70px 0 18px;font-size:22px;font-weight:900;letter-spacing:8px;color:var(--fc)}
@@ -1421,10 +1421,10 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .grid8.sel-A .it.trk-A,.grid8.sel-B .it.trk-B{box-shadow:0 0 0 3.5px var(--c),0 26px 36px -18px rgba(0,0,0,.4)!important;translate:0 -9px}
 
 /* 진로 로드맵 */
-.rm-btn{position:absolute;left:0;bottom:46px;width:640px;z-index:3;display:flex;align-items:center;gap:14px;padding:12px 22px 12px 14px;border-radius:22px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;text-align:left;backdrop-filter:blur(8px);transition:background .3s,transform .3s}
+.rm-btn{position:absolute;left:0;bottom:54px;width:520px;z-index:3;display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 18px;border-radius:22px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;text-align:left;backdrop-filter:blur(8px);transition:background .3s,transform .3s}
 .rm-btn:hover{background:rgba(255,255,255,.16);transform:translateY(-3px)}
 .rm-btn i{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-style:normal;font-size:28px;background:linear-gradient(135deg,#F0457E,#E3A008)}
-.rm-btn b{display:block;font-size:24px;font-weight:900}
+.rm-btn b{display:block;font-size:24px;font-weight:900;letter-spacing:-.5px}
 .rm-btn small{display:block;margin-top:3px;font-size:15px;font-weight:700;color:#C9C3D6}
 .rm-btn em{font-style:normal;font-size:26px;font-weight:900;color:#FFB8D2;margin-left:6px}
 #rmp .sh-card{background:#F7F2EA;color:var(--ink)}
@@ -2077,8 +2077,8 @@ var SPORTS_REC = [
         <div class="a-k rv">CREDITS</div>
         <h1 class="j2-title rv" style="--i:1">선배들은<br>어디로 갔을까?</h1>
         <div class="j2-count rv" style="--i:2"><b id="jc-num">0</b><small id="jc-unit">명</small><span id="jc-lb"></span></div>
-        <div class="j2-fields rv" style="--i:3" id="jc-fields"></div>
-        <div class="j2-filter rv" style="--i:4" id="jc-filter"></div>
+        <div class="j2-filter rv" style="--i:3" id="jc-filter"></div>
+        <div class="j2-fields rv" style="--i:4" id="jc-fields"></div>
         <p class="a-note rv" style="--i:5" id="jc-note"></p>
       </div>
       <button class="rm-btn rv" style="--i:6" data-sheet="roadmap"><i>🧭</i><span><b>진로 로드맵</b><small>취업 · 진학 · 선취업 후진학 — 3년 뒤 나의 길</small></span></button>
