@@ -192,7 +192,8 @@ body.dark #nav .tool:hover{color:#fff;border-color:#fff}
 .it.hl:after{color:#fff;opacity:.18}
 .it.hl{background:var(--c);color:#fff}
 .it.hl .n,.it.hl p{color:rgba(255,255,255,.9)}
-.it .tg{position:absolute;right:22px;top:24px;font-size:16px;font-weight:700;padding:5px 12px;border-radius:14px;background:var(--paper);color:var(--ink2)}
+.it .tg{position:absolute;right:22px;top:34px;height:26px;display:inline-flex;align-items:center;font-size:15px;font-weight:700;padding:0 12px;border-radius:13px;background:var(--paper);color:var(--ink2);white-space:nowrap}
+.grid8.has-trk .it .tg{top:24px}
 .it.hl .tg{background:rgba(255,255,255,.2);color:#fff}
 
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;height:240px;flex:none}
@@ -590,7 +591,8 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .dt-txt{position:relative;padding:64px 56px 48px;display:flex;flex-direction:column}
 .dt-txt:before{content:"";position:absolute;right:-90px;top:-90px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35) 2.5px,transparent 3px) 0 0/20px 20px;opacity:.5}
 .dt-k{position:relative;font-size:20px;font-weight:900;letter-spacing:4px;opacity:.85}
-.dt-tag{display:inline-block;margin-left:12px;font-size:17px;letter-spacing:0;padding:5px 14px;border-radius:14px;background:rgba(255,255,255,.22)}
+.dt-tag{display:inline-flex;align-items:center;vertical-align:middle;margin-left:12px;height:30px;font-size:16px;letter-spacing:0;padding:0 14px;border-radius:12px;background:rgba(255,255,255,.22)}
+.dt-tag.mp{font-size:15px;border-radius:10px}
 .dt-t{position:relative;margin-top:18px;font-size:68px;font-weight:900;letter-spacing:-3px;line-height:1.1}
 .dt-t.long{font-size:54px;letter-spacing:-2.5px}
 .dt-d{position:relative;margin-top:22px;font-size:30px;font-weight:700;line-height:1.5}
@@ -1416,8 +1418,11 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .grid8.has-trk .it{padding:24px 26px}
 .grid8.has-trk .it h4{margin-top:10px;font-size:30px}
 .grid8.has-trk .it p{margin-top:10px;font-size:20px}
-.it .tk{margin-left:8px;font-style:normal;font-size:13px;font-weight:900;padding:3px 8px;border-radius:9px;background:var(--c);color:#fff;letter-spacing:0;vertical-align:2px}
-.it.trk-B .tk{background:#14161B}
+.it .n{display:flex;align-items:center;height:26px}
+.it .tk{margin-left:8px;font-style:normal;font-size:13px;font-weight:900;padding:0 8px;height:22px;display:inline-flex;align-items:center;border-radius:8px;color:#fff;letter-spacing:0}
+.it .tk:not(.mp){background:var(--c)}
+.it .tk.mp{height:26px;border-radius:9px;padding:0 10px}
+.it.trk-B .tk{--mc:#F0B000;--rim:rgba(60,35,0,.55)}
 .grid8.sel-A .it.trk-A,.grid8.sel-B .it.trk-B{box-shadow:0 0 0 3.5px var(--c),0 26px 36px -18px rgba(0,0,0,.4)!important;translate:0 -9px}
 
 /* 진로 로드맵 */
@@ -1471,11 +1476,27 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .trk-b.trk-B u{background:#fff;color:#A15C00}
 .trk-b.trk-B:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite;pointer-events:none}
 @keyframes shine{0%,70%{left:-40%}100%{left:130%}}
-.it .tk.tk-b{background:linear-gradient(135deg,#F7B500,#E08A00);color:#fff}
-.it .tk.tk-ab{background:linear-gradient(90deg,var(--c) 0 50%,#E08A00 50% 100%);color:#fff}
+.it .tk.tk-b{--mc:#F0B000;--rim:rgba(60,35,0,.55)}
+.it .tk.tk-ab{gap:7px}
 .grid8.sel-B .it.trk-B{box-shadow:0 0 0 3.5px #E3A008,0 26px 36px -18px rgba(170,110,0,.5)!important}
 
 /* 강조 카드: 금색 테두리 + 살짝 떠 있는 입체감 + 손그림 별 */
+/* ── 메탈 플레이트: 진짜 희소한 사실에만 (금 B 산업기사 · A/B 사선 · 실버 '부산 단 2곳'·'부산 최초'·'1987~').
+   반사 띠 두 겹 + 두 겹 틀. 빛은 한 화면에서 순서대로 한 번씩(카드 번호 --i 로 시차) ── */
+.mp{position:relative;height:26px;padding:0 10px;border-radius:9px;font-size:13px;font-weight:900;letter-spacing:0;line-height:1;color:#fff;overflow:hidden;isolation:isolate;white-space:nowrap;
+ background-color:var(--mc,#B8BEC8);
+ background-image:linear-gradient(180deg,rgba(255,255,255,.75) 0,rgba(255,255,255,.55) 22%,rgba(255,255,255,.1) 40%,rgba(0,0,0,.05) 46%,rgba(0,0,0,.22) 72%,rgba(255,255,255,.25) 86%,rgba(0,0,0,.35) 100%);
+ box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),inset 0 0 0 3px var(--rim,rgba(40,25,0,.55)),inset 0 2px 1px rgba(255,255,255,.5),0 1.5px 2px rgba(0,0,0,.4);
+ text-shadow:0 0 1px rgba(0,0,0,.7),0 1px 1px rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.25)}
+.mp:after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;background:linear-gradient(100deg,transparent 0,rgba(255,255,255,.35) 30%,rgba(255,255,255,1) 50%,rgba(255,255,255,.35) 70%,transparent 100%);transform:skewX(-22deg);animation:mpsh 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*.55s + var(--md,0s));z-index:1;mix-blend-mode:screen;pointer-events:none}
+@keyframes mpsh{0%,86%{left:-60%}100%{left:160%}}
+.mp.silver{--mc:#B8BEC8;--rim:rgba(40,45,55,.55);color:#14161B;text-shadow:0 1px 0 rgba(255,255,255,.7);
+ background-image:linear-gradient(180deg,rgba(255,255,255,.95) 0,rgba(255,255,255,.7) 22%,rgba(255,255,255,.15) 40%,rgba(0,0,0,.04) 46%,rgba(0,0,0,.2) 72%,rgba(255,255,255,.45) 86%,rgba(0,0,0,.3) 100%)}
+.mp.ab{background-image:linear-gradient(112deg,rgba(0,0,0,0) 0 49.4%,rgba(255,255,255,.85) 49.4% 50.6%,rgba(0,0,0,.25) 50.6% 52%,rgba(0,0,0,0) 52%),linear-gradient(180deg,rgba(255,255,255,.75) 0,rgba(255,255,255,.55) 22%,rgba(255,255,255,.1) 40%,rgba(0,0,0,.05) 46%,rgba(0,0,0,.22) 72%,rgba(255,255,255,.25) 86%,rgba(0,0,0,.35) 100%),linear-gradient(112deg,#3D6BFF 0 50%,#F0B000 50% 100%);--rim:rgba(40,25,0,.55)}
+.mp i{font-style:normal;position:relative;z-index:2}
+.it .tg.mp{--md:.3s}
+body.calm .mp:after{animation:none}
+
 .it.hi{box-shadow:0 0 0 2.5px #F2B705,0 20px 30px -18px rgba(150,95,0,.5);translate:0 -5px}
 .it.hi:hover{box-shadow:0 0 0 3px #E3A008,0 26px 36px -18px rgba(150,95,0,.55)}
 .it.hi h4{position:relative;z-index:0;isolation:isolate}
@@ -1508,8 +1529,6 @@ body.calm .dstar,body.calm .sp{animation:none}
 .it .hstar,.trk-b.trk-B b .ds-on .dstar{color:#E0303C;filter:drop-shadow(0 0 1.5px rgba(255,90,105,.9)) drop-shadow(0 0 5px rgba(255,60,80,.35))}
 .dt-t .dt-star{color:#F2B300;filter:drop-shadow(0 0 1.5px rgba(255,235,140,.9)) drop-shadow(0 0 7px rgba(255,215,60,.55))}
 .dt-t .dt-star .core{stroke:#FFFBE0}
-.dstar .core{animation:tube 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
-.trk-b.trk-B b .ds-on .dstar .core{animation-duration:2.25s;animation-delay:var(--sd,0s)}
 @keyframes tube{0%,100%{opacity:.85}2%{opacity:.35}4%{opacity:1}6%{opacity:.5}8%{opacity:1}14%{opacity:1}20%{opacity:.85}}
 .it .hstar .sp,.trk-b.trk-B b .ds-on .sp{color:#FF5560}
 body.calm .dstar .core{animation:none}
@@ -1615,7 +1634,7 @@ var DEPTS = [
     {t:"모의투자대회", d:"증권사 앱으로 실전처럼 투자", more:"증권사 모의투자 앱으로 학생 한 명 한 명이 실제 주식시장처럼 투자해 보는 대회예요. 금융 공부가 교과서 밖에서 어떻게 쓰이는지 직접 경험해요."},
     {t:"현장체험학습", d:"부산은행 금융 교육, 캠코 청소년 직장 체험", clip:"media/clip/finance3.mp4", at:26.8, more:"현장체험학습으로 부산은행 금융 교육, 캠코(한국자산관리공사) 청소년 직장 체험에 다녀오며 금융 현장을 직접 경험해요."},
     {t:"금융권·공기업 특강", d:"해마다 다른 기관 · 올해는 하나은행", clip:"media/clip/finance4.mp4", at:30.0, more:"금융권·공기업 선배와 담당자가 직접 찾아오는 특강이에요. 해마다 기관이 바뀌는데, 올해는 하나은행이 채용 매칭 데이와 초청 특강을 열어 주었어요."},
-    {trk:"B", hi:1, t:"산업기사반", d:"고교 과정만으로 산업기사 응시", tag:"부산 단 2곳", clip:"media/clip/finance5.mp4", at:43.0, more:"산업기사는 원래 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형으로, 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 성적보다 꾸준함! 도전하는 누구나 함께해요. (2026년 기준 사무자동화산업기사 과정 운영 고교는 부산 단 2곳)"},
+    {trk:"B", hi:1, t:"산업기사반", d:"고교 과정만으로 산업기사 응시", tag:"부산 단 2곳", mt:1, clip:"media/clip/finance5.mp4", at:43.0, more:"산업기사는 원래 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형으로, 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 성적보다 꾸준함! 도전하는 누구나 함께해요. (2026년 기준 사무자동화산업기사 과정 운영 고교는 부산 단 2곳)"},
     {trk:"AB", hi:1, t:"전공별 역량강화 캠프", d:"A · NCS 캠프 / B · 산업기사 썸머·윈터캠프", clip:"media/clip/finance6.mp4", at:41.0, more:"전공심화 과정마다 따로 캠프가 열려요. A코스(금융일반)는 금융경영정보서비스 현장 직무를 익히는 NCS 역량강화 캠프, B코스(산업기사반)는 여름·겨울 두 번 열리는 산업기사 썸머캠프·윈터캠프에서 집중해서 공부하고 해양 체험도 함께 해요."},
     {t:"졸업생 멘토링", d:"2년째 이어 오는 선배와의 취업 뽀개기", clip:"media/clip/finance7.mp4", at:24.4, more:"먼저 취업한 졸업생 선배가 직접 찾아와 함께하는 ‘취업 뽀개기’ 멘토링이에요. 2년째 이어 오고 있어요."},
     {t:"스포츠 부전공", d:"금융 공부하면서 체육도 함께 하고 싶다면", tag:"NEW", clip:"media/clip/finance8.mp4", at:66.0, more:"금융 공부와 체육을 함께 하고 싶은 학생을 위한 스포츠 부전공이 있어요."}
@@ -1648,11 +1667,11 @@ var DEPTS = [
   posterSub:"관광실습실부터 1987년부터 이어온 일본 자매교류까지",
   tags:["모닝파워업","부산 최초 조주기능사","무알코올 칵테일","일본 자매교류"],
   learn:[
-    {hi:1, t:"과정평가형 조주기능사", d:"2022년부터 안정적으로 운영하는 국가자격 과정", tag:"부산 최초", clip:"media/clip/tourism1.mp4", at:25.5, more:"부산시 고등학교 최초로 과정평가형 조주기능사 과정을 운영해요. 2022년부터 안정적으로 이어 오고 있어요."},
+    {hi:1, t:"과정평가형 조주기능사", d:"2022년부터 안정적으로 운영하는 국가자격 과정", tag:"부산 최초", mt:1, clip:"media/clip/tourism1.mp4", at:25.5, more:"부산시 고등학교 최초로 과정평가형 조주기능사 과정을 운영해요. 2022년부터 안정적으로 이어 오고 있어요."},
     {t:"모닝파워업", d:"매달 커피와 디저트를 직접 만들어 판매해요", tag:"매달", more:"매달 커피와 디저트를 직접 만들어 판매하는 행사예요. 내가 만든 메뉴를 친구와 선생님께 직접 팔아 봐요."},
     {t:"무알코올 창작칵테일대회", d:"나만의 레시피로 겨루는 교내 경진대회", clip:"media/clip/tourism3.mp4", at:3.5, more:"나만의 레시피로 무알코올 창작칵테일을 만들어 겨루는 교내 경진대회예요."},
     {t:"관광지 소개 UCC대회", d:"부산 관광지를 우리 손으로 소개하는 영상 대회", clip:"media/clip/tourism4.mp4", at:13.0, more:"부산 관광지를 소개하는 영상(UCC)을 직접 만들어 겨루는 교내 대회예요."},
-    {hi:1, t:"일본 자매교류", d:"하야토모고와 1:1 페어로 함께하는 부산 투어", tag:"1987~", clip:"media/clip/tourism5.mp4", at:53.0, more:"1987년부터 이어 온 일본 하야토모고등학교와의 자매교류. 일본 학생과 1:1 페어로 부산을 함께 여행해요."},
+    {hi:1, t:"일본 자매교류", d:"하야토모고와 1:1 페어로 함께하는 부산 투어", tag:"1987~", mt:1, clip:"media/clip/tourism5.mp4", at:53.0, more:"1987년부터 이어 온 일본 하야토모고등학교와의 자매교류. 일본 학생과 1:1 페어로 부산을 함께 여행해요."},
     {t:"동아리 2개", d:"관광실무반 · 카페디저트반", more:"관광실무반과 카페디저트반 동아리를 운영해요."},
     {t:"관광실습실", d:"진짜 매장처럼 커피·제과제빵 실습", clip:"media/clip/tourism7.mp4", at:21.5, more:"커피·제과제빵을 실습하는 관광실습실에서 바리스타 자격까지 준비해요."},
     {t:"외국어 3개", d:"실무 영어 · 중국어 · 일본어", clip:"media/clip/tourism8.mp4", at:46.0, more:"실무 영어, 중국어, 일본어를 배워요."}
@@ -2315,7 +2334,7 @@ function miniCol(d){
 function li(items){return items.map(function(x){return '<li><span>'+x[0]+'</span>'+(x[1]?'<small>'+x[1]+'</small>':'')+'</li>'}).join("")}
 $("#dept-host").innerHTML=DEPTS.map(function(d,k){
   var others=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-go="dept-'+o.id+'" style="--oc:'+o.color+'"><i></i>'+o.short+'</button>'}).join("");
-  var learn=d.learn.map(function(x,j){return '<div class="it rv'+(x.hosp?' hosp':'')+(x.trk?x.trk.split('').map(function(k){return ' trk-'+k}).join(''):(d.track?' trk-C':''))+(x.hi?' hi':'')+'" data-card="'+d.id+':'+j+'" style="--i:'+j+'" data-n="'+(j+1)+'"><span class="wave"></span><div class="n">'+String(j+1).padStart(2,"0")+(x.trk?(x.trk==='AB'?'<em class="tk tk-ab">A·B 캠프</em>':'<em class="tk'+(x.trk==='B'?' tk-b':'')+'">'+(x.trk+' '+d.track[x.trk].short)+'</em>'):'')+'</div>'+(x.tag?'<span class="tg">'+x.tag+'</span>':'')+'<h4>'+(x.hi?'<span class="hstar">'+DSTAR+'</span>':'')+x.t+'</h4><p>'+x.d+'</p>'+(x.clip?'<span class="cam"><i></i>장면 보기</span>':'')+'</div>'}).join("");
+  var learn=d.learn.map(function(x,j){return '<div class="it rv'+(x.hosp?' hosp':'')+(x.trk?x.trk.split('').map(function(k){return ' trk-'+k}).join(''):(d.track?' trk-C':''))+(x.hi?' hi':'')+'" data-card="'+d.id+':'+j+'" style="--i:'+j+'" data-n="'+(j+1)+'"><span class="wave"></span><div class="n">'+String(j+1).padStart(2,"0")+(x.trk?(x.trk==='AB'?'<em class="tk mp ab tk-ab"><i>A</i><i>B</i></em>':'<em class="tk'+(x.trk==='B'?' mp tk-b':'')+'">'+(x.trk+' '+d.track[x.trk].short)+'</em>'):'')+'</div>'+(x.tag?'<span class="tg'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'')+'<h4>'+(x.hi?'<span class="hstar">'+DSTAR+'</span>':'')+x.t+'</h4><p>'+x.d+'</p>'+(x.clip?'<span class="cam"><i></i>장면 보기</span>':'')+'</div>'}).join("");
   var stats=d.stats.map(function(s,j){
     var big=s.txt?s.txt:'<span data-count="'+s.big+'">'+s.big+'</span><small>'+(s.unit||"")+'</small>';
     return '<div class="st rv'+(s.txt?' txt':'')+'" style="--i:'+j+'"><div class="big">'+big+'</div><div class="lb">'+s.lb+'</div>'+(s.more?'<button class="morebtn" data-hosp="'+d.id+'" style="position:relative;color:#fff;border-color:#fff">병원 이름 모두 보기 →</button>':'')+'</div>';
@@ -2522,7 +2541,7 @@ var DT=(function(){
     if(x.clip){ media.innerHTML='<video src="'+x.clip+'" muted loop playsinline autoplay></video><div class="live"><b>●</b> 학교 영상 속 실제 장면</div>'; var v=$("video",media); v.play().catch(function(){}); }
     else if(x.certs){ media.innerHTML='<canvas></canvas><div class="certs">'+x.certs.map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
     else { media.innerHTML='<canvas></canvas><div class="ht">'+x.t.replace(/ /g,"<br>")+'</div>'; halftone($("canvas",media),d.color); }
-    $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag">'+x.tag+'</span>':'');
+    $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'');
     var tt=x.t.replace(/<br\s*\/?>/g,""); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/<br\s*\/?>/g," "); $("#dt-m").textContent=x.more||"";
     var acts="";
     if(x.clip&&x.at!=null) acts+='<button data-dtplay="1">▶ 영상에서 이 장면 보기</button>';
