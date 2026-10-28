@@ -430,10 +430,14 @@ body.dark .nsep{background:#2C3242}
 .ac-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ac-ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 10px 8px;font-size:12.5px;font-weight:900;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);line-height:1.3}
 .yr h5{font-size:40px;font-weight:900;letter-spacing:-1.5px;display:flex;align-items:baseline;gap:10px}
-.yr h5 span{font-size:18px;color:var(--mute);letter-spacing:0}
+.yr h5 span{font-size:18px;color:var(--mute);letter-spacing:0;white-space:nowrap}
+.yr h5 span i{display:block;font-style:normal;font-size:14px;font-weight:700;color:#8C93A3;margin-top:-2px}
 .yr ul{list-style:none;margin-top:10px}
-.yr li{display:flex;align-items:center;gap:12px;height:40px;font-size:22px;font-weight:700}
+.yr li{display:flex;align-items:center;gap:12px;height:40px;font-size:22px;font-weight:700;white-space:nowrap}
 .yr li .dot{width:24px;height:24px}
+.yr li.go{font-size:20px}
+.yr li.go b{font-weight:900;color:#0B4A30}
+.yr li.go em.n{background:#C8F1DF;color:#0B4A30}
 .yr li em{font-style:normal;font-size:15px;font-weight:900;padding:3px 9px;border-radius:10px;background:var(--paper);color:var(--ink2)}
 .yr li em.n{background:var(--ink);color:#fff}
 .scene.in .md{animation:drop .7s var(--ease) both;animation-delay:calc(var(--k,0)*55ms + 350ms)}
@@ -1779,7 +1783,7 @@ var DEPTS = [
   posterSub:"대회 1위부터 대학 진학까지",
   tags:["학교스포츠클럽","골프 수업","해양 레저","대학 진학"],
   learn:[
-    {hi:1, t:"학교스포츠클럽", d:"축구·풋살·티볼, 최다 종목 출전", tag:"3년 연속 1위", mt:1, img:"media/learn/sports_tball_team.jpg", clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고, 부산교육감배 축구·풋살·티볼 3년 연속 1위를 했어요.\n2026년에는 전국학교스포츠클럽 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위까지 올랐어요."},
+    {hi:1, t:"학교스포츠클럽", d:"축구·풋살·티볼, 최다 종목 출전", tag:"풋살·티볼 3년 연속 1위", mt:1, img:"media/learn/sports_tball_team.jpg", clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고(2024년 8종목), 부산교육감배 풋살·티볼 3년 연속 1위, 축구는 2024·2026년 1위를 했어요. 2024년에는 축구·풋살 전국 1위, 2026년 축구·풋살은 전국대회에 진출해 진행 중이에요.\n2026년에는 전국학교스포츠클럽 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위까지 올랐어요."},
     {t:"골프 수업", d:"학교 안 골프장 수업 · 프로 경기 관람", img:"media/learn/sports_klpga.jpg", clip:"media/clip/sports2.mp4", at:54.8, more:"학교 안 골프 연습장에서 골프를 배워요. KLPGA 프로 골프 대회(HJ중공업 동부건설 챔피언십)를 직접 보러 가서 프로 선수의 경기를 눈앞에서 봤어요."},
     {t:"해양 레저 체험", d:"래프팅 같은 바다 위 체험 활동", clip:"media/clip/sports3.mp4", at:50.8, more:"래프팅 같은 해양 레저를 직접 체험해요."},
     {t:"수영 강습", d:"기초부터 차근차근 배우는 수영", clip:"media/clip/sports4.mp4", at:53.2, more:"수영 강습으로 수영을 배워요."},
@@ -1789,7 +1793,7 @@ var DEPTS = [
     {t:"내신도 챙기기", d:"대회 성적 + 내신으로 대학 진학", clip:"media/clip/sports8.mp4", at:41.0, more:"대한적십자사 심폐소생술(응급처치) 교육도 수료해요.\n영상 속 선배들 말: 부산에서 우승해 전국대회에 가면 추천서를 받을 수 있고, 시험이 어렵지 않아 중학교 때보다 내신을 더 잘 받을 수 있어요."}
   ],
   stats:[
-    {big:"3", unit:"년 연속", lb:"부산교육감배 학교스포츠클럽<br>축구·풋살·티볼 1위 (2024~2026)"},
+    {big:"3", unit:"년 연속", lb:"부산교육감배 학교스포츠클럽<br>풋살·티볼 1위 (2024~2026)"},
     {big:"3", unit:"명", lb:"해군 부사관 취업<br><small>2025~2026 졸업생</small>"}
   ],
   college:{title:"진학 · 2026년 2월 졸업생 15명", items:[["경성대","스포츠건강학과 · 동물보건생명과학과"],["고신대 · 동명대","태권도학과"],["용인대 · 국립경국대","무도계열 · 체육학과"],["동서대 · 신라대","운동처방학과 · 물리치료과"]]},
@@ -1798,7 +1802,7 @@ var DEPTS = [
     "“공부 못하는데 스포츠과 갈 수 있나?” 질문을 먼저 던지고 반응 보기",
     "영상 속 선배 말: 부산에서 우승해 전국대회에 가면 추천서를 받을 수 있음",
     "“사실은 운동 못해도 괜찮습니다!” → 부담 낮춰 주기",
-    "3년 연속 1위·전국 1위 카드로 자부심 보여 주기 · 2026 전국 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위(수상 화면에 사진)",
+    "풋살·티볼 3년 연속 1위(축구는 2024·2026 1위, 2025 2위)·2024 전국 축구·풋살 1위 · 2026 전국 티볼 3위, KVA 배구 디비전리그 여고부 3위(수상 화면에 사진) · 2026 축구·풋살 전국대회 진출(진행 중) · 교육감배 참가 종목 2024년 8개(최다)",
     "현장체험학습: 미포 철길 마라톤(해운대~청사포), 해동 용궁사 트레킹, 바운스 유니버스(클라이밍·트램펄린·VR), KLPGA 프로 경기 관람 — “몸으로 배우는 과”",
     "진학 사례: 부산대 체육교육과, 용인대 무도계열·유도학과, 신라대 물리치료과 / 취업: 해군 부사관 3명, 보안·경비 다수"
   ]
@@ -1863,7 +1867,7 @@ var NOTES = {
   ],
   awards:[
     "상업경진대회: 부산 금상 → 전국 은상(비즈니스영어), 부산 동상 → 전국 동상(경제골든벨)",
-    "스포츠클럽: 부산교육감배 축구·풋살·티볼 3년 연속 1위, 2024 전국 축구·풋살 1위",
+    "스포츠클럽: 부산교육감배 풋살·티볼 3년 연속 1위, 2024 전국 축구·풋살 1위, 2026 전국 티볼 3위·배구 디비전리그 3위",
     "“여러분도 이 무대에 설 수 있어요”로 마무리"
   ],
   jobs:[
@@ -1923,7 +1927,7 @@ var WALL = [
   {n:"62", u:"%", lb:"간호학과 진학", src:"보건간호과 · 2021~2025 졸업생 201명 중 113명", d:"h", go:"dept-health"},
   {n:"72", u:"%", lb:"대학 진학", src:"학교 전체 · 2026년 2월 졸업생 159명 중 115명", go:"jobs", color:"#2E5BFF"},
   {pre:"전국", n:"은상", lb:"상업경진대회 비즈니스영어", src:"2026 제16회 전국상업경진대회", go:"awards", color:"#8F9AA8"},
-  {n:"3", u:"년 연속", lb:"부산 축구·풋살·티볼 1위", src:"부산교육감배 학교스포츠클럽 2024~2026", d:"s", go:"awards"},
+  {n:"3", u:"년 연속", lb:"부산 풋살·티볼 1위", src:"부산교육감배 학교스포츠클럽 2024~2026", d:"s", go:"awards"},
   {n:"21", u:"곳", lb:"협약 병원", src:"보건간호과 홍보 영상 기준", d:"h", go:"dept-health"},
   {n:"4", u:"명", lb:"부산은행 취업", src:"2024~2026 졸업생", d:"f", go:"dept-finance"},
   {pre:"부산", n:"최초", lb:"과정평가형 조주기능사", src:"관광서비스과 · 2022년부터 운영", d:"t", go:"dept-tourism"},
@@ -1946,9 +1950,10 @@ var CONTESTS = [
   {event:"ERP",         grade:"3학년", busan:"동상", nation:"출전"}
 ];
 var SPORTS_REC = [
-  {year:2024, items:[["전국","축구",1],["전국","풋살",1],["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","배드민턴",2],["부산","농구",3],["부산","피구",3],["부산","킨볼",3]]},
-  {year:2025, items:[["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","킨볼",2],["전국","티볼",2]]},
-  {year:2026, items:[["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","피구",2],["전국","티볼",3],["KVA","배구",3]]}
+  // 순위 0 = 진출(진행 중). parts: 교육감배 참가 종목 수
+  {year:2024, parts:8, items:[["전국","축구",1],["전국","풋살",1],["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","배드민턴",2],["부산","농구",3],["부산","피구",3],["부산","킨볼",3]]},
+  {year:2025, parts:6, items:[["부산","풋살",1],["부산","티볼",1],["부산","축구",2],["부산","킨볼",2],["전국","티볼",2]]},
+  {year:2026, parts:5, items:[["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","피구",2],["전국","티볼",3],["KVA","배구",3],["전국","축구·풋살",0]]}
 ];
 /* ═════════════════ 여기까지 수정 ═════════════════ */
 </script>
@@ -2129,7 +2134,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
           <div id="contests"></div>
         </div>
         <div class="ac rv" style="--i:3;--c:var(--spo)">
-          <div class="ac-h"><b>학교스포츠클럽</b><span>스포츠건강관리과 · 2024~2026</span><em class="ac-head">축구·풋살·티볼 부산 1위 · 3년 연속</em><button class="ac-go" data-go="dept-sports">학과 보기 →</button></div>
+          <div class="ac-h"><b>학교스포츠클럽</b><span>스포츠건강관리과 · 2024~2026</span><em class="ac-head">풋살·티볼 부산 1위 · 3년 연속</em><button class="ac-go" data-go="dept-sports">학과 보기 →</button></div>
           <div id="sportsrec"></div>
         </div>
       </div>
@@ -2446,7 +2451,7 @@ $("#s-school").textContent=CONFIG.schoolShort;
 (function(){
   var R={"금상":1,"은상":2,"동상":3}, cnt=[0,0,0,0], k=0;
   CONTESTS.forEach(function(c){[c.busan,c.nation].forEach(function(x){if(R[x])cnt[R[x]]++})});
-  SPORTS_REC.forEach(function(y){y.items.forEach(function(it){if(it[2]<=3)cnt[it[2]]++})});
+  SPORTS_REC.forEach(function(y){y.items.forEach(function(it){if(it[2]>=1&&it[2]<=3)cnt[it[2]]++})});
   var lab=["","1위 · 금상","2위 · 은상","3위 · 동상"];
   $("#tally").innerHTML=[1,2,3].map(function(r){return '<div class="tl"><div class="medal md m'+r+'" style="--k:'+(r-1)+'"><span data-count="'+cnt[r]+'">'+cnt[r]+'</span></div><b>'+lab[r]+'</b></div>'}).join("")+
     '<div class="tsum"><span>입상 합계</span><span><em data-count="'+(cnt[1]+cnt[2]+cnt[3])+'">'+(cnt[1]+cnt[2]+cnt[3])+'</em> 개</span></div>';
@@ -2456,10 +2461,10 @@ $("#s-school").textContent=CONFIG.schoolShort;
     return '<div class="cr"><h4>'+c.event+'<small>'+c.grade+'</small></h4><div class="path">'+stop("부산",c.busan)+'<div class="wire"></div>'+stop("전국",c.nation)+'</div></div>';
   }).join("");
   $("#sportsrec").innerHTML='<div class="yrs">'+SPORTS_REC.map(function(y){
-    var items=y.items.slice().sort(function(a,b){return (a[0]==="전국"?0:1)-(b[0]==="전국"?0:1)||a[2]-b[2]});
+    var items=y.items.slice().sort(function(a,b){return (a[2]===0)-(b[2]===0)||(a[0]==="전국"?0:1)-(b[0]==="전국"?0:1)||a[2]-b[2]});
     var g=items.filter(function(it){return it[2]===1}).length;
-    return '<div class="yr"><h5>'+y.year+'<span>1위 '+g+'개</span></h5><ul>'+items.map(function(it){
-      return '<li><span class="dot md m'+it[2]+'" style="--k:'+(k++)+'"></span>'+it[1]+' '+it[2]+'위<em class="'+(it[0]==="전국"?"n":"")+'">'+it[0]+'</em></li>'}).join("")+'</ul></div>';
+    return '<div class="yr"><h5>'+y.year+'<span>1위 '+g+'개'+(y.parts?'<i>'+y.parts+'종목 출전</i>':'')+'</span></h5><ul>'+items.map(function(it){
+      return it[2]===0?'<li class="go"><span class="dot md x" style="--k:'+(k++)+'"></span>'+it[1]+' <b>전국 진출</b><em class="n">진행 중</em></li>':'<li><span class="dot md m'+it[2]+'" style="--k:'+(k++)+'"></span>'+it[1]+' '+it[2]+'위<em class="'+(it[0]==="전국"?"n":"")+'">'+it[0]+'</em></li>'}).join("")+'</ul></div>';
   }).join("")+'<div class="ac-ph"><figure><img src="media/learn/sports_tball_trophy.jpg" alt=""><figcaption>2026 전국학교스포츠클럽 티볼대회 · 여고부 3위</figcaption></figure><figure><img src="media/learn/sports_volley_medal.jpg" alt=""><figcaption>2026 KVA V3 배구 디비전리그 · 여고부 3위</figcaption></figure></div></div>';
 })();
 
