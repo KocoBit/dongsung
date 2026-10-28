@@ -411,8 +411,8 @@ body.dark .nsep{background:#2C3242}
 .ac-h{display:flex;align-items:baseline;gap:16px}
 .ac-h b{font-size:34px;font-weight:900;letter-spacing:-1px}
 .ac-h span{font-size:20px;font-weight:700;color:var(--mute);white-space:nowrap}
-.ac-h .ac-head{margin-left:auto;margin-right:150px;font-style:normal;font-size:19px;white-space:nowrap;font-weight:900;color:#0B4A30;background:#C8F1DF;padding:6px 14px;border-radius:12px}
-.ac-go{margin-left:auto;font-size:19px;font-weight:700;color:var(--spo);border-bottom:2px solid var(--spo)}
+.ac-h .ac-head{margin-left:auto;margin-right:16px;font-style:normal;font-size:19px;white-space:nowrap;font-weight:900;color:#0B4A30;background:#C8F1DF;padding:6px 14px;border-radius:12px}
+.ac-go{margin-left:auto;white-space:nowrap;flex:none;font-size:19px;font-weight:700;color:var(--spo);border-bottom:2px solid var(--spo)}
 .cr{display:grid;grid-template-columns:250px 1fr;align-items:center;height:76px;border-bottom:2px solid var(--paper2)}
 .cr:last-child{border-bottom:0}
 .cr h4{font-size:30px;font-weight:900;letter-spacing:-1px}
@@ -424,7 +424,11 @@ body.dark .nsep{background:#2C3242}
 .dot.x{background:var(--paper2);box-shadow:0 0 0 3px var(--line) inset}
 .wire{flex:1;height:4px;margin:0 22px 0 0;background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 18px);position:relative;max-width:150px}
 .wire:after{content:"";position:absolute;right:-6px;top:-7px;border-left:12px solid var(--line);border-top:9px solid transparent;border-bottom:9px solid transparent}
-.yrs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:20px}
+.yrs{display:grid;grid-template-columns:1fr 1fr 1fr 270px;gap:22px;margin-top:20px}
+.ac-ph{display:flex;flex-direction:column;gap:10px}
+.ac-ph figure{margin:0;border-radius:14px;overflow:hidden;background:#000;position:relative;flex:1;min-height:0}
+.ac-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ac-ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 10px 8px;font-size:12.5px;font-weight:900;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);line-height:1.3}
 .yr h5{font-size:40px;font-weight:900;letter-spacing:-1.5px;display:flex;align-items:baseline;gap:10px}
 .yr h5 span{font-size:18px;color:var(--mute);letter-spacing:0}
 .yr ul{list-style:none;margin-top:10px}
@@ -1775,14 +1779,14 @@ var DEPTS = [
   posterSub:"대회 1위부터 대학 진학까지",
   tags:["학교스포츠클럽","골프 수업","해양 레저","대학 진학"],
   learn:[
-    {hi:1, t:"학교스포츠클럽", d:"최다 종목 출전! 축구·풋살·티볼 등 대회 도전", tag:"3년 연속 1위", mt:1, clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고, 부산교육감배 축구·풋살·티볼 3년 연속 1위를 했어요."},
-    {t:"골프 수업", d:"학교 안에서 배우는 골프", clip:"media/clip/sports2.mp4", at:54.8, more:"골프 수업으로 골프를 배워요."},
+    {hi:1, t:"학교스포츠클럽", d:"축구·풋살·티볼, 최다 종목 출전", tag:"3년 연속 1위", mt:1, img:"media/learn/sports_tball_team.jpg", clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고, 부산교육감배 축구·풋살·티볼 3년 연속 1위를 했어요.\n2026년에는 전국학교스포츠클럽 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위까지 올랐어요."},
+    {t:"골프 수업", d:"학교 안 골프장 수업 · 프로 경기 관람", img:"media/learn/sports_klpga.jpg", clip:"media/clip/sports2.mp4", at:54.8, more:"학교 안 골프 연습장에서 골프를 배워요. KLPGA 프로 골프 대회(HJ중공업 동부건설 챔피언십)를 직접 보러 가서 프로 선수의 경기를 눈앞에서 봤어요."},
     {t:"해양 레저 체험", d:"래프팅 같은 바다 위 체험 활동", clip:"media/clip/sports3.mp4", at:50.8, more:"래프팅 같은 해양 레저를 직접 체험해요."},
     {t:"수영 강습", d:"기초부터 차근차근 배우는 수영", clip:"media/clip/sports4.mp4", at:53.2, more:"수영 강습으로 수영을 배워요."},
     {hi:1, t:"재활운동<br>건강관리사", d:"재활 운동 전문 자격", tag:"자격", clip:"media/clip/sports5.mp4", at:58.0, more:"재활운동건강관리사 자격증을 취득하고, 스포츠 테이핑·스포츠 마사지 자격증도 취득할 수 있어요."},
-    {t:"응급처치 교육", d:"대한적십자사 심폐소생술 교육 수료", tag:"수료", clip:"media/clip/sports6.mp4", at:62.0, more:"대한적십자사 심폐소생술(응급처치) 교육을 수료해요."},
+    {t:"현장체험학습", d:"클라이밍·트레킹·마라톤까지", img:"media/learn/sports_bounce_climb2.jpg", more:"바운스 유니버스에서 클라이밍·트램펄린·VR 체험, 해동 용궁사 트레킹, 미포 철길 마라톤까지. 교실 밖에서 몸으로 배우는 현장체험학습이에요."},
     {t:"운동 못해도 OK", d:"“사실은 운동 못해도 괜찮습니다!”", clip:"media/clip/sports7.mp4", at:47.5, more:"“사실은 운동 못해도 괜찮습니다!” 스포츠과에 와서 함께 배우면 돼요."},
-    {t:"내신도 챙기기", d:"대회 성적과 학교 성적으로 대학 진학 준비", clip:"media/clip/sports8.mp4", at:41.0, more:"영상 속 선배들 말: 부산에서 우승해 전국대회에 가면 추천서를 받을 수 있고, 시험이 어렵지 않아 중학교 때보다 내신을 더 잘 받을 수 있어요."}
+    {t:"내신도 챙기기", d:"대회 성적 + 내신으로 대학 진학", clip:"media/clip/sports8.mp4", at:41.0, more:"대한적십자사 심폐소생술(응급처치) 교육도 수료해요.\n영상 속 선배들 말: 부산에서 우승해 전국대회에 가면 추천서를 받을 수 있고, 시험이 어렵지 않아 중학교 때보다 내신을 더 잘 받을 수 있어요."}
   ],
   stats:[
     {big:"3", unit:"년 연속", lb:"부산교육감배 학교스포츠클럽<br>축구·풋살·티볼 1위 (2024~2026)"},
@@ -1794,7 +1798,8 @@ var DEPTS = [
     "“공부 못하는데 스포츠과 갈 수 있나?” 질문을 먼저 던지고 반응 보기",
     "영상 속 선배 말: 부산에서 우승해 전국대회에 가면 추천서를 받을 수 있음",
     "“사실은 운동 못해도 괜찮습니다!” → 부담 낮춰 주기",
-    "3년 연속 1위·전국 1위 카드로 자부심 보여 주기",
+    "3년 연속 1위·전국 1위 카드로 자부심 보여 주기 · 2026 전국 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위(수상 화면에 사진)",
+    "현장체험학습: 바운스 유니버스(클라이밍·트램펄린·VR), 해동 용궁사 트레킹, 미포 철길 마라톤, KLPGA 프로 경기 관람 — “몸으로 배우는 과”",
     "진학 사례: 부산대 체육교육과, 용인대 무도계열·유도학과, 신라대 물리치료과 / 취업: 해군 부사관 3명, 보안·경비 다수"
   ]
 }
@@ -1930,7 +1935,7 @@ var LIFE = [
   {title:"우리들의 축제", en:"FESTIVAL", frame:"#FFFFFF", ink:"#14161B", cells:[["media/life/a1.jpg","관광의 날"],["media/life/a2.jpg","금융정보의 날"],["media/life/a3.jpg","나이팅게일 선서식"],["media/life/a4.jpg","관광 UCC 발표"]]},
   {title:"실습은 진짜처럼", en:"PRACTICE", frame:"#14161B", ink:"#FFFFFF", cells:[["media/life/b1.jpg","무알코올 칵테일·음료 실습"],["media/life/b2.jpg","퍼스널컬러 & 메이크업"],["media/life/b3.jpg","보건실습실"],["media/life/b4.jpg","골프 수업"]]},
   {title:"친구랑 함께", en:"FRIENDS", frame:"#FFC9DE", ink:"#5A1030", cells:[["media/life/c1.jpg","일본 자매학교 친구들과"],["media/life/c2.jpg","일본 하야토모 고교 방문"],["media/life/c3.jpg","여름 캠프"],["media/life/c4.jpg","자격증반 캠프"]]},
-  {title:"우리가 해냈다", en:"CHALLENGE", frame:"#C8F1DF", ink:"#0B4A30", cells:[["media/life/d1.jpg","학교스포츠클럽 대회"],["media/life/d2.jpg","2026 부산교육감배 티볼 우승"],["media/life/d3.jpg","국가고시 응원"],["media/life/d4.jpg","해양 레저 체험"]]}
+  {title:"우리가 해냈다", en:"CHALLENGE", frame:"#C8F1DF", ink:"#0B4A30", cells:[["media/learn/sports_tball_team.jpg","2026 전국 티볼대회 3위"],["media/life/d2.jpg","2026 부산교육감배 티볼 우승"],["media/life/d3.jpg","국가고시 응원"],["media/life/d4.jpg","해양 레저 체험"]]}
 ];
 
 /* ── 대회 입상 ── */
@@ -1943,7 +1948,7 @@ var CONTESTS = [
 var SPORTS_REC = [
   {year:2024, items:[["전국","축구",1],["전국","풋살",1],["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","배드민턴",2],["부산","농구",3],["부산","피구",3],["부산","킨볼",3]]},
   {year:2025, items:[["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","킨볼",2],["전국","티볼",2]]},
-  {year:2026, items:[["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","피구",2]]}
+  {year:2026, items:[["부산","축구",1],["부산","풋살",1],["부산","티볼",1],["부산","피구",2],["전국","티볼",3],["KVA","배구",3]]}
 ];
 /* ═════════════════ 여기까지 수정 ═════════════════ */
 </script>
@@ -2049,7 +2054,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
       <div class="chr h-chr"><img class="b" src="media/char/think.webp" alt=""><span class="bub" id="h-bub">어느 길로 갈까?</span></div>
       <div class="flags"><button class="flag" data-sheet="apply" data-say="신청은 여기서!|입학상담 · 진로체험 · 질문" style="--fc:#F4FF4D;--rt:-2deg"><span class="film"></span><span class="tip"><svg viewBox="0 0 48 48" fill="none" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M28 10 45 4 39 20 34.5 14.5Z" fill="#fff"/><path d="M45 4 34.5 14.5"/><ellipse cx="20" cy="30" rx="13" ry="12" fill="#fff"/><path d="M19 18.5q1-4.5 4.5-3.5"/><path d="M28.5 25q5-4 7-9.5"/><circle cx="15.5" cy="27.5" r="1.7" fill="#14161B" stroke="none"/><circle cx="24" cy="27.5" r="1.7" fill="#14161B" stroke="none"/><circle cx="12.5" cy="32" r="2.2" fill="#FF9EBB" stroke="none"/><circle cx="27" cy="32" r="2.2" fill="#FF9EBB" stroke="none"/><path d="M18 30.5h3.6l-1.8 2.4z" fill="#FF9A3C" stroke-width="1.2"/><path d="M16 42v3.5M24 42v3.5"/></svg><b>신청하기</b></span></button><button class="flag" data-sheet="qa" data-say="궁금한 건 Q&amp;A!|선배·선생님이 답해 줘" style="--fc:#5EE6FF;--rt:1.2deg"><span class="film"></span><span class="tip"><svg viewBox="0 0 48 48" fill="none" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 18 13 8.5l7 6.5M35.5 18 35 8.5l-7 6.5" fill="#A8774F"/><ellipse cx="24" cy="29" rx="13.5" ry="15" fill="#A8774F"/><ellipse cx="24" cy="37" rx="7.5" ry="5.5" fill="#EBCBA4" stroke="none"/><circle cx="18.5" cy="25" r="5.6" fill="#fff"/><circle cx="29.5" cy="25" r="5.6" fill="#fff"/><circle cx="19" cy="25.5" r="2.5" fill="#14161B" stroke="none"/><circle cx="29" cy="25.5" r="2.5" fill="#14161B" stroke="none"/><path d="M22.4 30h3.2L24 33z" fill="#FFB13B" stroke-width="1.2"/><text x="38" y="13" font-size="15" font-weight="900" fill="#F0457E" stroke="none" font-family="sans-serif">?</text></svg><b>Q&amp;A</b></span></button><button class="flag" data-sheet="career" data-say="진로체험 사진 볼래?|1차부터 4차까지 모았어" style="--fc:#D9A8FF;--rt:-1deg"><span class="film"></span><span class="tip"><svg viewBox="0 0 48 48" fill="none" stroke="#14161B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 20Q13 6 17.5 4.5q4.5 1.5 3.5 15.5M30.5 20Q35 6 30.5 4.5 26 6 27 20" fill="#fff"/><path d="M17.8 17q-1.8-8 .2-9.5M30.2 17q1.8-8-.2-9.5" stroke="#FF9EBB" stroke-width="2.2"/><circle cx="24" cy="29" r="12.5" fill="#fff"/><circle cx="19" cy="25.5" r="1.7" fill="#14161B" stroke="none"/><circle cx="29" cy="25.5" r="1.7" fill="#14161B" stroke="none"/><circle cx="15.5" cy="29" r="2" fill="#FF9EBB" stroke="none"/><circle cx="32.5" cy="29" r="2" fill="#FF9EBB" stroke="none"/><rect x="13.5" y="31" width="21" height="13" rx="3.5" fill="#2B2E38"/><circle cx="24" cy="37.5" r="4.2" fill="#9DB4E0" stroke="#fff" stroke-width="1.4"/><rect x="29" y="33" width="3.2" height="2" rx="1" fill="#FFD54A" stroke="none"/><circle cx="13.5" cy="38" r="2.6" fill="#fff"/><circle cx="34.5" cy="38" r="2.6" fill="#fff"/></svg><b>진로체험</b></span></button></div>
       <div class="tiles">
-        <button class="tile t1 rv" style="--i:6" data-go="awards"><span class="ico"><b class="big">23</b></span><span><b>수상 실적</b><span>선배들이 받은 메달</span></span></button>
+        <button class="tile t1 rv" style="--i:6" data-go="awards"><span class="ico"><b class="big" id="h-medal">25</b></span><span><b>수상 실적</b><span>선배들이 받은 메달</span></span></button>
         <button class="tile rv" style="--i:7" data-go="life"><span class="ico" style="background:#FFE1EE"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#14161B" stroke-width="2.2"><rect x="7" y="2" width="10" height="20" rx="1.5"/><path d="M9 5h6v3H9zM9 10.5h6v3H9zM9 16h6v3H9z" fill="#F0457E" stroke="none"/></svg></span><span><b>학교생활</b><span>선배 언니들의 네컷</span></span></button>
         <button class="tile rv" style="--i:8" data-go="jobs"><span class="ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#14161B" stroke-width="2.4" stroke-linecap="round"><path d="M6 20V9M12 20V4M18 20v-7"/></svg></span><span><b>취업 현황</b><span>선배들이 간 곳</span></span></button>
         <button class="tile rv" style="--i:10" id="tile-all"><span class="ico"><svg width="36" height="36" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#14161B"/></svg></span><span><b>전체 영상</b><span>4개 학과 · 약 5분</span></span></button>
@@ -2445,6 +2450,7 @@ $("#s-school").textContent=CONFIG.schoolShort;
   var lab=["","1위 · 금상","2위 · 은상","3위 · 동상"];
   $("#tally").innerHTML=[1,2,3].map(function(r){return '<div class="tl"><div class="medal md m'+r+'" style="--k:'+(r-1)+'"><span data-count="'+cnt[r]+'">'+cnt[r]+'</span></div><b>'+lab[r]+'</b></div>'}).join("")+
     '<div class="tsum"><span>입상 합계</span><span><em data-count="'+(cnt[1]+cnt[2]+cnt[3])+'">'+(cnt[1]+cnt[2]+cnt[3])+'</em> 개</span></div>';
+  var hm=$("#h-medal"); if(hm)hm.textContent=cnt[1]+cnt[2]+cnt[3];
   function stop(lv,x){var r=R[x];return '<div class="stop"><span class="dot md '+(r?'m'+r:'x')+'" style="--k:'+(k++)+'"></span><span><small>'+lv+'</small>'+x+'</span></div>'}
   $("#contests").innerHTML=CONTESTS.map(function(c){
     return '<div class="cr"><h4>'+c.event+'<small>'+c.grade+'</small></h4><div class="path">'+stop("부산",c.busan)+'<div class="wire"></div>'+stop("전국",c.nation)+'</div></div>';
@@ -2454,7 +2460,7 @@ $("#s-school").textContent=CONFIG.schoolShort;
     var g=items.filter(function(it){return it[2]===1}).length;
     return '<div class="yr"><h5>'+y.year+'<span>1위 '+g+'개</span></h5><ul>'+items.map(function(it){
       return '<li><span class="dot md m'+it[2]+'" style="--k:'+(k++)+'"></span>'+it[1]+' '+it[2]+'위<em class="'+(it[0]==="전국"?"n":"")+'">'+it[0]+'</em></li>'}).join("")+'</ul></div>';
-  }).join("")+'</div>';
+  }).join("")+'<div class="ac-ph"><figure><img src="media/learn/sports_tball_trophy.jpg" alt=""><figcaption>2026 전국학교스포츠클럽 티볼대회 · 여고부 3위</figcaption></figure><figure><img src="media/learn/sports_volley_medal.jpg" alt=""><figcaption>2026 KVA V3 배구 디비전리그 · 여고부 3위</figcaption></figure></div></div>';
 })();
 
 /* ── 선배들은 어디로 갔을까 (크레딧) ── */
