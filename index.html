@@ -3194,7 +3194,7 @@ var CD=(function(){
     if(S.k==="done"){ if(live)live.innerHTML=""; if(ha)ha.textContent=""; if(fl)fl.innerHTML=""; return; }
     var lab=S.k==="wait"?"남은 시간":"마감까지", tt=(S.r.d?S.r.d+"일 ":"")+S.r.t;
     if(live)live.innerHTML='<i>'+(S.k==="wait"?"정확히 남은 시간":"마감까지")+'</i>'+(S.r.d?'<b>'+S.r.d+'</b><small>일</small>':'')+'<b>'+S.r.t+'</b>';
-    if(ha)ha.textContent=(S.k==="wait"?"남은 시간 ":"접수 중! 마감까지 ")+tt;
+    if(ha){ var hm=S.r.t.replace(/:\d\d$/,""); ha.textContent=(S.k==="wait"?"남은 시간 ":"접수 중! 마감까지 ")+(S.r.d?S.r.d+"일 ":"")+hm.replace(":","시간 ")+"분"; } // 홈은 분까지만(초는 입학 안내 화면에서)
     if(fl)fl.innerHTML='<small>'+S.a.name+(S.k==="wait"?" 접수까지":" 마감까지")+'</small><b>'+tt+'</b>';
   }
   tick(); setInterval(tick,1000);
