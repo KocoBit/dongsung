@@ -283,7 +283,13 @@ var APPLY = {
     <div class="f"><span class="lb">동성여고에 얼마나 관심 있나요?<i>*</i></span><div class="opts">
       <label class="opt"><input type="radio" name="interest" value="무조건 지원할 거예요"><span class="dot"></span>무조건 지원할 거예요</label>
       <label class="opt"><input type="radio" name="interest" value="고민 중이에요"><span class="dot"></span>고민 중이에요</label></div></div>
-    <div class="agree" data-purpose="진로체험 참가 확인 및 행사 안내"></div>
+    <div class="f"><label>담임선생님 성함<i>*</i></label><input class="in" name="tname" placeholder="예: 김동성" autocomplete="off"></div>
+    <div class="f mf"><label>담임선생님 연락처<small>선택 · 모르면 비워도 돼요</small></label><button type="button" class="eye">👁 보기</button><input class="in msk" name="tphone" type="tel" inputmode="tel" placeholder="010-0000-0000" autocomplete="off"></div>
+    <div class="f"><span class="lb">학부모님도 함께 오시나요?<i>*</i><small>학부모 상담</small></span><div class="opts">
+      <label class="opt"><input type="radio" name="parent" value="함께 와요"><span class="dot"></span>네, 함께 와서 상담받아요</label>
+      <label class="opt"><input type="radio" name="parent" value="혼자 와요"><span class="dot"></span>아니요, 혼자 와요</label>
+      <label class="opt"><input type="radio" name="parent" value="아직 몰라요"><span class="dot"></span>아직 몰라요</label></div></div>
+    <div class="agree" data-purpose="진로체험 참가 확인 및 행사 안내 (담임선생님 정보는 참가 학생 확인과 행사 안내 연락에만 써요)"></div>
     <input class="hp" name="website" tabindex="-1" autocomplete="off">
     <div class="msg"></div>
     <button class="go" type="submit">진로체험 신청하기</button>
@@ -369,7 +375,7 @@ if(APPLY.photos&&APPLY.photos.length){ $("#gal-sec").style.display=""; $("#galle
 /* 개인정보 동의 */
 $$(".agree").forEach(function(a){
   a.innerHTML='<label class="opt chk"><input type="checkbox" name="agree"><span class="dot"></span>개인정보 수집·이용에 동의해요 <i style="font-style:normal;color:var(--pink)">*</i></label>'+
-  '<details><summary>자세히 보기</summary><dl><dt>수집 항목</dt><dd>중학교, 학년·반·번호, 이름, 연락처'+(a.closest("form").dataset.type==="입학상담"?', 성적(입력한 경우만)':', 관심 학과')+'</dd>'+
+  '<details><summary>자세히 보기</summary><dl><dt>수집 항목</dt><dd>중학교, 학년·반·번호, 이름, 연락처'+(a.closest("form").dataset.type==="입학상담"?', 성적(입력한 경우만)':', 관심 학과, 담임선생님 성함·연락처(입력한 경우만), 학부모 동행 여부')+'</dd>'+
   '<dt>이용 목적</dt><dd>'+a.dataset.purpose+'</dd><dt>보관 기간</dt><dd>2027학년도 입학전형 종료 시까지 보관 후 파기</dd>'+
   '<dt>동의 거부</dt><dd>동의하지 않을 수 있으며, 이 경우 신청이 어려워요</dd></dl></details>';
 });
@@ -382,14 +388,15 @@ $$(".form").forEach(function(f){
   f.addEventListener("submit",function(e){
     e.preventDefault();
     var type=f.dataset.type, d={type:type,website:val(f,"website")}, need=[];
-    ["school","gu","name","text","grade_","cls","num","phone","score","intent","round","dept","interest"].forEach(function(n){ if(f.elements[n]) d[n]=val(f,n); });
+    ["school","gu","name","text","grade_","cls","num","phone","score","intent","round","dept","interest","tname","tphone","parent"].forEach(function(n){ if(f.elements[n]) d[n]=val(f,n); });
     if(type==="Q&A") need=["school","name","text"];
-    else { need=["school","cls","num","name","phone"]; if(type==="입학상담")need.push("intent"); else need.push("round","dept","interest"); }
+    else { need=["school","cls","num","name","phone"]; if(type==="입학상담")need.push("intent"); else need.push("round","dept","interest","tname","parent"); }
     var sf=$(".f.sch",f); if(d.school&&sf&&!sf.classList.contains("picked")&&!sf.dataset.manual){ if(!SCH_UI.auto(f)){ f.elements.school.classList.add("err"); $(".msg",f).textContent="학교를 목록에서 골라 주세요. 목록에 없으면 '목록에 없어요'를 눌러요."; SCH_UI.open(f); return; } d.school=val(f,"school"); d.gu=val(f,"gu"); }
     var miss=need.filter(function(n){return !d[n]});
     miss.forEach(function(n){ var el=f.elements[n]; if(el&&!el.length&&el.classList)el.classList.add("err"); });
     if(d.score&&(!/^\d{1,3}(\.\d{1,2})?$/.test(d.score)||parseFloat(d.score)>100)){ f.elements.score.classList.add("err"); $(".msg",f).textContent="성적은 숫자로 적어 주세요. (소수점 둘째 자리까지)"; return; }
     if(d.phone&&!/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(d.phone.replace(/\s/g,""))) { miss.push("phone"); f.elements.phone.classList.add("err"); }
+    if(d.tphone&&!/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(d.tphone.replace(/\s/g,""))) { f.elements.tphone.classList.add("err"); $(".msg",f).textContent="담임선생님 연락처를 010-0000-0000처럼 적어 주세요. 모르면 비워도 돼요."; return; }
     if(type!=="Q&A"){ d.agree=!!(f.elements.agree&&f.elements.agree.checked); if(!d.agree){ $(".msg",f).textContent="개인정보 수집·이용에 동의해 주세요."; return; } }
     if(miss.length){ $(".msg",f).textContent=miss.indexOf("phone")>=0&&miss.length===1?"연락처를 010-0000-0000처럼 적어 주세요.":"* 표시된 칸을 모두 채워 주세요."; return; }
     if(!APPLY.api){ $(".msg",f).textContent="아직 접수 주소가 연결되지 않았어요. (선생님께 알려 주세요)"; return; }
