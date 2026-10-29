@@ -613,27 +613,32 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .dt-d{position:relative;margin-top:22px;font-size:30px;font-weight:700;line-height:1.5}
 .dt-m{position:relative;margin-top:20px;font-size:24px;line-height:1.65;opacity:.92;white-space:pre-line}
 /* 다이나믹 아일랜드: 상세 화면 이름표는 모두 위쪽 가운데 작은 알약. '고르는 순간'(동아리 선택·진로체험 사진 크게 보기)에만 내용만큼 늘어남 */
-.cb{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;transition:grid-template-columns .6s cubic-bezier(.3,1,.4,1),gap .6s}
-.cb.s0{grid-template-columns:1fr 0fr;gap:0}.cb.s1{grid-template-columns:0fr 1fr;gap:0}
+.cb{position:absolute;inset:0;display:grid;gap:4px;background:#fff;transition:grid-template-columns .6s cubic-bezier(.3,1,.4,1),gap .6s}
+.cb.one{gap:0}
 .cb-p{position:relative;overflow:hidden;min-width:0;cursor:pointer;background:#000}
 .cb-p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
 .cb-p img.on{opacity:1}
 .isl{position:absolute;left:50%;top:18px;transform:translateX(-50%);height:44px;width:auto;max-width:var(--w,160px);border-radius:22px;background:rgba(14,15,20,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;padding:0 20px;gap:12px;overflow:hidden;white-space:nowrap;z-index:2;
  transition:max-width .45s cubic-bezier(.34,1.25,.5,1),height .45s cubic-bezier(.34,1.25,.5,1),border-radius .45s}
 .isl b{font-size:19px;font-weight:900;transition:font-size .35s}
-.isl .cnt,.isl .all{opacity:0;transition:opacity .3s}
+.isl .cnt,.isl .all,.isl .isd{opacity:0;transition:opacity .3s}
+.isl .isd{font-size:16px;font-weight:700;color:rgba(255,255,255,.85);margin-left:12px}
 .isl .cnt{margin-left:14px;font-size:17px;font-weight:700;color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
 .isl .all{height:34px;padding:0 14px;border-radius:17px;background:rgba(255,255,255,.16);color:#fff;font-size:15px;font-weight:900}
 .isl .bar{position:absolute;left:24px;right:24px;bottom:7px;height:3px;border-radius:2px;background:rgba(255,255,255,.18);opacity:0;overflow:hidden}
 .isl .bar i{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(0)}
-.cb-p.sel .isl{max-width:min(560px,calc(100% - 36px));height:58px;border-radius:29px}
+.cb-p.sel .isl{max-width:min(820px,calc(100% - 36px));height:58px;border-radius:29px}
 .cb-p.sel .isl b{font-size:23px}
-.cb-p.sel .isl .cnt,.cb-p.sel .isl .all{opacity:1;transition-delay:.25s}
+.cb:not(.sm) .isl .isd{display:none}
+.cb-p.sel .isl .cnt,.cb-p.sel .isl .all,.cb-p.sel .isl .isd{opacity:1;transition-delay:.25s}
 .cb-p.sel .isl .bar{opacity:1;transition:opacity .3s .25s}
 .cb-p.sel .isl .bar i.go{animation:cbbar 2s linear forwards}
 @keyframes cbbar{to{transform:scaleX(1)}}
 .isl .bar{left:20px;right:20px;bottom:6px}
 body.calm .cb,body.calm .isl,body.calm .cb-p img{transition:none}
+.dt-m .cb-more{display:block;margin-bottom:18px}
+/* 설명이 긴 카드: 앨범 고르기를 한 줄 칩으로(설명은 펼쳐진 아일랜드에) */
+.dt-m .cbk.sm{display:inline-flex;width:auto;padding:12px 22px;margin:0 10px 0 0;border-radius:26px}.dt-m .cbk.sm b{font-size:21px;margin:0}.dt-m .cbk.sm span{display:none}
 .dt-m .cbk{white-space:normal;display:block;width:100%;text-align:left;background:rgba(255,255,255,.14);border-radius:22px;padding:20px 26px;margin-bottom:14px;color:#fff;border:0;font:inherit;cursor:pointer;transition:background .3s,color .3s}
 .dt-m .cbk b{display:block;font-size:28px;font-weight:900;margin-bottom:6px}
 .dt-m .cbk span{display:block;font-size:20px;font-weight:700;line-height:1.5}
@@ -1619,7 +1624,7 @@ var CONFIG = {
   instagramLabel: "인스타그램 팔로우",
   form: "",                 // 예: 구글폼 관심 학생 신청 주소
   formLabel: "관심 학생 신청",
-  api: "https://script.google.com/macros/s/AKfycbxIFP0vOzKgDCdlqgVXE4TFBSo25e3q0sUjx-ljDAmJ_KjTDF7VoyhREtNRSbnSe7rf/exec",                 // 구글 Apps Script 웹 앱 주소 (…/exec) — 실시간 Q&A를 불러옴
+  api: "https://script.google.com/macros/s/AKfycbyQSlBbvpXyf1VuaO09NJ4kuZak0S4J1vAwzrFM3tL4h96hogrI1ahZWryCYaLMtbuP/exec",                 // 구글 Apps Script 웹 앱 주소 (…/exec) — 실시간 Q&A를 불러옴
   applyUrl: "https://kocobit.github.io/dongsung/apply/",   // 학생용 신청 사이트 공개 주소 (GitHub Pages: KocoBit/dongsung 의 apply 폴더)
   shortSite: "숏.한국/동성여고/오는길",   // 외워서 칠 수 있는 짧은 주소 (QR 아래에 큰 글자로 보여 줌 · 비우면 숨김)
   shortApply: "숏.한국/동성여고/신청",
@@ -1826,12 +1831,12 @@ var DEPTS = [
   posterSub:"대회 1위부터 대학 진학까지",
   tags:["학교스포츠클럽","골프 수업","해양 레저","대학 진학"],
   learn:[
-    {hi:1, t:"학교스포츠클럽", d:"축구·풋살·티볼, 최다 종목 출전", tag:"풋살·티볼 3년 연속 1위", mt:1, img:"media/learn/sports_tball_team.jpg", clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고(2024년 8종목), 부산교육감배 풋살·티볼 3년 연속 1위, 축구는 2024·2026년 1위를 했어요. 2024년에는 축구·풋살 전국 1위, 2026년 축구·풋살은 전국대회에 진출했어요(출전 예정).\n2026년에는 전국학교스포츠클럽 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위까지 올랐어요."},
-    {t:"골프 수업", d:"학교 안 골프장 수업 · 프로 경기 관람", img:"media/learn/sports_klpga.jpg", clip:"media/clip/sports2.mp4", at:54.8, more:"학교 안 골프 연습장에서 골프를 배워요. KLPGA 프로 골프 대회(HJ중공업 동부건설 챔피언십)를 직접 보러 가서 프로 선수의 경기를 눈앞에서 봤어요."},
+    {hi:1, t:"학교스포츠클럽", d:"축구·풋살·티볼, 최다 종목 출전", tag:"풋살·티볼 3년 연속 1위", mt:1, clubs:[{n:"티볼", d:"2026 전국학교스포츠클럽 축전 3위", ph:["media/learn/sports_tball_team.jpg","media/learn/sp_tball1.jpg","media/learn/sp_tball2.jpg"]},{n:"배구", d:"2026 KVA V3 디비전리그 3위", ph:["media/learn/sp_volley1.jpg","media/learn/sp_volley2.jpg","media/learn/sp_volley3.jpg","media/learn/sp_volley4.jpg"]}], clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고(2024년 8종목), 부산교육감배 풋살·티볼 3년 연속 1위, 축구는 2024·2026년 1위를 했어요. 2024년에는 축구·풋살 전국 1위, 2026년 축구·풋살은 전국대회에 진출했어요(출전 예정).\n2026년에는 전국학교스포츠클럽 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위까지 올랐어요."},
+    {t:"골프 수업", d:"학교 안 골프장 수업 · 프로 경기 관람", clubs:[{n:"KLPGA 대회 관람", d:"HJ중공업 동부건설 챔피언십", ph:["media/learn/sports_klpga.jpg","media/learn/sp_golf1.jpg","media/learn/sp_golf2.jpg","media/learn/sp_golf3.jpg"]}], clip:"media/clip/sports2.mp4", at:54.8, more:"학교 안 골프 연습장에서 골프를 배워요. KLPGA 프로 골프 대회(HJ중공업 동부건설 챔피언십)를 직접 보러 가서 프로 선수의 경기를 눈앞에서 봤어요."},
     {t:"해양 레저 체험", d:"래프팅 같은 바다 위 체험 활동", clip:"media/clip/sports3.mp4", at:50.8, more:"래프팅 같은 해양 레저를 직접 체험해요."},
     {t:"수영 강습", d:"기초부터 차근차근 배우는 수영", clip:"media/clip/sports4.mp4", at:53.2, more:"수영 강습으로 수영을 배워요."},
     {hi:1, t:"재활운동<br>건강관리사", d:"재활 운동 전문 자격", tag:"자격", clip:"media/clip/sports5.mp4", at:58.0, more:"재활운동건강관리사 자격증을 취득하고, 스포츠 테이핑·스포츠 마사지 자격증도 취득할 수 있어요."},
-    {t:"현장체험학습", d:"철길 마라톤 · 트레킹 · 클라이밍", img:"media/learn/sports_marathon_run.jpg", more:"미포 철길을 따라 청사포까지 달리는 마라톤, 해동 용궁사 트레킹, 바운스 유니버스 클라이밍·트램펄린·VR 체험까지. 교실 밖에서 몸으로 배우는 현장체험학습이에요."},
+    {t:"현장체험학습", d:"철길 마라톤 · 트레킹 · 클라이밍", clubs:[{n:"철길 마라톤", d:"미포 철길 따라 청사포까지", ph:["media/learn/sports_marathon_run.jpg","media/learn/sp_run1.jpg","media/learn/sp_run2.jpg","media/learn/sp_run3.jpg","media/learn/sp_run4.jpg","media/learn/sp_run5.jpg","media/learn/sp_run6.jpg"]},{n:"용궁사 트레킹", d:"해동 용궁사 바닷길 걷기", ph:["media/learn/sp_temple1.jpg","media/learn/sp_temple2.jpg","media/learn/sp_temple3.jpg","media/learn/sp_temple4.jpg","media/learn/sp_temple5.jpg"]},{n:"클라이밍·바운스", d:"클라이밍·트램펄린·VR 체험", ph:["media/learn/sp_bounce1.jpg","media/learn/sp_bounce2.jpg","media/learn/sp_bounce3.jpg","media/learn/sp_bounce4.jpg","media/learn/sp_bounce5.jpg","media/learn/sp_bounce6.jpg","media/learn/sp_bounce7.jpg","media/learn/sp_bounce8.jpg"]}], more:"교실 밖에서 몸으로 배우는 현장체험학습이에요."},
     {t:"운동 못해도 OK", d:"“사실은 운동 못해도 괜찮습니다!”", clip:"media/clip/sports7.mp4", at:47.5, more:"“사실은 운동 못해도 괜찮습니다!” 스포츠과에 와서 함께 배우면 돼요."},
     {t:"내신도 챙기기", d:"대회 성적 + 내신으로 대학 진학", clip:"media/clip/sports8.mp4", at:41.0, more:"대한적십자사 심폐소생술(응급처치) 교육도 수료해요.\n영상 속 선배들 말: 부산에서 우승해 전국대회에 가면 추천서를 받을 수 있고, 시험이 어렵지 않아 중학교 때보다 내신을 더 잘 받을 수 있어요."}
   ],
@@ -2653,7 +2658,7 @@ var DT=(function(){
     else if(x.certs||x.subj){ media.innerHTML='<canvas></canvas><div class="certs'+(x.subj?' subj':'')+'">'+(x.certs||x.subj).map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
     else { media.innerHTML='<canvas></canvas><div class="ht">'+htLines(x.t).map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'; halftone($("canvas",media),d.color); htFit(); }
     $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'');
-    var tt=x.t.replace(/<br\s*\/?>/g," "); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/,<br\s*\/?>/g,", ").replace(/<br\s*\/?>/g," / "); $("#dt-m").textContent=x.more||""; if(x.clubs)$("#dt-m").innerHTML=x.clubs.map(function(c,i){return '<button class="cbk" data-cb="'+i+'"><b>'+c.n+'</b><span>'+c.d+'</span></button>'}).join("");
+    var tt=x.t.replace(/<br\s*\/?>/g," "); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/,<br\s*\/?>/g,", ").replace(/<br\s*\/?>/g," / "); $("#dt-m").textContent=x.more||""; if(x.clubs)$("#dt-m").innerHTML=(x.more?'<span class="cb-more">'+x.more.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})+'</span>':'')+x.clubs.map(function(c,i){return '<button class="cbk'+(x.more?' sm':'')+'" data-cb="'+i+'"><b>'+c.n+'</b><span>'+c.d+'</span></button>'}).join("");
     var acts="";
     if(x.clip&&x.at!=null) acts+='<button data-dtplay="1">▶ 영상에서 이 장면 보기</button>';
     if(x.hosp) acts+='<button class="g" data-hosp="'+dep+'">병원 이름 모두 보기</button>';
@@ -2661,25 +2666,28 @@ var DT=(function(){
     $("#dt-dots").innerHTML=d.learn.map(function(_,i){return '<i class="'+(i===idx?"on":"")+'"></i>'}).join("");
   }
   // 동아리 사진: 둘 다 보기(2분할) ↔ 한 동아리(1분할, 이름표가 아일랜드처럼 늘어남)
-  var cbT=0, cbSel=-1, cbI=[0,0];
+  var cbT=0, cbSel=-1, cbI=[];
+  function cbCols(n){ var a=[]; for(var k=0;k<n;k++)a.push(cbSel<0||cbSel===k?"1fr":"0fr"); return a.join(" "); }
+  function cbTick(x){ x.clubs.forEach(function(_,k){ if(cbSel<0||cbSel===k)cbNext(x,k); }); }
   function clubs(x){
-    cbSel=-1; cbI=[0,0];
-    media.innerHTML='<div class="cb">'+x.clubs.map(function(c,i){ return '<div class="cb-p" data-cbp="'+i+'">'+c.ph.map(function(u,k){return '<img src="'+u+'" alt=""'+(k?'':' class="on"')+'>'}).join("")+
-      '<div class="isl"><b>'+c.n+'</b><span class="cnt">1 / '+c.ph.length+'</span><button class="all" data-cball="1">둘 다 보기</button><span class="bar"><i></i></span></div></div>'; }).join("")+'</div>';
+    cbSel=-1; cbI=x.clubs.map(function(){return 0});
+    media.innerHTML='<div class="cb'+(x.more?' sm':'')+'">'+x.clubs.map(function(c,i){ return '<div class="cb-p" data-cbp="'+i+'">'+c.ph.map(function(u,k){return '<img src="'+u+'" alt=""'+(k?'':' class="on"')+'>'}).join("")+
+      '<div class="isl"><b>'+c.n+'</b><span class="isd">'+c.d+'</span><span class="cnt">1 / '+c.ph.length+'</span>'+(x.clubs.length>1?'<button class="all" data-cball="1">'+(x.clubs.length>2?'모두 보기':'둘 다 보기')+'</button>':'')+'<span class="bar"><i></i></span></div></div>'; }).join("")+'</div>';
     var mc=document.createElement("canvas").getContext("2d"); mc.font="900 19px DS"; // 상세 창이 열리기 전이라 글자 폭을 직접 잼
     $$(".isl",media).forEach(function(il){ il.style.setProperty("--w",Math.ceil(mc.measureText($("b",il).textContent).width+41)+"px"); });
-    cbT=setInterval(function(){ [0,1].forEach(function(i){ if(cbSel<0||cbSel===i)cbNext(x,i); }); },2000);
+    $(".cb",media).style.gridTemplateColumns=cbCols(x.clubs.length);
+    cbT=setInterval(function(){ cbTick(x); },2000);
   }
   function cbNext(x,i,keep){ var p=$('[data-cbp="'+i+'"]',media); if(!p)return; var im=$$("img",p);
     if(!keep){ cbI[i]=(cbI[i]+1)%im.length; im.forEach(function(m,k){m.classList.toggle("on",k===cbI[i])}); }
     $(".cnt",p).textContent=(cbI[i]+1)+" / "+im.length;
     var bar=$(".bar i",p); bar.classList.remove("go"); void bar.offsetWidth; if(cbSel===i)bar.classList.add("go"); }
   function cbPick(i){ var x=D[dep].learn[idx]; if(!x.clubs)return; cbSel=(i===cbSel?-1:i);
-    var cb=$(".cb",media); cb.classList.remove("s0","s1"); if(cbSel>=0)cb.classList.add("s"+cbSel);
+    var cb=$(".cb",media); cb.style.gridTemplateColumns=cbCols(x.clubs.length); cb.classList.toggle("one",cbSel>=0);
     $$(".cb-p",media).forEach(function(p,k){ p.classList.toggle("sel",k===cbSel); });
     $$(".cbk",el).forEach(function(b,k){ b.classList.toggle("on",k===cbSel); });
     clearInterval(cbT); if(cbSel>=0)cbNext(x,cbSel,true);
-    cbT=setInterval(function(){ [0,1].forEach(function(k){ if(cbSel<0||cbSel===k)cbNext(x,k); }); },2000); SND.tick(); }
+    cbT=setInterval(function(){ cbTick(x); },2000); SND.tick(); }
   el.addEventListener("click",function(e){ var t=e.target;
     if(t.closest("[data-cball]")){ e.stopPropagation(); cbPick(cbSel); return; }
     var k=t.closest("[data-cb]"); if(k){ e.stopPropagation(); cbPick(+k.dataset.cb); return; }
