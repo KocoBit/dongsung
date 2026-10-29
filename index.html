@@ -69,7 +69,8 @@ body.dark #nav .tool:hover{color:#fff;border-color:#fff}
 .scene{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s var(--ease),visibility 0s .55s}
 .scene.on{opacity:1;visibility:visible;transition:opacity .55s var(--ease),visibility 0s}
 .rv{opacity:0;transform:translateY(34px)}
-.scene.in .rv,.panel.in .rv{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0)*80ms + 120ms)}
+/* 2026.10.29 홍보 시간 20분 → 전반적으로 빠르게: 나타나는 시간·간격 줄임 */
+.scene.in .rv,.panel.in .rv{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .55s var(--ease);transition-delay:calc(var(--i,0)*50ms + 60ms)}
 .body{position:absolute;left:80px;right:80px;top:120px;bottom:56px}
 
 /* ── 1. 오프닝: 컴백 티저형 범퍼 ── */
@@ -577,8 +578,8 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .it .cam{margin-top:12px;font-size:16px;font-weight:700;color:var(--c);display:flex;align-items:center;gap:6px;opacity:.85}
 .it .cam i{width:0;height:0;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}
 .it:hover .cam{color:#fff}
-.panel.in .it.rv{transition:opacity .7s var(--ease),transform .8s var(--ease),background .35s,color .35s,box-shadow .35s}
-.panel.in .it .wave{animation:wave .9s ease-out both;animation-delay:calc(var(--i)*90ms + 650ms)}
+.panel.in .it.rv{transition:opacity .5s var(--ease),transform .55s var(--ease),background .35s,color .35s,box-shadow .35s}
+.panel.in .it .wave{animation:wave .9s ease-out both;animation-delay:calc(var(--i)*60ms + 400ms)}
 .it .wave{position:absolute;inset:0;background:var(--c);opacity:0;pointer-events:none}
 @keyframes wave{0%{opacity:0}35%{opacity:.85}100%{opacity:0}}
 .it h4,.it p,.it .n,.it .cam{position:relative;z-index:1}
@@ -629,7 +630,7 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .cb-p.sel .isl b{font-size:23px}
 .cb-p.sel .isl .cnt,.cb-p.sel .isl .all{opacity:1;transition-delay:.25s}
 .cb-p.sel .isl .bar{opacity:1;transition:opacity .3s .25s}
-.cb-p.sel .isl .bar i.go{animation:cbbar 2.5s linear forwards}
+.cb-p.sel .isl .bar i.go{animation:cbbar 2s linear forwards}
 @keyframes cbbar{to{transform:scaleX(1)}}
 .isl .bar{left:20px;right:20px;bottom:6px}
 body.calm .cb,body.calm .isl,body.calm .cb-p img{transition:none}
@@ -875,9 +876,9 @@ body.dark .ngl{color:#FF9CC2;border-color:#2C3242}
 #act.in{clip-path:inset(0 0 0 0);transition:clip-path .55s cubic-bezier(.7,0,.2,1)}
 #act.out{clip-path:inset(0 100% 0 0);transition:clip-path .6s cubic-bezier(.7,0,.2,1)}
 .act-tx{position:absolute;z-index:3}
-.act-tx small{display:block;font-size:26px;font-weight:900;letter-spacing:8px;opacity:0;transform:translateY(16px);transition:all .6s .35s}
-.act-tx h2{margin-top:6px;font-size:200px;font-weight:900;letter-spacing:-10px;line-height:1;opacity:0;transform:translateY(40px);filter:blur(10px);transition:all .8s cubic-bezier(.2,.8,.2,1) .45s}
-.act-tx p{margin-top:22px;font-size:40px;font-weight:700;letter-spacing:-1px;opacity:0;transition:opacity .7s .85s}
+.act-tx small{display:block;font-size:26px;font-weight:900;letter-spacing:8px;opacity:0;transform:translateY(16px);transition:all .45s .2s}
+.act-tx h2{margin-top:6px;font-size:200px;font-weight:900;letter-spacing:-10px;line-height:1;opacity:0;transform:translateY(40px);filter:blur(10px);transition:all .6s cubic-bezier(.2,.8,.2,1) .28s}
+.act-tx p{margin-top:22px;font-size:40px;font-weight:700;letter-spacing:-1px;opacity:0;transition:opacity .5s .55s}
 #act.in .act-tx small,#act.in .act-tx h2,#act.in .act-tx p{opacity:1;transform:none;filter:none}
 #act.a1 .act-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(26,16,40,.82) 0,rgba(26,16,40,.45) 38%,transparent 62%)}
 #act.a1 .act-tx{right:110px;top:250px;text-align:right}
@@ -890,7 +891,7 @@ body.dark .ngl{color:#FF9CC2;border-color:#2C3242}
 #act.a2 p{margin-top:14px;text-shadow:0 4px 20px rgba(0,0,0,.35)}
 #act.a2 small{color:var(--gold)}
 .act-row{position:absolute;z-index:2;left:0;right:0;bottom:0;height:720px;display:grid;grid-template-columns:repeat(4,1fr)}
-.act-row div{position:relative;opacity:0;transform:translateY(120px);transition:opacity .5s,transform .9s cubic-bezier(.2,1.2,.3,1);transition-delay:calc(var(--k)*110ms + .5s)}
+.act-row div{position:relative;opacity:0;transform:translateY(120px);transition:opacity .5s,transform .9s cubic-bezier(.2,1.2,.3,1);transition-delay:calc(var(--k)*80ms + .3s)}
 .act-row img{position:absolute;left:50%;bottom:-230px;height:860px;transform:translateX(-50%);filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
 #act.in .act-row div{opacity:1;transform:none}
 #act.a3 .act-bg{background:linear-gradient(180deg,#5D6FD6 0%,#9C8FE0 38%,#F4A9B8 72%,#FFD3A0 100%)}
@@ -1324,7 +1325,7 @@ body.dark #ap-btn{background:rgba(255,255,255,.08);color:#FFB8D2;border-color:rg
 .sh-x{position:absolute;right:44px;top:38px;z-index:6;height:58px;padding:0 28px;border-radius:29px;background:rgba(255,255,255,.14);color:#fff;font-size:22px;font-weight:900;border:1px solid rgba(255,255,255,.25)}
 .sh-x:hover{background:rgba(255,255,255,.26)}
 .sh .body{top:96px}
-.sh.in .rv{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0)*80ms + 120ms)}
+.sh.in .rv{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .55s var(--ease);transition-delay:calc(var(--i,0)*50ms + 60ms)}
 #qa .sh-card{background:var(--night);color:#fff}
 #qa{background:rgba(28,16,40,.5)}
 #qa .qa-ask{width:fit-content;padding-right:44px}
@@ -2667,7 +2668,7 @@ var DT=(function(){
       '<div class="isl"><b>'+c.n+'</b><span class="cnt">1 / '+c.ph.length+'</span><button class="all" data-cball="1">둘 다 보기</button><span class="bar"><i></i></span></div></div>'; }).join("")+'</div>';
     var mc=document.createElement("canvas").getContext("2d"); mc.font="900 19px DS"; // 상세 창이 열리기 전이라 글자 폭을 직접 잼
     $$(".isl",media).forEach(function(il){ il.style.setProperty("--w",Math.ceil(mc.measureText($("b",il).textContent).width+41)+"px"); });
-    cbT=setInterval(function(){ [0,1].forEach(function(i){ if(cbSel<0||cbSel===i)cbNext(x,i); }); },2500);
+    cbT=setInterval(function(){ [0,1].forEach(function(i){ if(cbSel<0||cbSel===i)cbNext(x,i); }); },2000);
   }
   function cbNext(x,i,keep){ var p=$('[data-cbp="'+i+'"]',media); if(!p)return; var im=$$("img",p);
     if(!keep){ cbI[i]=(cbI[i]+1)%im.length; im.forEach(function(m,k){m.classList.toggle("on",k===cbI[i])}); }
@@ -2678,7 +2679,7 @@ var DT=(function(){
     $$(".cb-p",media).forEach(function(p,k){ p.classList.toggle("sel",k===cbSel); });
     $$(".cbk",el).forEach(function(b,k){ b.classList.toggle("on",k===cbSel); });
     clearInterval(cbT); if(cbSel>=0)cbNext(x,cbSel,true);
-    cbT=setInterval(function(){ [0,1].forEach(function(k){ if(cbSel<0||cbSel===k)cbNext(x,k); }); },2500); SND.tick(); }
+    cbT=setInterval(function(){ [0,1].forEach(function(k){ if(cbSel<0||cbSel===k)cbNext(x,k); }); },2000); SND.tick(); }
   el.addEventListener("click",function(e){ var t=e.target;
     if(t.closest("[data-cball]")){ e.stopPropagation(); cbPick(cbSel); return; }
     var k=t.closest("[data-cb]"); if(k){ e.stopPropagation(); cbPick(+k.dataset.cb); return; }
@@ -3169,7 +3170,7 @@ var ACT=(function(){
     pl.setAttribute("d","M34 0 L-26 -18 L-12 0 Z M34 0 L-26 16 L-12 0 Z"); pl.setAttribute("fill","#fff"); svg.appendChild(pl);
     var mask=document.createElementNS("http://www.w3.org/2000/svg","path"); 
     var t0=performance.now();
-    (function f(now){ if(!el.classList.contains("on"))return; var p=Math.min(1,(now-t0-250)/1500); if(p<0){requestAnimationFrame(f);return;}
+    (function f(now){ if(!el.classList.contains("on"))return; var p=Math.min(1,(now-t0-200)/1050); if(p<0){requestAnimationFrame(f);return;}
       var e=1-Math.pow(1-p,2.2), a=path.getPointAtLength(L*e), b=path.getPointAtLength(Math.min(L,L*e+2));
       pl.setAttribute("transform","translate("+a.x+" "+a.y+") rotate("+(Math.atan2(b.y-a.y,b.x-a.x)*57.3)+") scale(1.6)");
       path.style.strokeDashoffset=0; path.setAttribute("stroke-dasharray",(L*e)+" "+L);
@@ -3179,7 +3180,7 @@ var ACT=(function(){
     busy=true; last=a; done=cb; timers.forEach(clearTimeout); timers=[];
     build(a); el.classList.add("on"); void el.offsetWidth; el.classList.add("in"); SND.whoosh();
     if(!late)timers.push(setTimeout(function(){ if(done){var c=done;done=null;c();} },600));
-    timers.push(setTimeout(out,a===2?2300:2100));
+    timers.push(setTimeout(out,a===2?1650:1500)); // 막 화면 머무는 시간(빠르게)
   }
   function out(){
     timers.forEach(clearTimeout); timers=[];
@@ -3503,7 +3504,7 @@ var DRESS=(function(){
     el.className="on"; void el.offsetWidth; el.classList.add("in");
     timers.push(setTimeout(function(){ swirl(d.color); SND.whoosh(); },280));
     timers.push(setTimeout(function(){ el.classList.add("sw"); SND.chime(); },280+550));
-    timers.push(setTimeout(finish,2350));
+    timers.push(setTimeout(finish,1750)); // 옷 갈아입기 전체 시간(빠르게)
   }
   el.addEventListener("click",function(e){ e.stopPropagation(); if(busy)finish(); });
   return {run:run,skip:function(){ if(busy)finish(); },get busy(){return busy}};
