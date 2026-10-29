@@ -2813,7 +2813,7 @@ var ADM=(function(){
     if(now){ g.fillStyle="#E5383B"; [[18,-22,0],[25,-2,.04],[-23,13,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*al; spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); }
     g.globalAlpha=al; }
   // 학과 이름 옆 '+' 자격 (갈래=선택이 아니라 학과 공부에 더해 따는 자격) — 같은 급은 같은 모양
-  var ADDON={tourism:{t:"조주기능사",plate:"부산 최초"}, health:{t:"간호조무사"}};
+  var ADDON={tourism:{t:"조주기능사",plate:"부산 최초"}, health:{t:"간호조무사"}, sports:{plate:"부산·경남 유일"}}; // sports: 자격 없이 학과 이름 옆 명판만
   function draw(p,now){
     g.clearRect(0,0,1040,400);
     var ph=now?((now/2400)%1):1, sc=ph<0.13?1+0.22*Math.sin(Math.PI*ph/0.13):1;
@@ -2840,13 +2840,14 @@ var ADM=(function(){
           plate(fx+58+bw+12,A[1],"부산 단 2곳",now); }
         if(ADDON[d.id]){ var ad=ADDON[d.id]; // 관광: 조주기능사(방과후 운영·부산 최초) · 보건: 간호조무사
           g.font="900 30px DS"; var w2=g.measureText(d.name).width, tx=xe+34+w2+18, ty=ys[i], q2=Math.min(1,p3*1.4);
+          if(!ad.t){ g.globalAlpha=q2; plate(tx,ty,ad.plate,now); } else {
           g.globalAlpha=q2; g.lineWidth=7; g.lineCap="round"; g.strokeStyle=d.color; g.beginPath(); g.moveTo(tx,ty); g.lineTo(tx+20,ty); g.stroke();
           g.fillStyle=d.color; g.beginPath(); g.arc(tx+30,ty,11,0,6.2832); g.fill();
           g.strokeStyle="#fff"; g.lineWidth=3; g.beginPath(); g.moveTo(tx+24.5,ty); g.lineTo(tx+35.5,ty); g.moveTo(tx+30,ty-5.5); g.lineTo(tx+30,ty+5.5); g.stroke();
           g.font="900 22px DS"; var c1=g.measureText(ad.t.charAt(0)).width, cw=g.measureText(ad.t).width;
           hstar(tx+50+c1*0.1,ty-19,sc,ph,now,q2); // 산업기사 별과 같은 자리(글자 시작 + 첫 글자 폭 10%, 윗선 19px 위)
           g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText(ad.t,tx+50,ty+1); g.fillStyle=d.color; g.fillText(ad.t,tx+50,ty+1);
-          if(ad.plate) plate(tx+50+cw+12,ty,ad.plate,now); }
+          if(ad.plate) plate(tx+50+cw+12,ty,ad.plate,now); } }
         g.globalAlpha=1; } });
     // labels
     g.globalAlpha=Math.min(1,p*3); g.fillStyle="#fff"; g.beginPath(); g.arc(x0,y0,40,0,6.2832); g.fill(); g.lineWidth=6; g.strokeStyle="#2E3A8C"; g.stroke();
