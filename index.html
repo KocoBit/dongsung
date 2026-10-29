@@ -598,8 +598,9 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .dt-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .dt-media canvas{position:absolute;inset:0;width:100%;height:100%}
 .dt-media .ht span{display:block;white-space:nowrap}
+.certs.subj .cert b{font-size:36px}
 .dt-media .ht{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;font-size:110px;font-weight:900;letter-spacing:-4px;line-height:1.05;padding:60px;text-shadow:0 6px 30px rgba(0,0,0,.25)}
-.dt-media .live{position:absolute;left:28px;top:26px;font-size:17px;font-weight:700;letter-spacing:2px;background:rgba(0,0,0,.5);padding:8px 16px;border-radius:18px}
+.dt-media .live{position:absolute;left:50%;top:18px;transform:translateX(-50%);height:44px;display:flex;align-items:center;gap:8px;padding:0 20px;border-radius:22px;background:rgba(14,15,20,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:17px;font-weight:700;letter-spacing:1px;white-space:nowrap;z-index:2}
 .dt-media .live b{color:#FF3B5C}
 .dt-txt{position:relative;padding:64px 56px 48px;display:flex;flex-direction:column}
 .dt-txt:before{content:"";position:absolute;right:-90px;top:-90px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35) 2.5px,transparent 3px) 0 0/20px 20px;opacity:.5}
@@ -610,26 +611,27 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .dt-t.long{font-size:54px;letter-spacing:-2.5px}
 .dt-d{position:relative;margin-top:22px;font-size:30px;font-weight:700;line-height:1.5}
 .dt-m{position:relative;margin-top:20px;font-size:24px;line-height:1.65;opacity:.92;white-space:pre-line}
-/* 동아리 상세: 2분할 사진 → 동아리를 누르면 1분할 + 이름표가 다이나믹 아일랜드처럼 늘어남 */
+/* 다이나믹 아일랜드: 상세 화면 이름표는 모두 위쪽 가운데 작은 알약. '고르는 순간'(동아리 선택·진로체험 사진 크게 보기)에만 내용만큼 늘어남 */
 .cb{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#fff;transition:grid-template-columns .6s cubic-bezier(.3,1,.4,1),gap .6s}
 .cb.s0{grid-template-columns:1fr 0fr;gap:0}.cb.s1{grid-template-columns:0fr 1fr;gap:0}
 .cb-p{position:relative;overflow:hidden;min-width:0;cursor:pointer;background:#000}
 .cb-p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
 .cb-p img.on{opacity:1}
-.isl{position:absolute;left:18px;top:18px;height:44px;width:var(--w,160px);max-width:calc(100% - 36px);border-radius:22px;background:rgba(14,15,20,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;padding:0 20px;gap:12px;overflow:hidden;white-space:nowrap;z-index:2;
- transition:width .62s cubic-bezier(.34,1.32,.5,1),height .62s cubic-bezier(.34,1.32,.5,1),border-radius .62s,top .62s,left .62s}
-.isl b{font-size:19px;font-weight:900;transition:font-size .5s}
+.isl{position:absolute;left:50%;top:18px;transform:translateX(-50%);height:44px;width:auto;max-width:var(--w,160px);border-radius:22px;background:rgba(14,15,20,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;padding:0 20px;gap:12px;overflow:hidden;white-space:nowrap;z-index:2;
+ transition:max-width .45s cubic-bezier(.34,1.25,.5,1),height .45s cubic-bezier(.34,1.25,.5,1),border-radius .45s}
+.isl b{font-size:19px;font-weight:900;transition:font-size .35s}
 .isl .cnt,.isl .all{opacity:0;transition:opacity .3s}
-.isl .cnt{margin-left:auto;font-size:17px;font-weight:700;color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
+.isl .cnt{margin-left:14px;font-size:17px;font-weight:700;color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
 .isl .all{height:34px;padding:0 14px;border-radius:17px;background:rgba(255,255,255,.16);color:#fff;font-size:15px;font-weight:900}
 .isl .bar{position:absolute;left:24px;right:24px;bottom:7px;height:3px;border-radius:2px;background:rgba(255,255,255,.18);opacity:0;overflow:hidden}
 .isl .bar i{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(0)}
-.cb-p.sel .isl{width:calc(100% - 36px);height:62px;border-radius:31px}
-.cb-p.sel .isl b{font-size:25px}
-.cb-p.sel .isl .cnt,.cb-p.sel .isl .all{opacity:1;transition-delay:.35s}
-.cb-p.sel .isl .bar{opacity:1;transition:opacity .3s .35s}
-.cb-p.sel .isl .bar i.go{animation:cbbar 3s linear forwards}
+.cb-p.sel .isl{max-width:min(560px,calc(100% - 36px));height:58px;border-radius:29px}
+.cb-p.sel .isl b{font-size:23px}
+.cb-p.sel .isl .cnt,.cb-p.sel .isl .all{opacity:1;transition-delay:.25s}
+.cb-p.sel .isl .bar{opacity:1;transition:opacity .3s .25s}
+.cb-p.sel .isl .bar i.go{animation:cbbar 2.5s linear forwards}
 @keyframes cbbar{to{transform:scaleX(1)}}
+.isl .bar{left:20px;right:20px;bottom:6px}
 body.calm .cb,body.calm .isl,body.calm .cb-p img{transition:none}
 .dt-m .cbk{white-space:normal;display:block;width:100%;text-align:left;background:rgba(255,255,255,.14);border-radius:22px;padding:20px 26px;margin-bottom:14px;color:#fff;border:0;font:inherit;cursor:pointer;transition:background .3s,color .3s}
 .dt-m .cbk b{display:block;font-size:28px;font-weight:900;margin-bottom:6px}
@@ -1416,9 +1418,12 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .cv-big img{min-height:420px;object-fit:contain;background:#fff}
 .cv-big figure{margin:0;text-align:center}
 .cv-big img{max-width:1380px;max-height:640px}
-.cv-cap{margin-top:16px;font-size:26px;font-weight:900;color:#2B2140;display:flex;align-items:center;justify-content:center;gap:12px}
+.cv-big figure{position:relative}
+.cv-cap{position:absolute;left:50%;top:30px;transform:translateX(-50%);height:52px;max-width:var(--w,150px);overflow:hidden;white-space:nowrap;padding:0 22px 0 10px;border-radius:26px;background:rgba(14,15,20,.66);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:22px;font-weight:900;color:#fff;display:flex;align-items:center;gap:12px;transition:max-width .45s cubic-bezier(.34,1.25,.5,1)}
+.cv-cap.grow{max-width:1100px}
+body.calm .cv-cap{transition:none}
 .cv-cap i{font-style:normal;font-size:16px;color:#fff;padding:4px 12px;border-radius:12px}
-.cv-cap small{font-size:17px;color:#A8988A;font-weight:700}
+.cv-cap small{font-size:17px;color:rgba(255,255,255,.75);font-weight:700}
 .cv-nav{width:76px;height:76px;border-radius:50%;background:#fff;color:#2B2140;font-size:46px;font-weight:700;line-height:1;box-shadow:0 14px 26px -14px rgba(0,0,0,.4)}
 .cv-nav:hover{background:#2B2140;color:#fff}
 
@@ -1703,7 +1708,7 @@ var DEPTS = [
   },
   learn:[
     {t:"금융정보의 날", d:"함께 배우고 즐기는 우리 과 축제", tag:"매년", clip:"media/clip/finance1.mp4", at:11.0, more:"금융정보과 친구들이 다 함께 어울리는 우리 과만의 축제예요. 해마다 다양한 프로그램이 열리는데, 올해는 금융 골든벨과 경매, 장기자랑을 함께했어요. 금융 퀴즈를 풀며 모은 상금으로 선생님들의 애장품인 향수, 화장품, 옷 등을 낙찰받는 경매에 도전했답니다. 장기자랑에서는 친구들이 끼와 재능을 마음껏 뽐내고 서로 응원하며, 웃음과 박수가 가득한 시간을 보냈어요."},
-    {t:"금융·회계·경제·무역", d:"창구사무부터 ERP까지, 회사 일을 미리", tag:"배우는 과목", more:"① 금융·은행 업무 — 금융일반·창구사무: 은행 창구 업무와 고객 응대\n② 회계·세무 — 회계원리·원가회계·세무일반: 거래 기록, 비용과 세금의 기초\n③ 경제·무역 — 상업경제·국제상무: 경제 흐름과 나라 사이 무역\n④ 컴퓨터 활용 — ERP로 회계·인사·물류 정보 관리\n공통 과목은 A·B 모두 같고, 학기마다 한 과목만 B는 산업기사 NCS 모듈 과목이에요. 모의투자대회도 열려 증권사 앱으로 실전처럼 투자해 봐요."},
+    {t:"금융·회계·경제·무역", d:"창구사무부터 ERP까지, 회사 일을 미리", subj:[{k:"금융일반 · 창구사무",n:"금융 · 은행",d:"은행 창구 업무와 고객 응대"},{k:"회계원리 · 원가회계 · 세무일반",n:"회계 · 세무",d:"거래 기록, 비용과 세금의 기초"},{k:"상업경제 · 국제상무",n:"경제 · 무역",d:"경제 흐름과 나라 사이 무역"},{k:"ERP",n:"컴퓨터 활용",d:"ERP로 회계·인사·물류 정보 관리"}], tag:"배우는 과목", more:"① 금융·은행 업무 — 금융일반·창구사무: 은행 창구 업무와 고객 응대\n② 회계·세무 — 회계원리·원가회계·세무일반: 거래 기록, 비용과 세금의 기초\n③ 경제·무역 — 상업경제·국제상무: 경제 흐름과 나라 사이 무역\n④ 컴퓨터 활용 — ERP로 회계·인사·물류 정보 관리\n공통 과목은 A·B 모두 같고, 학기마다 한 과목만 B는 산업기사 NCS 모듈 과목이에요. 모의투자대회도 열려 증권사 앱으로 실전처럼 투자해 봐요."},
     {t:"금융 자격증 취득", d:"응시 자격 없는 금융 자격증은 모두 도전", tag:"A·B 모두", more:"전산회계 · 전산세무 · ERP 정보관리사 · 증권투자권유대행인 · 펀드투자권유대행인 · 틴매경TEST 등 회계·은행·무역·증권 자격과 엑셀·한글 컴퓨터 활용 자격을 2년 동안 차곡차곡 쌓아요.\n증권·펀드 투자권유대행인은 학력·경력 요건이 없어 고등학생도 도전할 수 있어요. 학교의 취업 포트폴리오 시스템으로 체계적으로 관리해요.\n금융 자격증은 A·B 모두, B는 여기에 산업기사를 +α로."},
     {t:"금융권 현장체험·특강", d:"부산은행·캠코 체험 · 올해는 하나은행 특강", img:"media/learn/finance_hana.jpg", clip:"media/clip/finance4.mp4", at:30.0, more:"현장체험학습으로 부산은행 금융 교육, 캠코(한국자산관리공사) 청소년 직장 체험에 다녀오며 금융 현장을 직접 경험해요.\n금융권·공기업 선배와 담당자가 직접 찾아오는 특강도 있어요. 해마다 기관이 바뀌는데, 올해는 하나은행이 채용 매칭 데이와 초청 특강을 열어 주었어요."},
     {trk:"B", hi:1, t:"과정평가형<br>사무자동화산업기사", d:"고교 과정만으로 산업기사 응시", tag:"부산 단 2곳", mt:1, clip:"media/clip/finance5.mp4", at:43.0, more:"금융 자격증은 A·B 모두 따고, B는 여기에 산업기사를 +α로 가져가요.\n기능사 → 산업기사 → 기사. 산업기사는 기능사보다 한 단계 위 등급이라, 원래는 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형이라 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 성적보다 꾸준함! 도전하는 누구나 함께해요. (2026년 기준 사무자동화산업기사 과정 운영 고교는 부산 단 2곳)"},
@@ -2644,7 +2649,7 @@ var DT=(function(){
     if(x.clubs){ clubs(x); }
     else if(x.img){ media.innerHTML='<img class="dt-img" src="'+x.img+'" alt=""><div class="live"><b>●</b> 실제 사진</div>'; }
     else if(x.clip){ media.innerHTML='<video src="'+x.clip+'" muted loop playsinline autoplay></video><div class="live"><b>●</b> 학교 영상 속 실제 장면</div>'; var v=$("video",media); v.play().catch(function(){}); }
-    else if(x.certs){ media.innerHTML='<canvas></canvas><div class="certs">'+x.certs.map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
+    else if(x.certs||x.subj){ media.innerHTML='<canvas></canvas><div class="certs'+(x.subj?' subj':'')+'">'+(x.certs||x.subj).map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
     else { media.innerHTML='<canvas></canvas><div class="ht">'+htLines(x.t).map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'; halftone($("canvas",media),d.color); htFit(); }
     $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'');
     var tt=x.t.replace(/<br\s*\/?>/g," "); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/,<br\s*\/?>/g,", ").replace(/<br\s*\/?>/g," / "); $("#dt-m").textContent=x.more||""; if(x.clubs)$("#dt-m").innerHTML=x.clubs.map(function(c,i){return '<button class="cbk" data-cb="'+i+'"><b>'+c.n+'</b><span>'+c.d+'</span></button>'}).join("");
@@ -2662,7 +2667,7 @@ var DT=(function(){
       '<div class="isl"><b>'+c.n+'</b><span class="cnt">1 / '+c.ph.length+'</span><button class="all" data-cball="1">둘 다 보기</button><span class="bar"><i></i></span></div></div>'; }).join("")+'</div>';
     var mc=document.createElement("canvas").getContext("2d"); mc.font="900 19px DS"; // 상세 창이 열리기 전이라 글자 폭을 직접 잼
     $$(".isl",media).forEach(function(il){ il.style.setProperty("--w",Math.ceil(mc.measureText($("b",il).textContent).width+41)+"px"); });
-    cbT=setInterval(function(){ [0,1].forEach(function(i){ if(cbSel<0||cbSel===i)cbNext(x,i); }); },3000);
+    cbT=setInterval(function(){ [0,1].forEach(function(i){ if(cbSel<0||cbSel===i)cbNext(x,i); }); },2500);
   }
   function cbNext(x,i,keep){ var p=$('[data-cbp="'+i+'"]',media); if(!p)return; var im=$$("img",p);
     if(!keep){ cbI[i]=(cbI[i]+1)%im.length; im.forEach(function(m,k){m.classList.toggle("on",k===cbI[i])}); }
@@ -2673,7 +2678,7 @@ var DT=(function(){
     $$(".cb-p",media).forEach(function(p,k){ p.classList.toggle("sel",k===cbSel); });
     $$(".cbk",el).forEach(function(b,k){ b.classList.toggle("on",k===cbSel); });
     clearInterval(cbT); if(cbSel>=0)cbNext(x,cbSel,true);
-    cbT=setInterval(function(){ [0,1].forEach(function(k){ if(cbSel<0||cbSel===k)cbNext(x,k); }); },3000); SND.tick(); }
+    cbT=setInterval(function(){ [0,1].forEach(function(k){ if(cbSel<0||cbSel===k)cbNext(x,k); }); },2500); SND.tick(); }
   el.addEventListener("click",function(e){ var t=e.target;
     if(t.closest("[data-cball]")){ e.stopPropagation(); cbPick(cbSel); return; }
     var k=t.closest("[data-cb]"); if(k){ e.stopPropagation(); cbPick(+k.dataset.cb); return; }
@@ -3403,7 +3408,8 @@ var CV=(function(){
       body.innerHTML='<div class="cv-wait"><div><b>📷 사진을 정리하고 있어요</b>진로체험 '+r.n+' 사진이 곧 올라와요!</div></div>';
     }
   }
-  function showBig(i){ if(!list.length)return; bi=(i+list.length)%list.length; var x=list[bi]; $("img",big).src=url(x.src); $(".cv-cap",big).innerHTML=(x.tag?'<i style="background:'+(TC[x.tag]||"#8A5CF0")+'">'+x.tag+'</i>':'')+(x.cap||"")+'<small>'+(bi+1)+' / '+list.length+'</small>'; big.classList.add("on"); }
+  function showBig(i){ if(!list.length)return; bi=(i+list.length)%list.length; var x=list[bi]; $("img",big).src=url(x.src); $(".cv-cap",big).innerHTML=(x.tag?'<i style="background:'+(TC[x.tag]||"#8A5CF0")+'">'+x.tag+'</i>':'')+(x.cap||"")+'<small>'+(bi+1)+' / '+list.length+'</small>'; big.classList.add("on");
+    var cp=$(".cv-cap",big), ti=$("i",cp); cp.classList.remove("grow"); cp.style.setProperty("--w",((ti?ti.offsetWidth:60)+34)+"px"); void cp.offsetWidth; requestAnimationFrame(function(){ cp.classList.add("grow"); }); }
   tabs.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b)return; e.stopPropagation(); sel=+b.dataset.i; draw(); });
   body.addEventListener("click",function(e){ var c=e.target.closest("#cv-chips button"); if(c){ e.stopPropagation(); tag=c.dataset.t; grid(); return; }
     var p=e.target.closest(".cv-ph"); if(!p)return; e.stopPropagation(); showBig(+p.dataset.i); });
