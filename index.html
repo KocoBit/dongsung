@@ -2766,7 +2766,7 @@ var ADM=(function(){
           g.fillStyle=d.color; g.beginPath(); g.arc(tx+30,ty,11,0,6.2832); g.fill();
           g.strokeStyle="#fff"; g.lineWidth=3; g.beginPath(); g.moveTo(tx+24.5,ty); g.lineTo(tx+35.5,ty); g.moveTo(tx+30,ty-5.5); g.lineTo(tx+30,ty+5.5); g.stroke();
           g.font="900 22px DS"; var c1=g.measureText(ad.t.charAt(0)).width, cw=g.measureText(ad.t).width;
-          hstar(tx+50+c1+6,ty-19,sc,ph,now,q2);
+          hstar(tx+50+c1*0.8,ty-16,sc,ph,now,q2);
           g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText(ad.t,tx+50,ty+1); g.fillStyle=d.color; g.fillText(ad.t,tx+50,ty+1);
           if(ad.plate) plate(tx+50+cw+12,ty,ad.plate,now); }
         g.globalAlpha=1; } });
