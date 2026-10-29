@@ -1679,7 +1679,7 @@ var DEPTS = [
     {t:"금융 자격증 취득", d:"응시 자격 없는 금융 자격증은 모두 도전", tag:"A·B 모두", more:"전산회계 · 전산세무 · ERP 정보관리사 · 증권투자권유대행인 · 펀드투자권유대행인 · 틴매경TEST 등 회계·은행·무역·증권 자격과 엑셀·한글 컴퓨터 활용 자격을 2년 동안 차곡차곡 쌓아요.\n증권·펀드 투자권유대행인은 학력·경력 요건이 없어 고등학생도 도전할 수 있어요. 학교의 취업 포트폴리오 시스템으로 체계적으로 관리해요.\n금융 자격증은 A·B 모두, B는 여기에 산업기사를 +α로."},
     {t:"금융권 현장체험·특강", d:"부산은행·캠코 체험 · 올해는 하나은행 특강", img:"media/learn/finance_hana.jpg", clip:"media/clip/finance4.mp4", at:30.0, more:"현장체험학습으로 부산은행 금융 교육, 캠코(한국자산관리공사) 청소년 직장 체험에 다녀오며 금융 현장을 직접 경험해요.\n금융권·공기업 선배와 담당자가 직접 찾아오는 특강도 있어요. 해마다 기관이 바뀌는데, 올해는 하나은행이 채용 매칭 데이와 초청 특강을 열어 주었어요."},
     {trk:"B", hi:1, t:"과정평가형<br>사무자동화산업기사", d:"고교 과정만으로 산업기사 응시", tag:"부산 단 2곳", mt:1, clip:"media/clip/finance5.mp4", at:43.0, more:"금융 자격증은 A·B 모두 따고, B는 여기에 산업기사를 +α로 가져가요.\n기능사 → 산업기사 → 기사. 산업기사는 기능사보다 한 단계 위 등급이라, 원래는 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형이라 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 성적보다 꾸준함! 도전하는 누구나 함께해요. (2026년 기준 사무자동화산업기사 과정 운영 고교는 부산 단 2곳)"},
-    {trk:"AB", hi:1, t:"전공별 역량강화 캠프", d:"A · NCS 캠프 / B · 산업기사 썸머·윈터캠프", clip:"media/clip/finance6.mp4", at:41.0, more:"전공심화 과정마다 따로 캠프가 열려요. A코스(금융일반)는 금융경영정보서비스 현장 직무를 익히는 NCS 역량강화 캠프, B코스(산업기사반)는 여름·겨울 두 번 열리는 산업기사 썸머캠프·윈터캠프에서 집중해서 공부하고 해양 체험도 함께 해요."},
+    {trk:"AB", hi:1, t:"전공별 역량강화 캠프", d:"A · NCS 캠프<br>B · 썸머·윈터캠프", clip:"media/clip/finance6.mp4", at:41.0, more:"전공심화 과정마다 따로 캠프가 열려요. A코스(금융일반)는 금융경영정보서비스 현장 직무를 익히는 NCS 역량강화 캠프, B코스(산업기사반)는 여름·겨울 두 번 열리는 산업기사 썸머캠프·윈터캠프에서 집중해서 공부하고 해양 체험도 함께 해요."},
     {t:"졸업생 멘토링", d:"2년째 이어 오는 선배와의 취업 뽀개기", clip:"media/clip/finance7.mp4", at:24.4, more:"먼저 취업한 졸업생 선배가 직접 찾아와 함께하는 ‘취업 뽀개기’ 멘토링이에요. 2년째 이어 오고 있어요."},
     {t:"스포츠 부전공", d:"금융 공부하면서 체육도 함께 하고 싶다면", tag:"NEW", clip:"media/clip/finance8.mp4", at:66.0, more:"금융 공부와 체육을 함께 하고 싶은 학생을 위한 스포츠 부전공이 있어요."}
   ],
@@ -2608,7 +2608,7 @@ var DT=(function(){
     else if(x.certs){ media.innerHTML='<canvas></canvas><div class="certs">'+x.certs.map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
     else { media.innerHTML='<canvas></canvas><div class="ht">'+x.t.replace(/ /g,"<br>")+'</div>'; halftone($("canvas",media),d.color); }
     $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'');
-    var tt=x.t.replace(/<br\s*\/?>/g," "); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/<br\s*\/?>/g," "); $("#dt-m").textContent=x.more||"";
+    var tt=x.t.replace(/<br\s*\/?>/g," "); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/<br\s*\/?>/g," / "); $("#dt-m").textContent=x.more||"";
     var acts="";
     if(x.clip&&x.at!=null) acts+='<button data-dtplay="1">▶ 영상에서 이 장면 보기</button>';
     if(x.hosp) acts+='<button class="g" data-hosp="'+dep+'">병원 이름 모두 보기</button>';
@@ -2675,6 +2675,14 @@ var ADM=(function(){
     g.lineWidth=3; g.lineJoin="round"; g.strokeStyle="rgba(255,250,220,.6)"; g.strokeText(txt,bx+12,cy+1); g.fillStyle="#4A2400"; g.fillText(txt,bx+12,cy+1);
     if(now){ var gp=((now/2250)%1), gx=bx-30+(bwid+60)*gp; g.save(); g.beginPath(); g.roundRect?g.roundRect(bx,by,bwid,bh,9):g.rect(bx,by,bwid,bh); g.clip(); var sg=g.createLinearGradient(gx-18,by,gx+18,by+bh); sg.addColorStop(0,"rgba(255,255,255,0)"); sg.addColorStop(.5,"rgba(255,255,255,.85)"); sg.addColorStop(1,"rgba(255,255,255,0)"); g.fillStyle=sg; g.fillRect(gx-30,by,60,bh); g.restore(); }
     return bx+bwid; }
+  // 손그림 별(한붓그리기, 빈 별) + 반짝 — 갈래 그림의 강조 표시. 글자 위에 그리고 글자는 배경색 테두리로 덮어 선을 끊음
+  function hstar(sx,sy,sc,ph,now,al){ g.save(); g.translate(sx,sy); g.rotate(-0.2); g.scale(1.5*sc,1.5*sc); g.translate(-12,-12);
+    var sp=new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7"), gl=0.55+0.45*(ph<0.2?Math.sin(Math.PI*ph/0.2):0);
+    g.lineCap="round"; g.lineJoin="round"; g.shadowColor="rgba(255,60,85,"+(0.5*gl)+")"; g.shadowBlur=5*gl; g.strokeStyle="#E0303C"; g.lineWidth=2.6; g.stroke(sp); g.shadowBlur=0; g.shadowColor="transparent"; g.strokeStyle="rgba(255,240,242,"+(0.55+0.45*gl)+")"; g.lineWidth=0.9; g.stroke(sp); g.restore();
+    if(now){ g.fillStyle="#E5383B"; [[18,-22,0],[25,-2,.04],[-23,13,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*al; spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); }
+    g.globalAlpha=al; }
+  // 학과 이름 옆 '+' 자격 (갈래=선택이 아니라 학과 공부에 더해 따는 자격) — 같은 급은 같은 모양
+  var ADDON={tourism:{t:"조주기능사",plate:"부산 최초"}, health:{t:"간호조무사"}};
   function draw(p,now){
     g.clearRect(0,0,1040,400);
     var ph=now?((now/2400)%1):1, sc=ph<0.13?1+0.22*Math.sin(Math.PI*ph/0.13):1;
@@ -2695,20 +2703,19 @@ var ADM=(function(){
           A.forEach(function(yy){ g.beginPath(); g.moveTo(fx,fy); g.bezierCurveTo(fx+22,fy,fx+16,yy,fx+40,yy); g.stroke(); g.beginPath(); g.arc(fx+44,yy,7,0,6.2832); g.fillStyle=d.color; g.fill(); });
           g.font="900 22px DS"; var pre=g.measureText("B ").width, word=g.measureText("산업기사").width, bw=g.measureText("B 산업기사").width;
           // 손그림 별(한붓그리기, 빈 별) — '산업기사' 글자 가운데 위
-          var ch=g.measureText("산").width; g.save(); var sx=fx+58+pre+ch*0.1, sy=A[1]-19; g.translate(sx,sy); g.rotate(-0.2); g.scale(1.5*sc,1.5*sc); g.translate(-12,-12);
-          var sp=new Path2D("M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7"), gl=0.55+0.45*(ph<0.2?Math.sin(Math.PI*ph/0.2):0);
-          g.lineCap="round"; g.lineJoin="round"; g.shadowColor="rgba(255,60,85,"+(0.5*gl)+")"; g.shadowBlur=5*gl; g.strokeStyle="#E0303C"; g.lineWidth=2.6; g.stroke(sp); g.shadowBlur=0; g.shadowColor="transparent"; g.strokeStyle="rgba(255,240,242,"+(0.55+0.45*gl)+")"; g.lineWidth=0.9; g.stroke(sp); g.restore();
-          if(now){ g.fillStyle="#E5383B"; [[18,-22,0],[25,-2,.04],[-23,13,.07]].forEach(function(q){ var u=(ph-q[2])/0.16; if(u>0&&u<1){ g.globalAlpha=Math.sin(Math.PI*u)*Math.min(1,p3*1.4); spk(sx+q[0],sy+q[1],9*(0.3+0.7*Math.sin(Math.PI*u))); } }); g.globalAlpha=Math.min(1,p3*1.4); }
+          var ch=g.measureText("산").width; hstar(fx+58+pre+ch*0.1,A[1]-19,sc,ph,now,Math.min(1,p3*1.4));
           g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText("B 산업기사",fx+58,A[1]+1);
           g.fillStyle=d.color; g.fillText("A 금융일반",fx+58,A[0]+1); g.fillText("B 산업기사",fx+58,A[1]+1);
           plate(fx+58+bw+12,A[1],"부산 단 2곳",now); }
-        if(d.id==="tourism"){ // 관광서비스과: 학과 공부에 더해 도전하는 조주기능사(방과후 운영) — 갈래가 아니라 '+' 하나
+        if(ADDON[d.id]){ var ad=ADDON[d.id]; // 관광: 조주기능사(방과후 운영·부산 최초) · 보건: 간호조무사
           g.font="900 30px DS"; var w2=g.measureText(d.name).width, tx=xe+34+w2+18, ty=ys[i], q2=Math.min(1,p3*1.4);
-          g.globalAlpha=q2; g.lineWidth=7; g.strokeStyle=d.color; g.beginPath(); g.moveTo(tx,ty); g.lineTo(tx+20,ty); g.stroke();
+          g.globalAlpha=q2; g.lineWidth=7; g.lineCap="round"; g.strokeStyle=d.color; g.beginPath(); g.moveTo(tx,ty); g.lineTo(tx+20,ty); g.stroke();
           g.fillStyle=d.color; g.beginPath(); g.arc(tx+30,ty,11,0,6.2832); g.fill();
-          g.strokeStyle="#fff"; g.lineWidth=3; g.lineCap="round"; g.beginPath(); g.moveTo(tx+24.5,ty); g.lineTo(tx+35.5,ty); g.moveTo(tx+30,ty-5.5); g.lineTo(tx+30,ty+5.5); g.stroke();
-          g.font="900 22px DS"; g.fillStyle=d.color; g.fillText("조주기능사",tx+50,ty+1); var cw=g.measureText("조주기능사").width;
-          plate(tx+50+cw+12,ty,"부산 최초",now); }
+          g.strokeStyle="#fff"; g.lineWidth=3; g.beginPath(); g.moveTo(tx+24.5,ty); g.lineTo(tx+35.5,ty); g.moveTo(tx+30,ty-5.5); g.lineTo(tx+30,ty+5.5); g.stroke();
+          g.font="900 22px DS"; var c1=g.measureText(ad.t.charAt(0)).width, cw=g.measureText(ad.t).width;
+          hstar(tx+50+c1*0.7,ty-19,sc,ph,now,q2);
+          g.strokeStyle="#F4F2EE"; g.lineWidth=7; g.lineJoin="round"; g.strokeText(ad.t,tx+50,ty+1); g.fillStyle=d.color; g.fillText(ad.t,tx+50,ty+1);
+          if(ad.plate) plate(tx+50+cw+12,ty,ad.plate,now); }
         g.globalAlpha=1; } });
     // labels
     g.globalAlpha=Math.min(1,p*3); g.fillStyle="#fff"; g.beginPath(); g.arc(x0,y0,40,0,6.2832); g.fill(); g.lineWidth=6; g.strokeStyle="#2E3A8C"; g.stroke();
@@ -4102,7 +4109,7 @@ html.m #m{display:block}
   var sh, pn, open=null;
   function tkHtml(x,d){ if(!x.trk)return ""; if(x.trk==="AB")return '<span class="m-tk m-ab">A·B</span>'; return '<span class="m-tk'+(x.trk==="B"?' m-b':'')+'">'+x.trk+' '+d.track[x.trk].short+'</span>'; }
   function deptHtml(d,i){
-    var learn=d.learn.map(function(x,j){ return '<button class="m-li'+(x.hi?' m-hi':'')+'" data-li="'+j+'"><div class="m-no">'+String(j+1).padStart(2,"0")+tkHtml(x,d)+(x.tag?'<span class="m-tg'+(x.mt?' m-mt':'')+'">'+x.tag+'</span>':'')+'</div><b>'+(x.hi?STAR:'')+nobr(x.t)+'</b><p>'+nobr(x.d)+'</p><span class="m-arrow">▼</span>'+
+    var learn=d.learn.map(function(x,j){ return '<button class="m-li'+(x.hi?' m-hi':'')+'" data-li="'+j+'"><div class="m-no">'+String(j+1).padStart(2,"0")+tkHtml(x,d)+(x.tag?'<span class="m-tg'+(x.mt?' m-mt':'')+'">'+x.tag+'</span>':'')+'</div><b>'+(x.hi?STAR:'')+nobr(x.t)+'</b><p>'+String(x.d||"").replace(/<br\s*\/?>/g," / ")+'</p><span class="m-arrow">▼</span>'+
       '<div class="m-more">'+(x.img?'<img src="'+x.img+'" alt="" style="width:100%;border-radius:10px;margin-bottom:8px">':'')+esc(x.more||(x.hosp?'병원 '+d.hospitals.length+'곳: '+d.hospitals.join(", "):''))+(x.certs?'<br>'+x.certs.map(function(c){return c.n+'('+c.k+')'}).join(" · "):'')+'</div>'+(x.clip?'<div class="m-cl" data-clip="'+x.clip+'"></div>':'')+'</button>'; }).join("");
     var trk="";
     if(d.track){ var T=d.track; trk='<h3>2학년부터 전공심화 투트랙</h3><div class="m-trk">'+['A','B'].map(function(k){var x=T[k];return '<div class="m-tb m-'+k+'"><i>'+k+'</i><div><small>2학년 전공심화 '+k+(k==='B'?' · 과정평가형':'')+'</small><b>'+x.name+(x.badge?'<span class="m-bdg">'+x.badge+'</span>':'')+'</b><span>'+x.club+' · '+x.line+'</span></div></div>'}).join("")+'</div>'+
