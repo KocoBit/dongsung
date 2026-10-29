@@ -597,7 +597,8 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .dt-media .dt-img{width:100%;height:100%;object-fit:cover;display:block}
 .dt-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .dt-media canvas{position:absolute;inset:0;width:100%;height:100%}
-.dt-media .ht{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;font-size:110px;font-weight:900;letter-spacing:-4px;line-height:1.05;padding:60px;text-shadow:0 6px 30px rgba(0,0,0,.25)}
+.dt-media .ht span{display:block;white-space:nowrap}
+.dt-media .ht{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;font-size:110px;font-weight:900;letter-spacing:-4px;line-height:1.05;padding:60px;text-shadow:0 6px 30px rgba(0,0,0,.25)}
 .dt-media .live{position:absolute;left:28px;top:26px;font-size:17px;font-weight:700;letter-spacing:2px;background:rgba(0,0,0,.5);padding:8px 16px;border-radius:18px}
 .dt-media .live b{color:#FF3B5C}
 .dt-txt{position:relative;padding:64px 56px 48px;display:flex;flex-direction:column}
@@ -2619,6 +2620,15 @@ var DT=(function(){
   var FULL={left:150,top:110,width:1620,height:780};
   function rectOf(card){ var r=card.getBoundingClientRect(), sr=stage.getBoundingClientRect(), k=sr.width/1920; return {left:(r.left-sr.left)/k,top:(r.top-sr.top)/k,width:r.width/k,height:r.height/k}; }
   function place(r){ box.style.left=r.left+"px"; box.style.top=r.top+"px"; box.style.width=r.width+"px"; box.style.height=r.height+"px"; }
+  // 큰 제목: 단어 중간이나 '·' 뒤에서 아무렇게나 끊기지 않게 줄을 직접 나누고(띄어쓰기·<br> 기준, 긴 덩어리는 '·'에서 균형 있게), 넘치면 글자를 줄임
+  function htLines(t){ var out=[]; t.replace(/<br\s*\/?>/g," ").split(/\s+/).filter(Boolean).forEach(function(w){
+      if(w.length<=5||w.indexOf("·")<0){ out.push(w); return; }
+      var ps=w.split("·"), n=Math.ceil(w.length/5), per=Math.ceil(ps.length/n);
+      for(var i=0;i<ps.length;i+=per) out.push(ps.slice(i,i+per).join("·")+(i+per<ps.length?"·":"")); });
+    return out; }
+  function htFit(){ var h=$(".ht",media); if(!h)return; var fs=110; h.style.fontSize=fs+"px";
+    requestAnimationFrame(function(){ var W=900-120, H=780-120, sp=$$("span",h); // 상세 창이 다 열린 크기 기준(열리는 중에는 작게 잡히므로)
+      for(var k=0;k<20;k++){ var mw=Math.max.apply(null,sp.map(function(e){return e.offsetWidth})), th=sp.length*fs*1.05; if(mw<=W&&th<=H)break; fs-=6; h.style.fontSize=fs+"px"; } }); }
   function halftone(cv,color){
     var g=cv.getContext("2d"), t0=performance.now(); cv.width=900; cv.height=780;
     function f(now){ if(!el.classList.contains("on")||!cv.isConnected)return; var t=(now-t0)/1000, sp=30;
@@ -2635,7 +2645,7 @@ var DT=(function(){
     else if(x.img){ media.innerHTML='<img class="dt-img" src="'+x.img+'" alt=""><div class="live"><b>●</b> 실제 사진</div>'; }
     else if(x.clip){ media.innerHTML='<video src="'+x.clip+'" muted loop playsinline autoplay></video><div class="live"><b>●</b> 학교 영상 속 실제 장면</div>'; var v=$("video",media); v.play().catch(function(){}); }
     else if(x.certs){ media.innerHTML='<canvas></canvas><div class="certs">'+x.certs.map(function(c,i){return '<div class="cert" style="--k:'+i+'"><small>'+c.k+'</small><b>'+c.n+'</b><span>'+c.d+'</span></div>'}).join("")+'</div>'; halftone($("canvas",media),d.color); }
-    else { media.innerHTML='<canvas></canvas><div class="ht">'+x.t.replace(/ /g,"<br>")+'</div>'; halftone($("canvas",media),d.color); }
+    else { media.innerHTML='<canvas></canvas><div class="ht">'+htLines(x.t).map(function(l){return '<span>'+l+'</span>'}).join("")+'</div>'; halftone($("canvas",media),d.color); htFit(); }
     $("#dt-k").innerHTML=d.name+" · "+String(idx+1).padStart(2,"0")+(x.tag?'<span class="dt-tag'+(x.mt?' mp silver':'')+'">'+x.tag+'</span>':'');
     var tt=x.t.replace(/<br\s*\/?>/g," "); $("#dt-t").innerHTML=(x.hi?'<span class="hstar dt-star">'+DSTAR+'</span>':'')+tt; $("#dt-t").classList.toggle("long",tt.length>=10); $("#dt-t").classList.toggle("has-star",!!x.hi); $("#dt-d").textContent=x.d.replace(/,<br\s*\/?>/g,", ").replace(/<br\s*\/?>/g," / "); $("#dt-m").textContent=x.more||""; if(x.clubs)$("#dt-m").innerHTML=x.clubs.map(function(c,i){return '<button class="cbk" data-cb="'+i+'"><b>'+c.n+'</b><span>'+c.d+'</span></button>'}).join("");
     var acts="";
