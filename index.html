@@ -1689,7 +1689,7 @@ var DEPTS = [
   id:"finance", color:"#2E5BFF", name:"금융정보과", short:"금융정보",
   hook:"돈 계산만 한다고?<br><mark>그 편견, 깨 드립니다.</mark>",
   sub:"수학 못해도 괜찮아요. 은행·공공기관으로 가는 길을 학교에서 미리 걸어 봅니다.",
-  card:"은행·공공기관으로 가는 가장 빠른 길",
+  card:"은행·공공기관 취업, 부산 단 2곳 산업기사 과정", cardBr:"은행·공공기관 취업,<br>부산 단 2곳 산업기사 과정",
   video:"media/finance.mp4", poster:"media/img/finance.jpg", loop:"media/loop/finance.mp4", dur:"1분 30초",
   posterTitle:"금융정보과, 이런 곳이에요",
   posterSub:"금융정보의 날부터 여름 캠프까지",
@@ -1751,7 +1751,7 @@ var DEPTS = [
   id:"tourism", color:"#FF7A1A", name:"관광서비스과", short:"관광서비스",
   hook:"매달 열리는<br><mark>우리만의 카페.</mark>",
   sub:"모닝파워업에서 커피·디저트를 직접 만들어 팔고, 부산 고등학교 최초 과정평가형 조주기능사에 도전해요.",
-  card:"매달 내가 만든 커피·디저트를 파는 학과",
+  card:"매달 내가 만든 커피·디저트를 파는 학과", cardBr:"매달 내가 만든<br>커피·디저트를 파는 학과",
   video:"media/tourism.mp4", poster:"media/img/tourism.jpg", loop:"media/loop/tourism.mp4", dur:"1분 2초",
   posterTitle:"관광서비스과, 이런 곳이에요",
   posterSub:"관광실습실부터 1987년부터 이어온 일본 자매교류까지",
@@ -1785,7 +1785,7 @@ var DEPTS = [
   id:"health", color:"#F0457E", name:"보건간호과", short:"보건간호",
   hook:"간호사의 꿈,<br><mark>간호학과로 가는 지름길.</mark>",
   sub:"간호조무사 자격을 따고 대부분 간호학과로 진학해요. 병원 취업도 바로 가능합니다.",
-  card:"간호학과로 가는 가장 확실한 지름길",
+  card:"간호조무사 자격 따고, 간호학과로", cardBr:"간호조무사 자격 따고,<br>간호학과로",
   video:"media/health.mp4", poster:"media/img/health.jpg", loop:"media/loop/health.mp4", dur:"1분 13초",
   posterTitle:"보건간호과, 이런 곳이에요",
   posterSub:"나이팅게일 선서식부터 간호학과 진학까지",
@@ -1825,7 +1825,7 @@ var DEPTS = [
   id:"sports", color:"#0FA968", name:"스포츠건강관리과", short:"스포츠건강관리",
   hook:"부산·경남 유일<br><mark>스포츠 학과.</mark>",
   sub:"운동 못해도 괜찮아요. 골프·수영·해양 레저까지 함께 배우며 실력을 키웁니다.",
-  card:"부산·경남 유일, 운동으로 여는 진로",
+  card:"부산·경남 유일, 운동으로 여는 진로", cardBr:"부산·경남 유일,<br>운동으로 여는 진로",
   video:"media/sports.mp4", poster:"media/img/sports.jpg", loop:"media/loop/sports.mp4", dur:"1분 23초",
   posterTitle:"스포츠건강관리과, 이런 곳이에요",
   posterSub:"대회 1위부터 대학 진학까지",
@@ -2405,7 +2405,7 @@ if($("#nb-depts"))$("#nb-depts").innerHTML=DEPTS.map(function(d){return '<button
 $("#cards").innerHTML=DEPTS.map(function(d,k){
   return '<button class="card rv" style="--i:'+(k+2)+';--c:'+d.color+'" data-go="dept-'+d.id+'">'+
   '<video class="vid" src="'+d.loop+'" muted loop playsinline preload="auto" poster="'+d.poster+'"></video><div class="vid-c"></div>'+
-  '<span class="num">0'+(k+1)+'</span><div class="tx"><h3>'+d.name+'</h3><p>'+d.card+'</p></div>'+
+  '<span class="num">0'+(k+1)+'</span><div class="tx"><h3>'+d.name+'</h3><p style="word-break:keep-all">'+(d.cardBr||d.card)+'</p></div>'+
   '<div class="go"><span>들어가 보기</span><b>→</b></div><div class="bar"></div></button>';
 }).join("");
 
