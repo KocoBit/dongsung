@@ -2371,9 +2371,10 @@ var cur=null;
 if(window.IS_MOBILE){ $$("#stage video,#stage audio").forEach(function(v){ try{ v.removeAttribute("autoplay"); v.preload="none"; v.src=""; v.load(); }catch(e){} }); return; }
 
 /* 무대 크기 맞추기 */
-function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform="translate(-50%,-50%) scale("+s+")";stage.style.left="50%";stage.style.top="50%";}
+// 태블릿·휴대폰 브라우저는 1920px 무대 때문에 innerWidth가 화면보다 크게 잡힘 → 실제 보이는 화면 크기(clientWidth)로 맞춤
+function fit(){var de=document.documentElement, W=de.clientWidth||innerWidth, H=de.clientHeight||innerHeight, s=Math.min(W/1920,H/1080);stage.style.transform="translate(-50%,-50%) scale("+s+")";stage.style.left="50%";stage.style.top="50%";}
 stage.style.transformOrigin="50% 50%";
-addEventListener("resize",fit);fit();
+addEventListener("resize",fit);addEventListener("orientationchange",function(){setTimeout(fit,300)});if(window.visualViewport)visualViewport.addEventListener("resize",fit);fit();
 
 /* 공통 글자 */
 $("#nb-school").textContent=CONFIG.school;
