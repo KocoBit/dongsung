@@ -1496,6 +1496,22 @@ body.calm .cv-cap{transition:none}
 .rm-btn small{display:block;margin-top:3px;font-size:15px;font-weight:700;color:#C9C3D6}
 .rm-btn em{font-style:normal;font-size:26px;font-weight:900;color:#FFB8D2;margin-left:6px}
 #rmp .sh-card{background:#F7F2EA;color:var(--ink)}
+/* 2학년부터 배우는 과목 창 — 발표 화면에선 작은 링크, 혼자 보는 학생에게 자세히 */
+.sbj-go{position:absolute;left:4px;bottom:122px;height:40px;padding:0 4px;font-size:18px;font-weight:700;color:var(--mute);background:none;border:0;border-bottom:1.5px dashed rgba(0,0,0,.18);border-radius:0;cursor:pointer}
+.sbj-go:hover{color:var(--c);border-bottom-color:var(--c)}
+.dept .tabs{bottom:170px}
+#sbj .sh-card{width:1500px;height:auto;top:50%;margin:0 0 0 -750px;transform:translateY(-50%);background:#F7F2EA;color:var(--ink);border-radius:40px;padding:64px 72px}
+#sbj .sh-x{background:#fff;color:#5A4A3A;border-color:rgba(0,0,0,.06)}
+.sbj-h small{font-size:22px;font-weight:900;color:var(--c);letter-spacing:2px}
+.sbj-h h2{margin:8px 0 0;font-size:58px;font-weight:900;letter-spacing:-2px}.sbj-h h2 em{font-style:normal;color:var(--c)}
+.sbj-h p{margin:14px 0 0;font-size:21px;font-weight:700;color:var(--ink2);line-height:1.5;word-break:keep-all}
+.sbj-l{margin-top:34px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px}
+.sbj-i{display:grid;grid-template-columns:86px 1fr;grid-template-rows:auto auto;column-gap:16px;align-items:center;background:#fff;border-radius:20px;padding:16px 22px;box-shadow:0 14px 26px -22px rgba(60,40,20,.6)}
+.sbj-i i{grid-row:1/3;font-style:normal;font-size:16px;font-weight:900;text-align:center;padding:7px 0;border-radius:12px;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c)}
+.sbj-i i.c{background:var(--c);color:#fff}
+.sbj-i b{font-size:24px;font-weight:900;letter-spacing:-.5px}
+.sbj-i span{font-size:17px;font-weight:700;color:var(--ink2);word-break:keep-all}
+.sbj-f{margin-top:26px;font-size:15px;font-weight:700;color:var(--mute)}
 #rmp .sh-x{background:#fff;color:#5A4A3A;border-color:rgba(0,0,0,.06);box-shadow:0 8px 20px -10px rgba(0,0,0,.3)}
 .rm-h{position:absolute;left:90px;top:64px;right:300px}
 .rm-h small{font-size:20px;font-weight:900;letter-spacing:6px;color:#E0457E}
@@ -1684,6 +1700,42 @@ var CONFIG = {
 };
 
 var DSTAR='<svg class="dstar" viewBox="0 0 24 24" aria-hidden="true"><path class="tube" d="M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M12.2 2.4 L17.4 20.2 L2.8 9.3 L21.1 8.8 L6.2 20.5 L12.7 1.7" fill="none" stroke="#FFF0F2" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd class="sp sp1"></kbd><kbd class="sp sp2"></kbd><kbd class="sp sp3"></kbd>';
+/* 2학년부터 배우는 과목 — 2027학년도 입학생 교육과정 편제표 기준(학점 숫자는 싣지 않음).
+   발표 화면에는 작은 링크만, 집에서 혼자 보는 학생을 위해 창(PC)·접힌 칸(휴대폰)에 자세히 */
+var SUBJ_COMMON="1학년은 모든 학과가 함께 사무 관리 · 회계 원리 · 관광 일반 · 인체 구조와 기능 · 컴퓨터 기초를 배우며 금융·관광·보건 기초를 모두 맛봐요.";
+var SUBJ={
+  finance:[
+    {g:"2학년",n:"사무 행정",d:"문서 작성, 자료 관리, 사무 자동화 프로그램 활용"},
+    {g:"2학년",n:"회계 정보 처리 시스템",d:"회계 프로그램으로 거래를 기록하고 장부 만들기"},
+    {g:"2학년",n:"상업 경제",d:"시장과 경제가 움직이는 원리"},
+    {g:"3학년",n:"회계 실무",d:"전표 관리, 자금 관리, 결산 처리"},
+    {g:"3학년",n:"무역 일반 · 무역 영어",d:"나라 사이에 물건을 사고파는 방법과 영어 서류"},
+    {g:"3학년",n:"보험 일반 · 창업 일반",d:"보험의 기초와 창업 준비"},
+    {g:"A코스",n:"세무 · 창구 사무 · ERP",d:"세금 신고, 은행 창구 업무, 기업 자원 관리(ERP)"},
+    {g:"B코스",n:"산업기사 과정평가형 과목",d:"학교 수업만으로 사무자동화산업기사 응시"}],
+  tourism:[
+    {g:"2학년",n:"바텐더",d:"음료 조주 실습, 과정평가형 조주기능사 준비"},
+    {g:"2학년",n:"관광 서비스 · 관광 영어",d:"손님을 맞는 서비스와 관광 현장 영어"},
+    {g:"3학년",n:"제과 · 제빵",d:"과자와 빵을 직접 만드는 실습"},
+    {g:"3학년",n:"호텔 식음료 서비스 · 바리스타",d:"호텔 레스토랑 서비스와 커피 만들기"},
+    {g:"3학년",n:"관광 일본어 · 관광 중국어",d:"관광 현장에서 쓰는 외국어"},
+    {g:"3학년",n:"창업 일반 · 마케팅과 광고",d:"카페 창업과 홍보의 기초"}],
+  health:[
+    {g:"2학년",n:"간호의 기초",d:"환자를 돌보는 기본 간호 지식"},
+    {g:"2학년",n:"기초 간호 임상 실무",d:"병원에서 하는 기본 간호를 직접 실습"},
+    {g:"2학년",n:"지역 사회 간호 보조 실무",d:"지역 사회에서 하는 간호 보조 업무"},
+    {g:"3학년",n:"보건 간호 · 공중 보건",d:"질병 예방과 지역 사회의 건강 관리"},
+    {g:"3학년",n:"병원 실기 · 진료 보조 기초",d:"병원 현장에서 쓰는 실기와 진료 보조"},
+    {g:"3학년",n:"창업 일반 · 마케팅과 광고",d:"모든 학과가 함께 배우는 창업·홍보 기초"}],
+  sports:[
+    {g:"2학년",n:"스포츠 생리 의학",d:"운동할 때 몸이 어떻게 변하는지"},
+    {g:"2학년",n:"스포츠 경기 분석",d:"경기 기록을 보고 전략 세우기"},
+    {g:"2학년",n:"일반인 스포츠 지도",d:"사람들에게 운동을 가르치는 방법"},
+    {g:"2학년",n:"스포츠 경기 체력 · 스포츠 교육",d:"경기 체력 기르기와 체육 지도의 기초"},
+    {g:"3학년",n:"건강 운동 관리",d:"건강을 위한 운동 계획과 관리"},
+    {g:"3학년",n:"체육 전공 실기",d:"종목별 실기 훈련(기초 · 심화)"},
+    {g:"3학년",n:"골프 캐디 실무",d:"골프장에서 직접 해 보는 현장실습"}]
+};
 var DEPTS = [
 {
   id:"finance", color:"#2E5BFF", name:"금융정보과", short:"금융정보",
@@ -1714,13 +1766,13 @@ var DEPTS = [
   },
   learn:[
     {t:"금융정보의 날", d:"함께 배우고 즐기는 우리 과 축제", tag:"매년", clip:"media/clip/finance1.mp4", at:11.0, more:"금융정보과 친구들이 다 함께 어울리는 우리 과만의 축제예요. 해마다 다양한 프로그램이 열리는데, 올해는 금융 골든벨과 경매, 장기자랑을 함께했어요. 금융 퀴즈를 풀며 모은 상금으로 선생님들의 애장품인 향수, 화장품, 옷 등을 낙찰받는 경매에 도전했답니다. 장기자랑에서는 친구들이 끼와 재능을 마음껏 뽐내고 서로 응원하며, 웃음과 박수가 가득한 시간을 보냈어요."},
-    {t:"금융·회계·경제·무역", d:"창구사무부터 ERP까지, 회사 일을 미리", subj:[{k:"금융일반 · 창구사무",n:"금융 · 은행",d:"은행 창구 업무와 고객 응대"},{k:"회계원리 · 원가회계 · 세무일반",n:"회계 · 세무",d:"거래 기록, 비용과 세금의 기초"},{k:"상업경제 · 국제상무",n:"경제 · 무역",d:"경제 흐름과 나라 사이 무역"},{k:"ERP",n:"컴퓨터 활용",d:"ERP로 회계·인사·물류 정보 관리"}], tag:"배우는 과목", more:"① 금융·은행 업무 — 금융일반·창구사무: 은행 창구 업무와 고객 응대\n② 회계·세무 — 회계원리·원가회계·세무일반: 거래 기록, 비용과 세금의 기초\n③ 경제·무역 — 상업경제·국제상무: 경제 흐름과 나라 사이 무역\n④ 컴퓨터 활용 — ERP로 회계·인사·물류 정보 관리\n공통 과목은 A·B 모두 같고, 학기마다 한 과목만 B는 산업기사 NCS 모듈 과목이에요. 모의투자대회도 열려 증권사 앱으로 실전처럼 투자해 봐요."},
+    {t:"금융·회계·경제·무역", d:"창구사무부터 ERP까지, 회사 일을 미리", subj:[{k:"금융일반 · 창구사무",n:"금융 · 은행",d:"은행 창구 업무와 고객 응대"},{k:"회계원리 · 원가회계 · 세무일반",n:"회계 · 세무",d:"거래 기록, 비용과 세금의 기초"},{k:"상업경제 · 국제상무",n:"경제 · 무역",d:"경제 흐름과 나라 사이 무역"},{k:"회계 정보 처리 시스템",n:"컴퓨터 활용",d:"회계 프로그램으로 거래 기록과 장부 관리"}], tag:"배우는 과목", more:"① 금융·은행 업무 — 금융일반·창구사무: 은행 창구 업무와 고객 응대\n② 회계·세무 — 회계원리·원가회계·세무일반: 거래 기록, 비용과 세금의 기초\n③ 경제·무역 — 상업경제·국제상무: 경제 흐름과 나라 사이 무역\n④ 컴퓨터 활용 — 회계 정보 처리 시스템: 회계 프로그램으로 거래 기록과 장부 관리 (ERP는 A코스 심화)\n공통 과목은 A·B 모두 같고, 학기마다 한 과목만 B는 산업기사 NCS 모듈 과목이에요. 모의투자대회도 열려 증권사 앱으로 실전처럼 투자해 봐요."},
     {t:"금융 자격증 취득", d:"응시 자격 없는 금융 자격증은 모두 도전", tag:"A·B 모두", more:"전산회계 · 전산세무 · ERP 정보관리사 · 증권투자권유대행인 · 펀드투자권유대행인 · 틴매경TEST 등 회계·은행·무역·증권 자격과 엑셀·한글 컴퓨터 활용 자격을 2년 동안 차곡차곡 쌓아요.\n증권·펀드 투자권유대행인은 학력·경력 요건이 없어 고등학생도 도전할 수 있어요. 학교의 취업 포트폴리오 시스템으로 체계적으로 관리해요.\n금융 자격증은 A·B 모두, B는 여기에 산업기사를 +α로."},
     {t:"금융권 현장체험·특강", d:"부산은행·캠코 체험 · 올해는 하나은행 특강", img:"media/learn/finance_hana.jpg", clip:"media/clip/finance4.mp4", at:30.0, more:"현장체험학습으로 부산은행 금융 교육, 캠코(한국자산관리공사) 청소년 직장 체험에 다녀오며 금융 현장을 직접 경험해요.\n금융권·공기업 선배와 담당자가 직접 찾아오는 특강도 있어요. 해마다 기관이 바뀌는데, 올해는 하나은행이 채용 매칭 데이와 초청 특강을 열어 주었어요."},
     {trk:"B", hi:1, t:"과정평가형<br>사무자동화산업기사", d:"고교 과정만으로 산업기사 응시", tag:"부산 단 2곳", mt:1, clip:"media/clip/finance5.mp4", at:43.0, more:"금융 자격증은 A·B 모두 따고, B는 여기에 산업기사를 +α로 가져가요.\n기능사 → 산업기사 → 기사. 산업기사는 기능사보다 한 단계 위 등급이라, 원래는 대학 졸업이나 실무 경력이 있어야 응시할 수 있어요. 산업기사반은 과정평가형이라 학교 정규 교육과정만 이수하면 사무자동화산업기사에 응시할 수 있어요. 성적보다 꾸준함! 도전하는 누구나 함께해요. (2026년 기준 사무자동화산업기사 과정 운영 고교는 부산 단 2곳)"},
     {trk:"AB", hi:1, t:"전공별 역량강화 캠프", d:"A코스 NCS 캠프<br>B코스 썸머·윈터캠프", clip:"media/clip/finance6.mp4", at:41.0, more:"전공심화 과정마다 따로 캠프가 열려요. A코스(금융일반)는 금융경영정보서비스 현장 직무를 익히는 NCS 역량강화 캠프, B코스(산업기사반)는 여름·겨울 두 번 열리는 산업기사 썸머캠프·윈터캠프에서 집중해서 공부하고 해양 체험도 함께 해요."},
     {t:"졸업생 멘토링", d:"선배와의 만남,<br>취업 그 이후의 이야기", tag:"2년째", clip:"media/clip/finance7.mp4", at:24.4, more:"취업한 졸업생 선배가 학교를 찾아와 후배들에게 생생한 직장 생활 이야기를 들려주는 자리입니다. 취업 준비 과정부터 입사 후 맡은 업무, 학교에서 배운 지식의 실무 활용, 사회생활에 적응하며 느낀 점까지 솔직한 경험을 나눕니다. 평소 궁금했던 점을 선배에게 직접 묻고, 자신의 진로와 취업 후 모습을 구체적으로 그려보는 멘토링 프로그램으로 2년째 이어지고 있습니다."},
-    {t:"스포츠 부전공", d:"금융 공부하면서 체육도 함께 하고 싶다면", tag:"NEW", clip:"media/clip/finance8.mp4", at:66.0, more:"금융 공부와 체육을 함께 하고 싶은 학생을 위한 스포츠 부전공이 있어요."}
+    {t:"스포츠 부전공", d:"금융 공부하면서 체육도 함께 하고 싶다면", tag:"NEW", clip:"media/clip/finance8.mp4", at:66.0, more:"금융 공부와 체육을 함께 하고 싶은 학생을 위한 스포츠 부전공이 있어요. 정해진 인원 안에서 신청해요."}
   ],
   stats:[
     {big:"10", unit:"명", lb:"금융·공공기관 취업<br><small>신용보증기금·은행·증권 · 2024~2026 졸업생</small>"},
@@ -1832,7 +1884,7 @@ var DEPTS = [
   tags:["학교스포츠클럽","골프 수업","해양 레저","대학 진학"],
   learn:[
     {hi:1, t:"학교스포츠클럽", d:"축구·풋살·티볼, 최다 종목 출전", tag:"풋살·티볼 3년 연속 1위", mt:1, clubs:[{n:"티볼", d:"2026 전국학교스포츠클럽 축전 3위", ph:["media/learn/sports_tball_team.jpg","media/learn/sp_tball1.jpg","media/learn/sp_tball2.jpg"]},{n:"배구", d:"2026 KVA V3 디비전리그 3위", ph:["media/learn/sp_volley1.jpg","media/learn/sp_volley2.jpg","media/learn/sp_volley3.jpg","media/learn/sp_volley4.jpg"]}], clip:"media/clip/sports1.mp4", at:12.0, more:"부산·경남 유일 스포츠학과. 학교스포츠클럽 대회에 가장 많은 종목으로 출전하고(2024년 8종목), 부산교육감배 풋살·티볼 3년 연속 1위, 축구는 2024·2026년 1위를 했어요. 2024년에는 축구·풋살 전국 1위, 2026년 축구·풋살은 전국대회에 진출했어요(출전 예정).\n2026년에는 전국학교스포츠클럽 티볼대회 여고부 3위, KVA V3 배구 디비전리그 여고부 3위까지 올랐어요."},
-    {t:"골프 수업", d:"학교 안 골프장 수업 · 프로 경기 관람", clubs:[{n:"KLPGA 대회 관람", d:"HJ중공업 동부건설 챔피언십", ph:["media/learn/sports_klpga.jpg","media/learn/sp_golf1.jpg","media/learn/sp_golf2.jpg","media/learn/sp_golf3.jpg"]}], clip:"media/clip/sports2.mp4", at:54.8, more:"학교 안 골프 연습장에서 골프를 배워요. KLPGA 프로 골프 대회(HJ중공업 동부건설 챔피언십)를 직접 보러 가서 프로 선수의 경기를 눈앞에서 봤어요."},
+    {t:"골프 수업", d:"학교 안 골프장 수업 · 프로 경기 관람", clubs:[{n:"KLPGA 대회 관람", d:"HJ중공업 동부건설 챔피언십", ph:["media/learn/sports_klpga.jpg","media/learn/sp_golf1.jpg","media/learn/sp_golf2.jpg","media/learn/sp_golf3.jpg"]}], clip:"media/clip/sports2.mp4", at:54.8, more:"학교 안 골프 연습장에서 골프를 배워요. KLPGA 프로 골프 대회(HJ중공업 동부건설 챔피언십)를 직접 보러 가서 프로 선수의 경기를 눈앞에서 봤어요.\n3학년 때는 골프장에서 직접 해 보는 골프 캐디 실무(현장실습)도 있어요."},
     {t:"해양 레저 체험", d:"래프팅 같은 바다 위 체험 활동", clip:"media/clip/sports3.mp4", at:50.8, more:"래프팅 같은 해양 레저를 직접 체험해요."},
     {t:"수영 강습", d:"기초부터 차근차근 배우는 수영", clip:"media/clip/sports4.mp4", at:53.2, more:"수영 강습으로 수영을 배워요."},
     {hi:1, t:"재활운동<br>건강관리사", d:"재활 운동 전문 자격", tag:"자격", clip:"media/clip/sports5.mp4", at:58.0, more:"재활운동건강관리사 자격증을 취득하고, 스포츠 테이핑·스포츠 마사지 자격증도 취득할 수 있어요."},
@@ -2295,6 +2347,7 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
       <div class="aps-q"><div class="aps-box" id="aps-qr"></div><div class="aps-t"><b id="aps-tt">카메라로 QR을 찍으면<br>신청 화면이 열려요</b><span id="aps-ts">중학교·이름·연락처를 적고<br>보내기만 누르면 끝!</span><div class="lock">🔒 <span style="margin:0;font-size:inherit;color:inherit"><b style="display:inline;font-size:inherit;color:#5A2A44">이름·연락처는 각자 휴대폰에서만</b><br>발표 화면에는 보이지 않아요</span></div><div class="aps-url" id="aps-url"></div><button class="aps-form" id="aps-form" data-form="consult">이 화면에서 바로 신청하기</button></div></div>
     </div></div></div>
   <div class="sh" id="apf"><div class="sh-card"><div class="apf-top"><b>바로 신청하기</b><span>입학상담 · 진로체험</span><button class="sh-x">✕ 닫기</button></div><iframe id="apf-fr" title="신청서"></iframe></div></div>
+  <div class="sh" id="sbj"><div class="sh-card"><button class="sh-x">✕ 닫기</button><div class="sbj-h" id="sbj-h"></div><div class="sbj-l" id="sbj-l"></div><div class="sbj-f" id="sbj-f"></div></div></div>
   <div class="sh" id="rmp"><div class="sh-card"><button class="sh-x">✕ 닫기</button>
     <div class="rm-h"><small>CAREER ROADMAP</small><h2>3년 뒤, <em>나의 길</em>은?</h2><p>1학년은 다 함께, 2학년은 나의 학과, 3학년은 나에게 맞는 진로로</p></div>
     <div class="rm-steps" id="rm-steps"></div>
@@ -2458,6 +2511,7 @@ $("#dept-host").innerHTML=DEPTS.map(function(d,k){
         '<button class="tab rv" style="--i:5" data-tab="l">이런 걸 배워요<small>'+d.learn.length+'가지</small></button>'+
         '<button class="tab rv" style="--i:6" data-tab="c">졸업 후 진로<small>취업 · 진학</small></button>'+
       '</div>'+
+      (SUBJ[d.id]?'<button class="sbj-go rv" style="--i:7" data-sheet="subj" data-arg="'+d.id+'">📚 2학년부터 배우는 과목 보기 →</button>':'')+
       '<div class="others rv" style="--i:7"><span>다른 학과</span>'+others+'</div>'+
       '<div class="chr dchr"><img class="b" src="media/char/'+d.id+'.webp" alt=""></div>'+
     '</div>'+
@@ -2738,7 +2792,7 @@ var ADM=(function(){
   }
   $("#pros").innerHTML=[
     ["1","학과 몰라도 지원 OK","중3인 지금 진로를 정하지 않아도 돼요"],
-    ["2","1년 동안 직접 보고","학교생활하며 선배와 학과를 가까이서 봐요"],
+    ["2","1년 동안 직접 보고","금융·관광·보건 기초를 모두 배우며 학과를 가까이서 봐요"],
     ["3","2학년 때 내 길 선택","충분히 알아본 뒤 학과를 골라요"]
   ].map(function(x,k){return '<div class="pro rv" style="--i:'+(4+k)+'"><i>'+x[0]+'</i><b>'+x[1]+'</b><span>'+x[2]+'</span></div>'}).join("");
   // 1학년 한 줄 → 2학년 네 갈래
@@ -3333,7 +3387,7 @@ var CD=(function(){
 
 /* ── 현장 접수: 선생님·홍보대사가 이 화면에서 대신 입력 ── */
 var SHEET=(function(){
-  var cur=null, ids={apply:"aps",qa:"qa",career:"cvs",form:"apf",roadmap:"rmp"}, aTab="consult";
+  var cur=null, ids={apply:"aps",qa:"qa",career:"cvs",form:"apf",roadmap:"rmp",subj:"sbj"}, aTab="consult";
   function base(){ return (CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""); }
   function abs(u){ try{ return new URL(u,location.href).href; }catch(e){ return u; } }
   var TXT={consult:["카메라로 QR을 찍으면<br>입학상담 신청이 열려요","성적은 적지 않아도 괜찮아요.<br>적으면 더 자세히 상담해 드려요."],
@@ -3353,6 +3407,10 @@ var SHEET=(function(){
       $("#apf-fr").src=(local?"apply/index.html":base())+"?kiosk=1&shared=1&tabs="+(q?"qa":"consult,career")+"&tab="+(arg||"consult"); }
     if(k==="qa")QAW.load(true);
     if(k==="career")CV.show(arg);
+    if(k==="subj"){ var dd=D[arg]||DEPTS[0], L=SUBJ[dd.id]||[]; el.style.setProperty("--c",dd.color);
+      $("#sbj-h").innerHTML='<small>'+dd.name+'</small><h2>2학년부터 <em>배우는 과목</em></h2><p>'+SUBJ_COMMON+'</p>';
+      $("#sbj-l").innerHTML=L.map(function(x,i){ return '<div class="sbj-i rv" style="--i:'+(i+1)+'"><i class="'+(/코스/.test(x.g)?'c':'')+'">'+x.g+'</i><b>'+x.n+'</b><span>'+x.d+'</span></div>'; }).join("");
+      $("#sbj-f").textContent="2027학년도 입학생 교육과정 편제표 기준 · 학교 사정에 따라 바뀔 수 있어요"; }
   }
   function hide(quick){ if(!cur)return; var el=document.getElementById(ids[cur]); el.classList.remove("on","in"); if(cur==="career")CV.closeBig(); if(cur==="form"){ try{ $("#apf-fr").blur(); window.focus(); document.body.focus(); }catch(e){} setTimeout(function(){ if(cur!=="form")$("#apf-fr").src="about:blank"; },350); } cur=null; }
   $$(".sh").forEach(function(el){
@@ -3365,7 +3423,7 @@ var SHEET=(function(){
       // 휴대폰·태블릿(터치)은 개인 기기 → 신청 사이트를 새 창으로 그대로(가리지 않음)
       if(window.matchMedia&&matchMedia("(pointer:coarse)").matches&&!matchMedia("(any-pointer:fine)").matches){ window.open(abs(base())+"#"+t,"_blank"); return; }
       open("form",t); return; }
-    if(b.dataset.sheet)open(b.dataset.sheet); else open("apply",b.dataset.apply);
+    if(b.dataset.sheet)open(b.dataset.sheet,b.dataset.arg); else open("apply",b.dataset.apply);
   },true);
   window.addEventListener("message",function(e){ if(e.data&&e.data.ds==="close-form"&&cur==="form")hide(); });
   return {open:open,close:hide,get cur(){return cur}};
@@ -4067,6 +4125,14 @@ html.m #m{display:block}
 #m .m-col div:first-child{border-top:0}
 #m .m-col div span{color:var(--mu);font-weight:700;font-size:12px}
 #m .m-other{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+#m .m-sbj{margin-top:20px;border:1px solid var(--ln);border-radius:14px;background:var(--bg2);overflow:hidden}
+#m .m-sbj summary{padding:14px 16px;font-size:15px;font-weight:900;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+#m .m-sbj summary::-webkit-details-marker{display:none}#m .m-sbj summary:after{content:"▼";font-size:11px;opacity:.6}#m .m-sbj[open] summary:after{content:"▲"}
+#m .m-sbj p{margin:0 16px 10px;font-size:13px;line-height:1.55;opacity:.8}
+#m .m-sbi{display:grid;grid-template-columns:52px 1fr;column-gap:10px;padding:10px 16px;border-top:1px solid var(--ln)}
+#m .m-sbi i{grid-row:1/3;font-style:normal;font-size:11px;font-weight:900;color:var(--c);align-self:center}
+#m .m-sbi b{font-size:14px}#m .m-sbi span{font-size:12.5px;opacity:.75;line-height:1.45}
+#m .m-sbj small{display:block;padding:8px 16px 12px;font-size:11px;opacity:.55}
 #m .m-other button{padding:9px 12px;border-radius:12px;background:var(--bg2);border:1px solid var(--ln);font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px}
 #m .m-other button i{width:8px;height:8px;border-radius:50%;background:var(--c)}
 #m .m-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:70;padding:10px 16px;border-radius:12px;background:#fff;color:#14161B;font-size:13px;font-weight:900;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
@@ -4139,7 +4205,7 @@ html.m #m{display:block}
       '<div class="m-down">아래로 넘겨요 ↓</div></section>'+
       '<div class="m-act"><i>ACT 1</i><b>배움으로</b><span>1학년은 다 함께</span></div>'+
       '<section><div class="m-k">1학년 공통모집</div><h2>학과는 <mark>2학년</mark> 때,<br>지금은 <mark>함께</mark> 시작해요</h2><p class="m-lead">중3인 지금 학과를 정하지 않아도 지원할 수 있어요.</p>'+
-      '<div class="m-pros"><div class="m-pro"><i>1</i><div><b>학과 몰라도 지원 OK</b><span>중3인 지금 진로를 정하지 않아도 돼요</span></div></div><div class="m-pro"><i>2</i><div><b>1년 동안 직접 보고</b><span>학교생활하며 선배와 학과를 가까이서 봐요</span></div></div><div class="m-pro"><i>3</i><div><b>2학년 때 내 길 선택</b><span>충분히 알아본 뒤 학과를 골라요</span></div></div></div></section>'+
+      '<div class="m-pros"><div class="m-pro"><i>1</i><div><b>학과 몰라도 지원 OK</b><span>중3인 지금 진로를 정하지 않아도 돼요</span></div></div><div class="m-pro"><i>2</i><div><b>1년 동안 직접 보고</b><span>금융·관광·보건 기초를 모두 배우며 학과를 가까이서 봐요</span></div></div><div class="m-pro"><i>3</i><div><b>2학년 때 내 길 선택</b><span>충분히 알아본 뒤 학과를 골라요</span></div></div></div></section>'+
       '<section style="padding-top:0"><div class="m-k">DONGSUNG 4CUT</div><h2>선배 언니들의<br>진짜 학교생활</h2><p class="m-lead">학교 영상 속 실제 장면이에요. 옆으로 넘겨 보세요.</p><div class="m-hs">'+life+'</div></section>'+
       '<section style="padding-top:0"><div class="m-k">NUMBERS</div><h2>숫자로 보는 동성여고</h2><div class="m-wall">'+wall+'</div></section>'+
       '<div class="m-act"><i>ACT 2</i><b>이루고</b><span>2학년, 나의 길</span></div>'+
@@ -4206,6 +4272,7 @@ html.m #m{display:block}
       '<div class="m-vid" data-video="'+d.video+'"><img src="'+d.poster+'" alt=""><div class="m-pl"><i>▶</i></div></div><p class="m-vnote"><b style="color:#fff">'+d.posterTitle+'</b> · '+d.dur+' · 누르면 재생 · 약 30MB(Wi-Fi 추천)</p>'+
       trk+'<h3>이런 걸 배워요 <small>'+d.learn.length+'가지 · 눌러서 자세히</small></h3><div class="m-learn">'+learn+'</div>'+
       '<h3>졸업 후 진로 <small>취업 · 진학</small></h3><div class="m-st2">'+stats+'</div>'+(jobs?'<h3>선배들이 간 곳 <small>2024~2026</small></h3><div class="m-cos">'+jobs+'</div>':'')+col+quote+
+      (SUBJ[d.id]?'<details class="m-sbj"><summary>📚 2학년부터 배우는 과목</summary><p>'+SUBJ_COMMON+'</p>'+SUBJ[d.id].map(function(x){return '<div class="m-sbi"><i>'+x.g+'</i><b>'+x.n+'</b><span>'+x.d+'</span></div>'}).join("")+'<small>2027학년도 입학생 교육과정 편제표 기준</small></details>':'')+
       '<div class="m-other">'+other+'</div><div style="margin-top:18px;display:flex;gap:8px"><a class="m-btn" href="'+applyLink("consult")+'">이 학과 상담 신청</a><a class="m-btn m-o" href="'+applyLink("career")+'">진로체험</a></div></div>';
   }
   function openDept(id){
