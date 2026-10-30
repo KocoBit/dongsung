@@ -4327,7 +4327,7 @@ html.m #m{display:block}
 #m .m-col div{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--ln);font-size:14px;font-weight:900}
 #m .m-col div:first-child{border-top:0}
 #m .m-col div span{color:var(--mu);font-weight:700;font-size:12px}
-#m .m-other{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+#m .m-other{display:flex;gap:8px;flex-wrap:nowrap;margin-top:20px}
 #m .m-sbj{margin-top:20px;border:1px solid var(--ln);border-radius:14px;background:var(--bg2);overflow:hidden}
 #m .m-sbj summary{padding:14px 16px;font-size:15px;font-weight:900;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
 #m .m-sbj summary::-webkit-details-marker{display:none}#m .m-sbj summary:after{content:"▼";font-size:11px;opacity:.6}#m .m-sbj[open] summary:after{content:"▲"}
@@ -4336,8 +4336,8 @@ html.m #m{display:block}
 #m .m-sbi i{grid-row:1/3;font-style:normal;font-size:11px;font-weight:900;color:var(--c);align-self:center}
 #m .m-sbi b{font-size:14px}#m .m-sbi span{font-size:12.5px;opacity:.75;line-height:1.45}
 #m .m-sbj small{display:block;padding:8px 16px 12px;font-size:11px;opacity:.55}
-#m .m-other button{padding:9px 12px;border-radius:12px;background:var(--bg2);border:1px solid var(--ln);font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px}
-#m .m-other button i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+#m .m-other button{flex:1 1 0;min-width:0;justify-content:center;white-space:nowrap;padding:9px 8px;border-radius:12px;background:var(--bg2);border:1px solid var(--ln);font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px}
+#m .m-other button i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--c)}
 #m .m-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:70;padding:10px 16px;border-radius:12px;background:#fff;color:#14161B;font-size:13px;font-weight:900;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
 #m .m-toast.m-on{opacity:1}
 </style>
@@ -4371,6 +4371,7 @@ html.m #m{display:block}
     return {rows:rows,head:head,dd:dd};
   }
 
+  var SN={finance:"금융과",tourism:"관광과",health:"보건과",sports:"스포츠과"};
   /* 학과 색 칩: 금융 파랑 · 관광 주황 · 보건 핑크 · 스포츠 초록 (두 학과면 두 색) */
   var DO="fths", DC={f:"#2E5BFF",t:"#FF7A1A",h:"#F0457E",s:"#0FA968"}, DN={f:"금융정보",t:"관광서비스",h:"보건간호",s:"스포츠건강관리"};
   function rgba(h,a){ var n=parseInt(h.slice(1),16); return "rgba("+(n>>16)+","+(n>>8&255)+","+(n&255)+","+a+")"; }
@@ -4481,14 +4482,14 @@ html.m #m{display:block}
     var jobs=JOBS.filter(function(j){return j[2]===d.id[0]}).sort(function(a,b){return (b[5]?1:0)-(a[5]?1:0)}).slice(0,8).map(function(j){ return coChip(j[1],j[2],!!j[5],j[0]); }).join("");
     var col=d.college?'<h3>'+d.college.title+'</h3><div class="m-col">'+d.college.items.map(function(c){return '<div>'+c[0]+'<span>'+c[1]+'</span></div>'}).join("")+'</div>':'';
     var quote=d.quote?(d.senior&&d.video?'<button class="m-qt m-qp" data-senior="'+d.id+'"><span class="m-qi"><img src="'+d.quote.img+'" alt=""><i></i></span><div><b>'+d.quote.title+' <em>▶ '+Math.round(d.senior.t1-d.senior.t0)+'초</em></b><span>'+d.quote.by+'</span></div></button>':'<div class="m-qt"><img src="'+d.quote.img+'" alt=""><div><b>'+d.quote.title+'</b><span>'+d.quote.by+'</span></div></div>'):'';
-    var other=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-dept="'+o.id+'" style="--c:'+o.color+'"><i></i>'+o.name+'</button>'}).join("");
+    var other=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-dept="'+o.id+'" style="--c:'+o.color+'"><i></i>'+SN[o.id]+'</button>'}).join("");
     return '<div class="m-hd" style="--c:'+d.color+'"><i>0'+(i+1)+'</i><b>'+d.name+'</b><button data-close>✕</button></div><div class="m-body" style="--c:'+d.color+'">'+
       '<div class="m-hook">'+d.hook+'</div><p class="m-sub">'+d.sub+'</p>'+
       '<div class="m-vid" data-video="'+d.video+'"><img src="'+d.poster+'" alt=""><div class="m-pl"><i>▶</i></div></div><p class="m-vnote"><b style="color:#fff">'+d.posterTitle+'</b> · '+d.dur+' · 누르면 재생 · 약 30MB(Wi-Fi 추천)</p>'+
       trk+'<h3>이런 걸 배워요 <small>'+d.learn.length+'가지 · 눌러서 자세히</small></h3><div class="m-learn">'+learn+'</div>'+
       '<h3>졸업 후 진로 <small>취업 · 진학</small></h3><div class="m-st2">'+stats+'</div>'+(jobs?'<h3>선배들이 간 곳 <small>2024~2026</small></h3><div class="m-cos">'+jobs+'</div>':'')+col+quote+
       (SUBJ[d.id]?'<details class="m-sbj"><summary>📚 2학년부터 배우는 과목</summary><p>'+SUBJ_COMMON+'</p>'+SUBJ[d.id].map(function(x){return '<div class="m-sbi"><i>'+x.g+'</i><b>'+x.n+'</b><span>'+x.d+'</span></div>'}).join("")+'<small>2027학년도 입학생 교육과정 편제표 기준</small></details>':'')+
-      '<div class="m-other">'+other+'</div><div style="margin-top:18px;display:flex;gap:8px"><a class="m-btn" href="'+applyLink("consult")+'">이 학과 상담 신청</a><a class="m-btn m-o" href="'+applyLink("career")+'">진로체험</a></div></div>';
+      '<div class="m-other">'+other+'</div><div style="margin-top:18px;display:flex;gap:8px"><a class="m-btn" href="'+applyLink("consult")+'">'+SN[d.id]+' 상담 신청</a><a class="m-btn m-o" href="'+applyLink("career")+'">진로체험</a></div></div>';
   }
   function openDept(id){
     var d=D[id]; if(!d)return; var i=DEPTS.indexOf(d);
