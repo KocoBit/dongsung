@@ -3315,10 +3315,10 @@ var LOBBY=(function(){
   function active(){ return cur==="open"&&OP.waiting&&!busy; }
   var sb=el.querySelector(".lb-snd");
   /* 기본 소리 켜짐. 브라우저 자동재생 제한으로 첫 입력(아무 키 · F 전체화면 · 소리 버튼) 전에는 소리가 막혀 있을 수 있어 그때만 안내 */
-  function label(){ if(!armed){ sb.classList.remove("on"); sb.textContent="🔇 소리 꺼짐"; return; } sb.classList.add("on"); sb.textContent=(AC&&AC.state==="running")?"🔊 소리 켜짐":"🔊 아무 키나 누르면 소리가 나요"; }
+  function label(){ if(!armed){ sb.classList.remove("on"); sb.textContent="🔇 소리 꺼짐"; return; } sb.classList.add("on"); sb.textContent="🔊 소리 켜짐"; }
   function wake(){ ctx(); if(AC&&AC.resume)AC.resume().then(label,label); label(); }
   ctx(); label(); if(AC&&AC.addEventListener)AC.addEventListener("statechange",label);
-  sb.addEventListener("click",function(e){ e.stopPropagation(); if(armed&&AC&&AC.state==="running"){ armed=false; label(); } else { armed=true; wake(); } });
+  sb.addEventListener("click",function(e){ e.stopPropagation(); if(armed){ armed=false; label(); } else { armed=true; wake(); } });
   document.addEventListener("keydown",function(e){ if(cur==="open"&&OP.waiting) wake(); },true);
   document.addEventListener("pointerdown",function(){ if(cur==="open"&&OP.waiting) wake(); },true);
   var dl=$("#lb-dl"), dr=$("#lb-dr"), doors=$("#lb-doors"), fl=$("#lb-flare");
