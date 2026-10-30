@@ -965,7 +965,7 @@ body.dark .ngl{color:#FF9CC2;border-color:#2C3242}
 .act-row img{position:absolute;left:50%;bottom:-230px;height:860px;transform:translateX(-50%);filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
 #act.in .act-row div{opacity:1;transform:none}
 #act.a3 .act-bg{background:linear-gradient(180deg,#5D6FD6 0%,#9C8FE0 38%,#F4A9B8 72%,#FFD3A0 100%)}
-#act.a3 .act-tx{left:130px;top:300px}
+#act.a3 .act-tx{left:130px;top:300px}#act.a3 .act-tx h2{font-size:170px;letter-spacing:-9px}
 #act.a3 small{color:#FFF1C9}
 #act.a3 h2{text-shadow:0 10px 40px rgba(60,40,120,.35)}
 .act-pl{position:absolute;z-index:2;left:0;top:0;width:1920px;height:1080px}
@@ -3364,7 +3364,7 @@ var ACT=(function(){
   var TX={
     1:{k:"ACT 1 · 1학년",w:"배움으로",s:"1학년은 다 함께, 동성여고에서 시작해요"},
     2:{k:"ACT 2 · 2학년",w:"이루고",s:"2학년, 나의 길을 골라 실력을 쌓아요"},
-    3:{k:"ACT 3 · 졸업",w:"세상으로",s:"선배들은 이렇게 날아갔어요"}
+    3:{k:"ACT 3 · 졸업",w:"세상으로 비상하라!",s:"선배들은 이렇게 날아갔어요"}
   };
   function build(a){
     var T=TX[a]; el.className="a"+a;
@@ -4118,10 +4118,10 @@ html.m #m{display:block}
 #m .m-hero .m-down{position:absolute;left:50%;bottom:78px;z-index:1;transform:translateX(-50%);font-size:12px;color:var(--mu);font-weight:700;animation:mdown 1.6s ease-in-out infinite}
 @keyframes mdown{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
 /* 막 띠 */
-#m .m-act{display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--bg2);border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+#m .m-act{display:flex;flex-direction:column;gap:4px;padding:18px 20px;background:var(--bg2);border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
 #m .m-act i{font-style:normal;font-size:11px;font-weight:900;letter-spacing:3px;color:var(--pk)}
-#m .m-act b{font-size:20px;font-weight:900}
-#m .m-act span{margin-left:auto;font-size:12px;color:var(--mu);font-weight:700}
+#m .m-act b{font-size:24px;font-weight:900;letter-spacing:-.5px;line-height:1.15}
+#m .m-act span{font-size:13px;color:var(--mu);font-weight:700}
 /* 공통모집 */
 #m .m-pros{display:grid;gap:10px}
 #m .m-pro{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:var(--bg2);border:1px solid var(--ln)}
@@ -4402,16 +4402,16 @@ html.m #m{display:block}
       (ai.dd?'<div class="m-dd">'+ai.dd+'<span>· '+ai.head+'</span></div>':'')+
       '<div class="m-acts"><a class="m-btn" href="'+applyLink("consult")+'">신청하기</a><button class="m-btn m-o" data-scroll="m-depts">학과 둘러보기 ↓</button></div></div>'+
       '<div class="m-down">아래로 넘겨요 ↓</div></section>'+
-      '<div class="m-act"><i>ACT 1</i><b>배움으로</b><span>1학년은 다 함께</span></div>'+
+      '<div class="m-act"><i>ACT 1 · 1학년</i><b>배움으로</b><span>1학년은 다 함께, 동성여고에서 시작해요</span></div>'+
       '<section><div class="m-k">1학년 공통모집</div><h2>학과는 <mark>2학년</mark> 때,<br>지금은 <mark>함께</mark> 시작해요</h2><p class="m-lead">중3인 지금 학과를 정하지 않아도 지원할 수 있어요.</p>'+
       '<div class="m-pros"><div class="m-pro"><i>1</i><div><b>학과 몰라도 지원 OK</b><span>중3인 지금 진로를 정하지 않아도 돼요</span></div></div><div class="m-pro"><i>2</i><div><b>1년 동안 직접 보고</b><span>금융·관광·보건 기초를 모두 배우며 학과를 가까이서 봐요</span></div></div><div class="m-pro"><i>3</i><div><b>2학년 때 내 길 선택</b><span>충분히 알아본 뒤 학과를 골라요</span></div></div></div></section>'+
       '<section style="padding-top:0"><div class="m-k">DONGSUNG 4CUT</div><h2>선배 언니들의<br>진짜 학교생활</h2><p class="m-lead">학교 영상 속 실제 장면이에요. 옆으로 넘겨 보세요.</p><div class="m-hs">'+life+'</div></section>'+
       '<section style="padding-top:0"><div class="m-k">NUMBERS</div><h2>숫자로 보는 동성여고</h2><div class="m-wall">'+wall+'</div></section>'+
-      '<div class="m-act"><i>ACT 2</i><b>이루고</b><span>2학년, 나의 길</span></div>'+
+      '<div class="m-act"><i>ACT 2 · 2학년</i><b>이루고</b><span>2학년, 나의 길을 골라 실력을 쌓아요</span></div>'+
       '<section id="m-depts"><div class="m-k">DEPARTMENTS</div><h2>2학년 때 고를<br><mark>네 개의 길</mark></h2><p class="m-lead">학과를 누르면 영상·배우는 것·졸업 후 진로가 열려요.</p><div class="m-depts">'+depts+'</div></section>'+
       '<section style="padding-top:0"><div class="m-k">AWARDS</div><h2>선배들이 해냈어요</h2><div class="m-medals"><div class="m-medal" style="--mc:#F2B705"><b>'+aw.g+'</b><span>1위 · 금상</span></div><div class="m-medal" style="--mc:#C9CDD6"><b>'+aw.s+'</b><span>2위 · 은상</span></div><div class="m-medal" style="--mc:#D08A4A"><b>'+aw.b+'</b><span>3위 · 동상</span></div></div>'+
       '<h3>상업경진대회 <small>2026</small></h3><table class="m-tbl">'+aw.ct+'</table><h3>학교스포츠클럽 <small>부산교육감배 · 축구·풋살·티볼</small></h3><table class="m-tbl">'+aw.sp+'</table></section>'+
-      '<div class="m-act"><i>ACT 3</i><b>세상으로</b><span>선배들은 이렇게</span></div>'+
+      '<div class="m-act"><i>ACT 3 · 졸업</i><b>세상으로 비상하라!</b><span>선배들은 이렇게 날아갔어요</span></div>'+
       '<section><div class="m-k">CREDITS</div><h2>선배들은<br>어디로 갔을까?</h2><div class="m-big"><b>'+js.total+'</b><span>명</span></div><p class="m-lead" style="margin-top:6px">전공을 살려 취업한 선배 · 최근 3년<br><small>'+JOB_NOTE+'</small></p><div class="m-fields">'+js.fields+'</div><div class="m-cos">'+js.cos+'</div>'+
       '<h3>🧭 진로 로드맵 <small>취업 · 진학 · 선취업 후진학</small></h3><div class="m-rm">'+rm+'</div></section>'+
       '<section id="m-career" style="padding-top:0"><div class="m-k">CAREER DAY</div><h2>진로체험 사진 · 신청</h2><p class="m-lead">지난 체험 사진을 보고, 다음 체험을 신청해요</p><div class="m-tabs" id="m-ctabs">'+ctabs+'</div><div id="m-cbody"></div><div style="margin-top:14px"><a class="m-btn" href="'+applyLink("career")+'">진로체험 신청하기</a></div></section>'+
