@@ -4175,7 +4175,12 @@ html.m #m{display:block}
 #m .m-jf span{margin-left:auto;font-weight:900;color:#fff}
 #m .m-cos{display:flex;flex-wrap:wrap;gap:8px}
 #m .m-co{padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid var(--ln);font-size:14px;font-weight:900}
-#m .m-co.m-star{background:rgba(255,213,74,.14);border-color:rgba(255,213,74,.4);color:var(--gd)}
+#m .m-co{display:inline-flex;align-items:center;gap:0}
+#m .m-co>i{width:7px;height:7px;border-radius:50%;margin-right:6px;flex:none}#m .m-co>i+i{margin-left:-9px;box-shadow:0 0 0 1.5px #0A0C12}
+#m .m-co.m-star{color:#fff;font-size:15px}
+#m .m-co em{font-style:normal;color:var(--gd);margin-right:4px;font-size:13px}
+#m .m-dlg{width:100%;display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 4px;font-size:12px;font-weight:700;color:var(--mu)}
+#m .m-dlg span{display:inline-flex;align-items:center;gap:5px}#m .m-dlg i{width:8px;height:8px;border-radius:50%}
 #m .m-co small{font-weight:700;color:var(--mu);margin-left:4px;font-size:12px}
 /* 로드맵 */
 #m .m-rm{display:grid;gap:10px;margin-top:14px}
@@ -4350,14 +4355,26 @@ html.m #m{display:block}
     return {rows:rows,head:head,dd:dd};
   }
 
+  /* 학과 색 칩: 금융 파랑 · 관광 주황 · 보건 핑크 · 스포츠 초록 (두 학과면 두 색) */
+  var DO="fths", DC={f:"#2E5BFF",t:"#FF7A1A",h:"#F0457E",s:"#0FA968"}, DN={f:"금융정보",t:"관광서비스",h:"보건간호",s:"스포츠건강관리"};
+  function rgba(h,a){ var n=parseInt(h.slice(1),16); return "rgba("+(n>>16)+","+(n>>8&255)+","+(n&255)+","+a+")"; }
+  function coChip(name,d,star,sub){
+    var cs=d.split("").filter(function(c){return DC[c]}).map(function(c){return DC[c]}); if(!cs.length)cs=["#8F9AA8"];
+    var a=star?.26:.13, bg=cs.length>1?"linear-gradient(90deg,"+rgba(cs[0],a)+","+rgba(cs[1],a)+")":rgba(cs[0],a);
+    var bd=cs.length>1?rgba(cs[0],.55)+" "+rgba(cs[1],.55)+" "+rgba(cs[1],.55)+" "+rgba(cs[0],.55):rgba(cs[0],star?.75:.45);
+    return '<span class="m-co'+(star?' m-star':'')+'" style="background:'+bg+';border-color:'+bd+'">'+cs.map(function(c){return '<i style="background:'+c+'"></i>'}).join("")+(star?'<em>★</em>':'')+name+'<small>'+sub+'</small></span>';
+  }
+
   /* 취업 집계 */
   function jobsSummary(){
     var total=0, byF={}, cos={};
-    JOBS.forEach(function(j){ var n=j[3]||1; total+=n; byF[j[4]]=(byF[j[4]]||0)+n; var k=j[1]; if(!cos[k])cos[k]={n:0,star:!!j[5],d:j[2],years:{}}; cos[k].n+=n; cos[k].years[j[0]]=1; });
+    JOBS.forEach(function(j){ var n=j[3]||1; total+=n; byF[j[4]]=(byF[j[4]]||0)+n; var k=j[1]; if(!cos[k])cos[k]={n:0,star:!!j[5],d:"",years:{}}; cos[k].n+=n; cos[k].years[j[0]]=1; j[2].split("").forEach(function(c){ if(cos[k].d.indexOf(c)<0)cos[k].d+=c; }); });
     var FC=["","#2E5BFF","#8F9AA8","#FF7A1A","#F0457E","#0FA968"];
     var fields=Object.keys(byF).sort().map(function(f){return '<div class="m-jf" style="--fc:'+FC[f]+'"><i></i>'+JOB_FIELDS[f]+'<span>'+byF[f]+'명</span></div>'}).join("");
-    var list=Object.keys(cos).map(function(k){return {k:k,v:cos[k]}}).sort(function(a,b){return (b.v.star-a.v.star)||(b.v.n-a.v.n)}).slice(0,14);
-    var co=list.map(function(x){return '<span class="m-co'+(x.v.star?' m-star':'')+'">'+x.k+'<small>'+x.v.n+'명</small></span>'}).join("");
+    var list=Object.keys(cos).map(function(k){return {k:k,v:cos[k]}}).sort(function(a,b){return (b.v.star-a.v.star)||(b.v.n-a.v.n)}).slice(0,14)
+      .sort(function(a,b){ return (DO.indexOf(a.v.d[0])-DO.indexOf(b.v.d[0]))||(b.v.star-a.v.star)||(b.v.n-a.v.n); });
+    var co=list.map(function(x){ return coChip(x.k,x.v.d,x.v.star,x.v.n+'명'); }).join("");
+    co='<div class="m-dlg">'+DO.split("").map(function(c){ return '<span><i style="background:'+DC[c]+'"></i>'+DN[c]+'</span>'; }).join("")+'</div>'+co;
     return {total:total,fields:fields,cos:co};
   }
 
@@ -4445,7 +4462,7 @@ html.m #m{display:block}
       '<div class="m-chips"><small>A 금융마스터반만</small>'+(T.aOnly||[]).map(function(c){return '<span>'+c.t+'</span>'}).join("")+'</div>'+
       '<div class="m-chips"><small>B 산업기사반만</small>'+(T.bOnly||[]).map(function(c){return '<span>'+c.t+(c.s?' <i style="font-style:normal;opacity:.7">'+c.s+'</i>':'')+'</span>'}).join("")+'</div>'; }
     var stats=(d.stats||[]).map(function(s){return '<div class="m-sb"><b>'+s.big+'<small>'+s.unit+'</small></b><span>'+s.lb+'</span></div>'}).join("");
-    var jobs=JOBS.filter(function(j){return j[2]===d.id[0]}).sort(function(a,b){return (b[5]?1:0)-(a[5]?1:0)}).slice(0,8).map(function(j){return '<span class="m-co'+(j[5]?' m-star':'')+'">'+j[1]+'<small>'+j[0]+'</small></span>'}).join("");
+    var jobs=JOBS.filter(function(j){return j[2]===d.id[0]}).sort(function(a,b){return (b[5]?1:0)-(a[5]?1:0)}).slice(0,8).map(function(j){ return coChip(j[1],j[2],!!j[5],j[0]); }).join("");
     var col=d.college?'<h3>'+d.college.title+'</h3><div class="m-col">'+d.college.items.map(function(c){return '<div>'+c[0]+'<span>'+c[1]+'</span></div>'}).join("")+'</div>':'';
     var quote=d.quote?'<div class="m-qt"><img src="'+d.quote.img+'" alt=""><div><b>'+d.quote.title+'</b><span>'+d.quote.by+'</span></div></div>':'';
     var other=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-dept="'+o.id+'" style="--c:'+o.color+'"><i></i>'+o.name+'</button>'}).join("");
