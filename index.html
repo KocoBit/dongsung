@@ -3848,7 +3848,7 @@ function goNow(id){
   // 동영상 재생 관리
   $$("#home video").forEach(function(v){ if(id==="home"){v.currentTime=0;v.play().catch(function(){});} else v.pause(); });
   var iv=$("#intro video"); if(id==="intro"){iv.currentTime=0;iv.play().catch(function(){});TZ.start();} else {iv.pause();TZ.stop();}
-  if(id.indexOf("dept-")===0){ setTab(next,"v",true); }
+  if(id.indexOf("dept-")===0){ setTab(next,document.body.classList.contains("lounge")?"l":"v",true); }   // 상담 모드에서는 바로 '이런 걸 배워요' 카드 8개
   if(id==="finder"){ calc(true); }
   if(id==="jobs"){ buildRoll(); startRoll(); }
   if(id==="life"){ lifeEnter(); }
