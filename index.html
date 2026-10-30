@@ -4307,6 +4307,13 @@ html.m #m{display:block}
 #m .m-qt img{width:64px;height:64px;border-radius:12px;object-fit:cover}
 #m .m-qt b{display:block;font-size:14px}
 #m .m-qt span{font-size:12px;color:var(--mu);font-weight:700}
+#m .m-qp{width:100%;text-align:left;border-color:var(--c)}
+#m .m-qi{position:relative;flex:none}#m .m-qi i{position:absolute;inset:0;display:grid;place-items:center;border-radius:12px;background:rgba(0,0,0,.35)}
+#m .m-qi i:after{content:"";margin-left:4px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}
+#m .m-qt b em{font-style:normal;font-size:12px;color:var(--c);margin-left:4px}
+#m .m-qv{margin-top:8px;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--c)}
+#m .m-qv video{width:100%;aspect-ratio:16/9}
+#m .m-qv p{margin:0;padding:10px 12px;font-size:12px;color:var(--mu);font-weight:700;background:var(--bg2)}
 #m .m-col{margin-top:8px;border-radius:14px;background:var(--bg2);border:1px solid var(--ln);padding:4px 14px}
 #m .m-col div{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--ln);font-size:14px;font-weight:900}
 #m .m-col div:first-child{border-top:0}
@@ -4464,7 +4471,7 @@ html.m #m{display:block}
     var stats=(d.stats||[]).map(function(s){return '<div class="m-sb"><b>'+s.big+'<small>'+s.unit+'</small></b><span>'+s.lb+'</span></div>'}).join("");
     var jobs=JOBS.filter(function(j){return j[2]===d.id[0]}).sort(function(a,b){return (b[5]?1:0)-(a[5]?1:0)}).slice(0,8).map(function(j){ return coChip(j[1],j[2],!!j[5],j[0]); }).join("");
     var col=d.college?'<h3>'+d.college.title+'</h3><div class="m-col">'+d.college.items.map(function(c){return '<div>'+c[0]+'<span>'+c[1]+'</span></div>'}).join("")+'</div>':'';
-    var quote=d.quote?'<div class="m-qt"><img src="'+d.quote.img+'" alt=""><div><b>'+d.quote.title+'</b><span>'+d.quote.by+'</span></div></div>':'';
+    var quote=d.quote?(d.senior&&d.video?'<button class="m-qt m-qp" data-senior="'+d.id+'"><span class="m-qi"><img src="'+d.quote.img+'" alt=""><i></i></span><div><b>'+d.quote.title+' <em>▶ '+Math.round(d.senior.t1-d.senior.t0)+'초</em></b><span>'+d.quote.by+'</span></div></button>':'<div class="m-qt"><img src="'+d.quote.img+'" alt=""><div><b>'+d.quote.title+'</b><span>'+d.quote.by+'</span></div></div>'):'';
     var other=DEPTS.filter(function(o){return o.id!==d.id}).map(function(o){return '<button data-dept="'+o.id+'" style="--c:'+o.color+'"><i></i>'+o.name+'</button>'}).join("");
     return '<div class="m-hd" style="--c:'+d.color+'"><i>0'+(i+1)+'</i><b>'+d.name+'</b><button data-close>✕</button></div><div class="m-body" style="--c:'+d.color+'">'+
       '<div class="m-hook">'+d.hook+'</div><p class="m-sub">'+d.sub+'</p>'+
@@ -4532,6 +4539,12 @@ html.m #m{display:block}
     var cl=t.closest("[data-close]"); if(cl){ closeDept(); return; }
     if(t===sh){ closeDept(); return; }
     var dp=t.closest("[data-dept]"); if(dp&&dp.dataset.dept){ openDept(dp.dataset.dept); return; }
+    var sn=t.closest(".m-qp[data-senior]"); if(sn){ var sd=D[sn.dataset.senior]; if(!sd)return;
+      var box=document.createElement("div"); box.className="m-qv"; box.innerHTML='<video src="'+sd.video+'#t='+sd.senior.t0+','+sd.senior.t1+'" controls autoplay playsinline preload="auto"></video><p>'+sd.quote.title+' · '+sd.quote.by+'</p>';
+      sn.parentNode.replaceChild(box,sn); var v=box.querySelector("video"), t0=sd.senior.t0, t1=sd.senior.t1;
+      var seek=function(){ try{ if(v.currentTime<t0-.5||v.currentTime>t1)v.currentTime=t0; }catch(x){} };
+      v.addEventListener("loadedmetadata",seek); v.addEventListener("timeupdate",function(){ if(v.currentTime>=t1){ v.pause(); v.currentTime=t0; } });
+      var pr=v.play(); if(pr&&pr.catch)pr.catch(function(){}); return; }
     var vd=t.closest(".m-vid[data-video]"); if(vd){ vd.innerHTML='<video src="'+vd.dataset.video+'" controls autoplay playsinline></video>'; vd.removeAttribute("data-video"); return; }
     var li=t.closest(".m-li"); if(li&&pn.contains(li)){ if(t.closest("video"))return; var was=li.classList.contains("m-open"); li.classList.toggle("m-open",!was); var c=$(".m-cl",li); if(!was&&c&&!c.innerHTML){ c.innerHTML='<video src="'+c.dataset.clip+'" controls playsinline preload="metadata"></video>'; } if(was&&c){ var v=$("video",c); if(v)v.pause(); } return; }
   });
