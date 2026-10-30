@@ -965,7 +965,7 @@ body.dark .ngl{color:#FF9CC2;border-color:#2C3242}
 .act-row img{position:absolute;left:50%;bottom:-230px;height:860px;transform:translateX(-50%);filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
 #act.in .act-row div{opacity:1;transform:none}
 #act.a3 .act-bg{background:linear-gradient(180deg,#5D6FD6 0%,#9C8FE0 38%,#F4A9B8 72%,#FFD3A0 100%)}
-#act.a3 .act-tx{left:130px;top:300px}#act.a3 .act-tx h2{font-size:170px;letter-spacing:-9px}
+#act.a3 .act-tx{left:130px;top:300px}
 #act.a3 small{color:#FFF1C9}
 #act.a3 h2{text-shadow:0 10px 40px rgba(60,40,120,.35)}
 .act-pl{position:absolute;z-index:2;left:0;top:0;width:1920px;height:1080px}
@@ -3286,43 +3286,52 @@ $("#open").addEventListener("click",function(){ if(OP.waiting){ OP.begin(); retu
 /* ── 대기 화면(로비) ── */
 var LOBBY=(function(){
   var el=$("#lobby"); if(!el) return {active:function(){return false},go:function(){}};
-  var slides=[].slice.call(el.querySelectorAll(".lb-s")), i=0, timer=0, busy=false, armed=false, AC=null, OUT=null, REV=null;
+  var slides=[].slice.call(el.querySelectorAll(".lb-s")), i=0, timer=0, busy=false, armed=true, AC=null, OUT=null, REV=null, DEST=null;
   var QRU="https://xn--0p4b.xn--3e0b707e/%EB%8F%99%EC%84%B1%EC%97%AC%EA%B3%A0/%EC%98%A4%EB%8A%94%EA%B8%B8";
   try{ el.querySelectorAll(".lb-qrsvg").forEach(function(b){ b.innerHTML=qrSvg(QRU); }); }catch(e){}
   el.querySelectorAll(".lb-short").forEach(function(b){ b.textContent=CONFIG.shortSite||"숏.한국/동성여고/오는길"; });
   (function(){ var a=(CONFIG.admit||[])[0]; if(!a)return; var p=a.start.split("-"); el.querySelectorAll(".lb-date").forEach(function(b){ b.textContent=(+p[1])+". "+(+p[2])+"."; }); })();
   function ctx(){ try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==="suspended")AC.resume(); }catch(e){} return AC; }
-  function bus(){ if(!OUT){ var ws=AC.createWaveShaper(),cv=new Float32Array(1024); for(var k=0;k<1024;k++){var x=k/512-1;cv[k]=Math.tanh(x*3.2);} ws.curve=cv;
-    var lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=420; var c=AC.createDynamicsCompressor(); c.threshold.value=-20; c.ratio.value=5; var g=AC.createGain(); g.gain.value=.95;
-    ws.connect(lp); lp.connect(c); c.connect(g); g.connect(AC.destination); OUT=ws; } return OUT; }
+  /* 두근 소리 음량: 노트북 스피커는 100Hz 아래가 거의 안 나와서, 배음(2배 음·포화)으로 '들리는' 저음을 만들고 리미터로 오프닝 음악과 비슷한 크기에 맞춤(스피커 기준 측정: 음악 -15.8 / 두근 -14 dB) */
+  function dest(){ if(!DEST){ DEST=AC.createDynamicsCompressor(); DEST.threshold.value=-3; DEST.knee.value=0; DEST.ratio.value=20; DEST.attack.value=.002; DEST.release.value=.12; DEST.connect(AC.destination); } return DEST; }
+  function bus(){ if(!OUT){ var ws=AC.createWaveShaper(),cv=new Float32Array(1024); for(var k=0;k<1024;k++){var x=k/512-1;cv[k]=Math.tanh(x*6);} ws.curve=cv;
+    var lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=900; var c=AC.createDynamicsCompressor(); c.threshold.value=-20; c.ratio.value=5; var g=AC.createGain(); g.gain.value=1.4;
+    var L=AC.createDynamicsCompressor(); L.threshold.value=-2; L.knee.value=0; L.ratio.value=20; L.attack.value=.001; L.release.value=.08;
+    ws.connect(lp); lp.connect(c); c.connect(g); g.connect(L); L.connect(dest()); OUT=ws; } return OUT; }
   function reverb(){ if(REV)return REV; var len=Math.floor(AC.sampleRate*3.2),ir=AC.createBuffer(2,len,AC.sampleRate); for(var c=0;c<2;c++){var d=ir.getChannelData(c); for(var k=0;k<len;k++)d[k]=(Math.random()*2-1)*Math.pow(1-k/len,2.6);}
-    var cv=AC.createConvolver(); cv.buffer=ir; var w=AC.createGain(); w.gain.value=.3; cv.connect(w); w.connect(AC.destination); REV=cv; return cv; }
+    var cv=AC.createConvolver(); cv.buffer=ir; var w=AC.createGain(); w.gain.value=.3; cv.connect(w); w.connect(dest()); REV=cv; return cv; }
   function thump(t,f,v,dur){
     var o=AC.createOscillator(),g=AC.createGain(); o.type="sine"; o.frequency.setValueAtTime(f*1.12,t); o.frequency.exponentialRampToValueAtTime(f,t+dur*.6);
     g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(v,t+.018); g.gain.exponentialRampToValueAtTime(.0001,t+dur); o.connect(g); g.connect(bus()); o.start(t); o.stop(t+dur+.02);
+    var o2=AC.createOscillator(),g2=AC.createGain(); o2.type="sine"; o2.frequency.setValueAtTime(f*2.24,t); o2.frequency.exponentialRampToValueAtTime(f*2,t+dur*.5);
+    g2.gain.setValueAtTime(.0001,t); g2.gain.exponentialRampToValueAtTime(v*.5,t+.012); g2.gain.exponentialRampToValueAtTime(.0001,t+dur*.7); o2.connect(g2); g2.connect(bus()); o2.start(t); o2.stop(t+dur+.02);
     var n=AC.createBuffer(1,Math.floor(AC.sampleRate*dur),AC.sampleRate),d=n.getChannelData(0); for(var k=0;k<d.length;k++){var e=k/d.length; d[k]=(Math.random()*2-1)*Math.min(1,e*12)*Math.pow(1-e,2.5);}
-    var ns=AC.createBufferSource(),bp=AC.createBiquadFilter(),gn=AC.createGain(); ns.buffer=n; bp.type="lowpass"; bp.frequency.value=160; gn.gain.value=v*.9; ns.connect(bp); bp.connect(gn); gn.connect(bus()); ns.start(t);
+    var ns=AC.createBufferSource(),bp=AC.createBiquadFilter(),gn=AC.createGain(); ns.buffer=n; bp.type="lowpass"; bp.frequency.value=400; gn.gain.value=v*.9; ns.connect(bp); bp.connect(gn); gn.connect(bus()); ns.start(t);
   }
-  function sub(t,list,lev){ var gm=AC.createGain(); gm.gain.value=lev; var lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=240; gm.connect(lp); lp.connect(AC.destination); lp.connect(reverb());
+  function sub(t,list,lev){ var gm=AC.createGain(); gm.gain.value=lev; var lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=240; gm.connect(lp); lp.connect(dest()); lp.connect(reverb());
     list.forEach(function(b){ var o=AC.createOscillator(),g=AC.createGain(),st=t+b[0]; o.type="sine"; o.frequency.setValueAtTime(b[1]*1.6,st); o.frequency.exponentialRampToValueAtTime(b[1],st+.3);
       g.gain.setValueAtTime(.0001,st); g.gain.exponentialRampToValueAtTime(b[2],st+.02); g.gain.exponentialRampToValueAtTime(.0001,st+b[3]); o.connect(g); g.connect(gm); o.start(st); o.stop(st+b[3]+.05); }); }
-  function heart(v){ if(!ctx())return; var t=AC.currentTime+.03; thump(t,52,.95*v,.2); thump(t+.24,64,.72*v,.15); }
-  function heartBig(v){ if(!ctx())return; var t=AC.currentTime+.03; thump(t,50,1*v,.24); thump(t+.25,60,.8*v,.18); sub(t,[[0,38,.9,.9],[.25,46,.6,.7]],.55*v); }
+  function heart(v){ if(!ctx())return; var t=AC.currentTime+.03; thump(t,57,.95*v,.2); thump(t+.24,70,.72*v,.15); }
+  function heartBig(v){ if(!ctx())return; var t=AC.currentTime+.03; thump(t,55,1*v,.24); thump(t+.25,66,.8*v,.18); sub(t,[[0,38,.9,.9],[.25,46,.6,.7]],.55*v); }
   var BEATS=[[0,.55,.62],[.62,.65,.52],[1.14,.75,.42],[1.56,.85,.33],[1.89,.95,.26],[2.15,1,.22]], HIT=2.4;
-  function show(k){ slides.forEach(function(s,j){ s.classList.toggle("on",j===k); }); if(armed&&!busy){ heartBig(.8); setTimeout(function(){ if(!busy)heart(.35); },560); } }
+  function show(k){ slides.forEach(function(s,j){ s.classList.toggle("on",j===k); }); if(armed&&!busy&&AC&&AC.state==="running"){ heartBig(.8); setTimeout(function(){ if(!busy)heart(.35); },560); } }
   function loop(){ clearInterval(timer); show(i=0); timer=setInterval(function(){ if(!active()){ clearInterval(timer); timer=0; return; } i=(i+1)%slides.length; show(i); },3500); }
   function active(){ return cur==="open"&&OP.waiting&&!busy; }
   var sb=el.querySelector(".lb-snd");
-  function arm(){ if(armed)return; armed=true; ctx(); sb.classList.add("on"); sb.textContent="🔊 소리 켜짐"; }
-  sb.addEventListener("click",function(e){ e.stopPropagation(); if(armed){ armed=false; sb.classList.remove("on"); sb.textContent="🔇 소리 켜기"; } else arm(); });
-  document.addEventListener("keydown",function(e){ if(cur==="open"&&OP.waiting&&!/^(Enter| |ArrowRight)$/.test(e.key)) arm(); },true);
+  /* 기본 소리 켜짐. 브라우저 자동재생 제한으로 첫 입력(아무 키 · F 전체화면 · 소리 버튼) 전에는 소리가 막혀 있을 수 있어 그때만 안내 */
+  function label(){ if(!armed){ sb.classList.remove("on"); sb.textContent="🔇 소리 꺼짐"; return; } sb.classList.add("on"); sb.textContent=(AC&&AC.state==="running")?"🔊 소리 켜짐":"🔊 아무 키나 누르면 소리가 나요"; }
+  function wake(){ ctx(); if(AC&&AC.resume)AC.resume().then(label,label); label(); }
+  ctx(); label(); if(AC&&AC.addEventListener)AC.addEventListener("statechange",label);
+  sb.addEventListener("click",function(e){ e.stopPropagation(); if(armed&&AC&&AC.state==="running"){ armed=false; label(); } else { armed=true; wake(); } });
+  document.addEventListener("keydown",function(e){ if(cur==="open"&&OP.waiting) wake(); },true);
+  document.addEventListener("pointerdown",function(){ if(cur==="open"&&OP.waiting) wake(); },true);
   var dl=$("#lb-dl"), dr=$("#lb-dr"), doors=$("#lb-doors"), fl=$("#lb-flare");
   function beat(){ el.classList.remove("beat"); void el.offsetWidth; el.classList.add("beat"); }
   function go(){
     if(busy)return; busy=true; clearInterval(timer); timer=0;
     if(REDUCED){ OP.begin(); busy=false; return; }
-    if(ctx()){ var t=AC.currentTime+.03; BEATS.forEach(function(b){ var gap=Math.max(.09,b[2]*.38); thump(t+b[0],52,.95*b[1],Math.min(.2,b[2]*.5)); thump(t+b[0]+gap,64,.72*b[1],Math.min(.15,b[2]*.4)); });
-      var tf=t+HIT; thump(tf,46,.5,.32); sub(tf,[[0,34,1,1.8]],.3); }
+    if(armed&&ctx()){ var t=AC.currentTime+.03; BEATS.forEach(function(b){ var gap=Math.max(.09,b[2]*.38); thump(t+b[0],57,.95*b[1],Math.min(.2,b[2]*.5)); thump(t+b[0]+gap,70,.72*b[1],Math.min(.15,b[2]*.4)); });
+      var tf=t+HIT; thump(tf,50,.5,.32); sub(tf,[[0,34,1,1.8]],.3); }
     BEATS.forEach(function(b){ setTimeout(beat,b[0]*1000); });
     setTimeout(function(){ el.classList.remove("beat"); open(); },HIT*1000);
   }
@@ -3364,7 +3373,7 @@ var ACT=(function(){
   var TX={
     1:{k:"ACT 1 · 1학년",w:"배움으로",s:"1학년은 다 함께, 동성여고에서 시작해요"},
     2:{k:"ACT 2 · 2학년",w:"이루고",s:"2학년, 나의 길을 골라 실력을 쌓아요"},
-    3:{k:"ACT 3 · 졸업",w:"세상으로 비상하라!",s:"선배들은 이렇게 날아갔어요"}
+    3:{k:"ACT 3 · 졸업",w:"세상으로",s:"선배들은 이렇게 날아갔어요"}
   };
   function build(a){
     var T=TX[a]; el.className="a"+a;
