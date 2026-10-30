@@ -3391,33 +3391,10 @@ var LOBBY=(function(){
     var s=AC.createBufferSource(),bp=AC.createBiquadFilter(),g=AC.createGain(); s.buffer=n; bp.type="bandpass"; bp.Q.value=1.4; bp.frequency.setValueAtTime(f0,t); bp.frequency.exponentialRampToValueAtTime(f1,t+dur);
     g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(v,t+dur*.6); g.gain.exponentialRampToValueAtTime(.0001,t+dur); s.connect(bp); bp.connect(g); g.connect(AC.destination); s.start(t); }
   try{ var stg=$("#stage"); stg.appendChild(doors); stg.appendChild(fl); }catch(e){}   // 장면이 바뀌어도 문이 보이게
-  /* 티저 오프닝: 두근두근 6번 빨라짐 → 깊은 쿵 → 바깥 경첩으로 묵직하게 열리는 여닫이 문(섬광 없이 문틈 빛만) → 문 뒤에서 티저 시작 */
-  function goTeaser(){
-    prepDoors();
-    if(armed&&ctx()&&HB){ var t=AC.currentTime+.03; BEATS.forEach(function(b){ var gap=Math.max(.09,b[2]*.38); smp(t+b[0],0,b[1],1); smp(t+b[0]+gap,1,.8*b[1],1); }); smp(t+HIT,0,1,.8,true); }
-    BEATS.forEach(function(b){ setTimeout(beat,b[0]*1000); });
-    setTimeout(function(){ el.classList.remove("beat"); openTeaser(); },HIT*1000);
-  }
-  function prepDoors(){   // 문을 미리 그려 둠(투명) — 열리는 순간 첫 그리기로 1초 멈추던 문제 방지
-    var c=slides[i].cloneNode(true); c.classList.add("on"); c.style.transition="none"; c.style.animation="none";
-    [].forEach.call(c.querySelectorAll(".lb-upg,.lb-glw,.lb-bg"),function(x){ x.remove(); });   // 큰 번짐(blur) 층은 빼서 문을 가볍게
-    dl.firstChild.innerHTML=""; dr.firstChild.innerHTML=""; dl.firstChild.appendChild(c); dr.firstChild.appendChild(c.cloneNode(true));
-    dl.style.transition=dr.style.transition="none"; dl.style.transform=dr.style.transform="none"; dl.style.filter=dr.style.filter="";
-    doors.style.opacity="0"; doors.style.display="block";
-  }
-  function openTeaser(){
-    doors.style.opacity="1"; el.style.visibility="hidden"; fl.className="seam"; fl.style.display="block"; void fl.offsetWidth; fl.classList.add("go");   // 문 뒤 대기 화면은 그리지 않음(가볍게)
-    void dl.offsetWidth;   // 문 열림을 바로 시작(티저 장면 준비가 무거워 rAF가 1초 가까이 밀리던 문제)
-    var ease="cubic-bezier(.45,0,.2,1)"; dl.style.transition=dr.style.transition="transform 1.6s "+ease;   // 밝기(filter) 애니메이션은 매 프레임 다시 그려 무거워서 뺌
-    dl.style.transform="rotateY(96deg)"; dr.style.transform="rotateY(-96deg)";   /* 안쪽(화면 속)으로 열림 */
-    getComputedStyle(dl).transform; getComputedStyle(dr).transform;
-    setTimeout(function(){ goNow("intro"); },40);   // 문이 움직이기 시작한 뒤에 무거운 티저 준비   // 문 뒤에서 티저가 처음부터 시작
-    setTimeout(function(){ doors.style.display="none"; fl.style.display="none"; fl.className=""; el.style.visibility=""; busy=false; },2300);
-  }
   function go(){
     if(busy)return; busy=true; clearInterval(timer); timer=0;
     if(REDUCED||!drop){ if(OPENING==="teaser")goNow("intro"); else OP.begin(); busy=false; return; }
-    if(OPENING==="teaser"){ goTeaser(); return; }
+    if(OPENING==="teaser"){ goNow("intro"); busy=false; return; }   // 티저: 두근두근·문 열림 없이 바로 시작(장면 페이드)
     var t0ms=performance.now();
     var T0=400; // 대기 화면이 비워지는 시간
     // 착지 시각(ms): ㄷ 0.4s+0.9s×40% · ㅅ 0.8s+… · (0.3초 쉬고) ㅇ 1.95s+1.1s×35%
