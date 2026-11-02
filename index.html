@@ -1500,6 +1500,10 @@ body.dark #ap-btn{background:rgba(255,255,255,.08);color:#FFB8D2;border-color:rg
 .cv-info .cv-q{margin-top:30px;display:flex;align-items:center;gap:22px;padding:18px;border-radius:24px;background:#fff;width:fit-content;box-shadow:0 18px 30px -20px rgba(60,40,20,.5)}
 .cv-info .cv-q .box{width:170px;height:170px}
 .cv-info .cv-q .box svg{width:100%;height:100%;display:block}
+.cv-info .cv-q-soon{border:2px dashed #F9C6D9;background:#FFF9FB}
+.cv-info .cv-q-soon .box{border-radius:20px;background:linear-gradient(135deg,#FFB547,#F0457E);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;animation:soonP 1.8s ease-in-out infinite}
+.cv-info .cv-q-soon .box i{font-style:normal;font-size:46px;line-height:1}.cv-info .cv-q-soon .box b{font-size:24px;line-height:1.1;text-align:center;letter-spacing:1px;color:#fff}
+@keyframes soonP{50%{transform:scale(1.04)}}
 .cv-info .cv-q b{display:block;font-size:26px;font-weight:900}
 .cv-info .cv-q span{display:block;margin-top:6px;font-size:18px;font-weight:700;color:var(--mute)}
 .cv-wait{height:100%;display:grid;place-items:center;text-align:center;font-size:30px;font-weight:700;color:#8A7A6A;line-height:1.6}
@@ -3712,7 +3716,8 @@ var CV=(function(){
       var d=dt(r.date), u=new URL((CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""),location.href).href+"#career";
       body.innerHTML='<div class="cv-soon"><div class="cv-cal"><b>'+(d.getMonth()+1)+'월</b><strong>'+d.getDate()+'</strong><span>'+WK[d.getDay()]+'요일</span></div>'+
         '<div class="cv-info"><h3>진로체험 '+r.n+',<br><em>'+(r.name||"이날 만나요!")+'</em></h3><p>'+(r.info||"학과 4곳을 직접 체험해요")+'<br>체험이 끝나면 사진이 여기에 올라와요.</p>'+(r.steps?'<div class="cv-steps">'+r.steps.map(function(x){return '<span>'+x+'</span>'}).join('<i>→</i>')+'</div>':'')+
-        '<div class="cv-q"><div class="box">'+(window.makeQR?qrSvg(u):"")+'</div><div><b>휴대폰으로 신청</b><span>카메라로 찍거나<br>아래 버튼을 눌러요</span><button class="cv-go" data-form="career">진로체험 신청하기</button></div></div></div></div>';
+        (r.soon?'<div class="cv-q cv-q-soon"><div class="box"><i>🐣</i><b>COMING<br>SOON</b></div><div><b>신청은 곧 열려요!</b><span>지금은 준비 중이에요.<br>조금만 기다려 줘요 ✨</span></div></div></div></div>'   // 곧 오픈: QR·신청 버튼 숨김(학생 착각 방지)
+        :'<div class="cv-q"><div class="box">'+(window.makeQR?qrSvg(u):"")+'</div><div><b>휴대폰으로 신청</b><span>카메라로 찍거나<br>아래 버튼을 눌러요</span><button class="cv-go" data-form="career">진로체험 신청하기</button></div></div></div></div>');
     } else {
       body.innerHTML='<div class="cv-wait"><div><b>📷 사진을 정리하고 있어요</b>진로체험 '+r.n+' 사진이 곧 올라와요!</div></div>';
     }
