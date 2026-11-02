@@ -1565,6 +1565,13 @@ body.calm .cv-cap{transition:none}
 .adq-b .ap-go{margin-top:0}
 .cv-info .cv-go{margin-top:14px;height:52px;padding:0 24px;border-radius:26px;background:#7A4BE0;color:#fff;font-size:19px;font-weight:900;box-shadow:0 12px 22px -12px rgba(122,75,224,.9)}
 .cv-steps{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+a.cv-go{text-decoration:none;display:inline-flex;align-items:center}
+.cv-poster{position:relative;flex:none;width:230px;align-self:center;margin-left:36px;border-radius:18px;overflow:hidden;box-shadow:0 24px 40px -22px rgba(60,40,20,.6);transform:rotate(2deg);background:#fff;padding:0}
+.cv-poster img{display:block;width:100%}
+.cv-poster span{position:absolute;left:0;right:0;bottom:0;padding:22px 0 10px;font-size:15px;font-weight:900;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent)}
+.cv-pz{position:absolute;inset:0;z-index:960;background:rgba(10,8,16,.86);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cv-pz img{height:94%;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.cv-pz span{position:absolute;right:40px;top:30px;padding:10px 18px;border-radius:22px;background:#fff;font-size:20px;font-weight:900}
 .cv-steps span{padding:10px 16px;border-radius:16px;background:#fff;font-size:20px;font-weight:900;color:#5A3A2A;box-shadow:0 8px 16px -12px rgba(60,40,20,.6)}
 .cv-steps i{font-style:normal;color:#E0453A;font-weight:900;align-self:center}
 
@@ -1801,7 +1808,8 @@ var CONFIG = {
       {tag:"박람회", src:"c1-v319000.webp", cap:"퍼스널 컬러 진단 부스"}
     ]},
     {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], photos:[]},
-    {n:"4차", date:"2026-11-14", info:"학과 4곳을 직접 체험해요", photos:[]},
+    {n:"4차", name:"입학설명회 🎁", date:"2026-11-14", openAt:"2026-11-03", form:"https://form.naver.com/response/JfXkzcdxx3c", qr:"https://m.site.naver.com/2k0Rh", poster:"media/career/c4_poster.jpg",
+     info:"오전 10~12시 · 중3 여학생만 · 11.3(화)부터 선착순! 입학설명회 듣고 경품 추첨까지 해요", steps:["🎤 입학설명회","🎁 경품 추첨 (1~3등)"], photos:[]},   // 4차는 네이버 폼으로 신청(openAt 날짜 0시에 자동으로 열림)
     {n:"5차", date:"2026-11-21", soon:true, info:"🐣 두근두근 준비 중! 신청은 곧 열려요. 조금만 기다려 줘요 ✨", photos:[]}   // soon:true = 신청 잠시 막음(곧 오픈). 열 때 soon 줄만 지우기
   ],
   // 입학 안내 (날짜는 "연-월-일", 시각은 "시:분" 24시간 형식 · 시각은 확인되면 고치세요)
@@ -3637,7 +3645,7 @@ var SHEET=(function(){
   function base(){ return (CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""); }
   function abs(u){ try{ return new URL(u,location.href).href; }catch(e){ return u; } }
   var TXT={consult:["카메라로 QR을 찍으면<br>입학상담 신청이 열려요","성적은 적지 않아도 괜찮아요.<br>적으면 더 자세히 상담해 드려요."],
-           career:["카메라로 QR을 찍으면<br>진로체험 신청이 열려요","3차 마라데이 11.6(금) · 4차 11.14(토) · 5차 11.21(토) <b>곧 오픈!</b><br>원하는 차수를 골라요."],
+           career:["카메라로 QR을 찍으면<br>진로체험 신청이 열려요","3차 마라데이 11.6(금) · 5차 11.21(토) <b>곧 오픈!</b><br>4차(11.14 입학설명회·경품)는 진로체험 사진 화면의 4차 QR로 신청해요."],
            qa:["카메라로 QR을 찍으면<br>질문 남기기가 열려요","질문은 이름을 가려서 올라가요.<br>예) 해운대중 김○하"]};
   function aps(t){ aTab=t||aTab; $$("#aps-tabs button").forEach(function(b){b.classList.toggle("on",b.dataset.t===aTab)});
     var u=abs(base())+"#"+aTab; if(window.makeQR){ try{ $("#aps-qr").innerHTML=qrSvg(u); }catch(e){} }
@@ -3690,6 +3698,8 @@ var CV=(function(){
   function dt(x){ if(!x)return null; var p=x.split("-"); return new Date(+p[0],+p[1]-1,+p[2]); }
   function today(){ var d=new Date(); d.setHours(0,0,0,0); return d; }
   function future(r){ var d=dt(r.date); return d&&d>=today(); }
+  function preOpen(r){ var o=r.openAt?dt(r.openAt):null; return !!(o&&today()<o); }   // 신청 시작 전
+  function openLabel(r){ var o=dt(r.openAt); return (o.getMonth()+1)+"."+o.getDate()+"("+WK[o.getDay()]+")"; }
   function md(r){ var d=dt(r.date); return d?(d.getMonth()+1)+"."+d.getDate()+"("+WK[d.getDay()]+")":""; }
   function P(x){ return typeof x==="string"?{src:x,cap:"",tag:""}:x; }
   function url(f){ return /^(media|https?:)/.test(f)?f:DIR+f; }
@@ -3701,7 +3711,7 @@ var CV=(function(){
     $("#cv-grid").scrollTop=0;
   }
   function draw(){
-    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(r.soon?'<i>곧 오픈</i>':(future(r)?'<i>모집 중</i>':'')))+'</button>'; }).join("");
+    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(r.soon?'<i>곧 오픈</i>':(preOpen(r)?'<i>'+openLabel(r)+' 오픈</i>':(future(r)?'<i>모집 중</i>':''))))+'</button>'; }).join("");
     var r=L[sel]; if(!r){ body.innerHTML=""; return; }
     var ph=(r.photos||[]).map(P);
     if(ph.length){
@@ -3713,11 +3723,12 @@ var CV=(function(){
         '<div class="cv-grid" id="cv-grid"></div></div></div>';
       grid();
     } else if(future(r)){
-      var d=dt(r.date), u=new URL((CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""),location.href).href+"#career";
+      var d=dt(r.date), u=r.qr||r.form||(new URL((CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""),location.href).href+"#career"), pre=preOpen(r);
       body.innerHTML='<div class="cv-soon"><div class="cv-cal"><b>'+(d.getMonth()+1)+'월</b><strong>'+d.getDate()+'</strong><span>'+WK[d.getDay()]+'요일</span></div>'+
         '<div class="cv-info"><h3>진로체험 '+r.n+',<br><em>'+(r.name||"이날 만나요!")+'</em></h3><p>'+(r.info||"학과 4곳을 직접 체험해요")+'<br>체험이 끝나면 사진이 여기에 올라와요.</p>'+(r.steps?'<div class="cv-steps">'+r.steps.map(function(x){return '<span>'+x+'</span>'}).join('<i>→</i>')+'</div>':'')+
-        (r.soon?'<div class="cv-q cv-q-soon"><div class="box"><i>🐣</i><b>COMING<br>SOON</b></div><div><b>신청은 곧 열려요!</b><span>지금은 준비 중이에요.<br>조금만 기다려 줘요 ✨</span></div></div></div></div>'   // 곧 오픈: QR·신청 버튼 숨김(학생 착각 방지)
-        :'<div class="cv-q"><div class="box">'+(window.makeQR?qrSvg(u):"")+'</div><div><b>휴대폰으로 신청</b><span>카메라로 찍거나<br>아래 버튼을 눌러요</span><button class="cv-go" data-form="career">진로체험 신청하기</button></div></div></div></div>');
+        (r.soon||pre?'<div class="cv-q cv-q-soon"><div class="box"><i>🐣</i><b>COMING<br>SOON</b></div><div><b>'+(pre?openLabel(r)+'부터 신청!':'신청은 곧 열려요!')+'</b><span>'+(pre?'선착순이에요.<br>그날 바로 신청해요 ✨':'지금은 준비 중이에요.<br>조금만 기다려 줘요 ✨')+'</span></div></div>'   // 곧 오픈·신청 전: QR·신청 버튼 숨김(학생 착각 방지)
+        :'<div class="cv-q"><div class="box">'+(window.makeQR?qrSvg(u):"")+'</div><div><b>휴대폰으로 신청</b><span>카메라로 찍거나<br>아래 버튼을 눌러요'+(r.form?' (선착순)':'')+'</span>'+(r.form?'<a class="cv-go" href="'+r.form+'" target="_blank" rel="noopener">진로체험 '+r.n+' 신청하기 ↗</a>':'<button class="cv-go" data-form="career">진로체험 신청하기</button>')+'</div></div>')+
+        '</div>'+(r.poster?'<button class="cv-poster" data-poster="'+r.poster+'" aria-label="포스터 크게 보기"><img src="'+r.poster+'" alt="진로체험 '+r.n+' 포스터"><span>포스터 크게 보기</span></button>':'')+'</div>';
     } else {
       body.innerHTML='<div class="cv-wait"><div><b>📷 사진을 정리하고 있어요</b>진로체험 '+r.n+' 사진이 곧 올라와요!</div></div>';
     }
@@ -3725,7 +3736,8 @@ var CV=(function(){
   function showBig(i){ if(!list.length)return; bi=(i+list.length)%list.length; var x=list[bi]; $("img",big).src=url(x.src); $(".cv-cap",big).innerHTML=(x.tag?'<i style="background:'+(TC[x.tag]||"#8A5CF0")+'">'+x.tag+'</i>':'')+(x.cap||"")+'<small>'+(bi+1)+' / '+list.length+'</small>'; big.classList.add("on");
     var cp=$(".cv-cap",big), ti=$("i",cp); cp.classList.remove("grow"); cp.style.setProperty("--w",((ti?ti.offsetWidth:60)+34)+"px"); void cp.offsetWidth; requestAnimationFrame(function(){ cp.classList.add("grow"); }); }
   tabs.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b)return; e.stopPropagation(); sel=+b.dataset.i; draw(); });
-  body.addEventListener("click",function(e){ var c=e.target.closest("#cv-chips button"); if(c){ e.stopPropagation(); tag=c.dataset.t; grid(); return; }
+  body.addEventListener("click",function(e){ var pz=e.target.closest(".cv-poster"); if(pz){ e.stopPropagation(); var o=document.createElement("div"); o.className="cv-pz"; o.innerHTML='<img src="'+pz.dataset.poster+'" alt=""><span>✕ 닫기</span>'; o.addEventListener("click",function(ev){ ev.stopPropagation(); o.remove(); }); document.getElementById("stage").appendChild(o); return; }
+    var c=e.target.closest("#cv-chips button"); if(c){ e.stopPropagation(); tag=c.dataset.t; grid(); return; }
     var p=e.target.closest(".cv-ph"); if(!p)return; e.stopPropagation(); showBig(+p.dataset.i); });
   big.addEventListener("click",function(e){ e.stopPropagation(); var n=e.target.closest(".cv-nav"); if(n){ showBig(bi+(+n.dataset.d)); return; } big.classList.remove("on"); });
   function key(k){ if(!big.classList.contains("on"))return false; if(k==="ArrowRight"){showBig(bi+1);return true;} if(k==="ArrowLeft"){showBig(bi-1);return true;} if(k==="Escape"){big.classList.remove("on");return true;} return false; }
@@ -4262,6 +4274,9 @@ html.m #m{display:block}
 #m .m-medal b{display:block;font-size:30px;font-weight:900;line-height:1;color:var(--mc)}
 #m .m-medal span{font-size:12px;font-weight:700;color:var(--mu)}
 #m .m-tbl{width:100%;border-collapse:collapse;font-size:14px}
+#m .m-c-soon{border:1.5px dashed rgba(249,198,217,.6);text-align:center}#m .m-c-soon b{color:#FFB547}
+#m .m-c-go{width:100%;margin:10px 0 2px}
+#m .m-c-poster{width:100%;margin-top:12px;border-radius:14px}
 #m .m-win{position:relative;margin:10px 0 12px;border-radius:14px;overflow:hidden;border:1px solid rgba(15,169,104,.5)}#m .m-win img{width:100%;aspect-ratio:4/3;object-fit:cover}
 #m .m-win div{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent)}#m .m-win b{display:block;font-size:17px;font-weight:900;color:#fff}#m .m-win span{font-size:12px;color:#C9CDD6;font-weight:700}
 #m .m-tbl td{padding:9px 4px;border-bottom:1px solid var(--ln)}
@@ -4506,7 +4521,7 @@ html.m #m{display:block}
     var depts=DEPTS.map(function(d,i){ return '<button class="m-dc" data-dept="'+d.id+'" style="--c:'+d.color+'">'+(d.loop?'<video src="'+d.loop+'" muted autoplay loop playsinline poster="'+d.poster+'"></video>':'<img class="m-p" src="'+d.poster+'" alt="">')+'<span class="m-n">0'+(i+1)+'</span><div class="m-in"><b>'+d.name+'</b><span>'+d.card+'</span></div><em>→</em></button>'; }).join("");
     var rm=R.steps.map(function(s){return '<div class="m-rs"><i>'+s.y+'</i><b>'+s.t+'</b><span>'+s.d+'</span></div>'}).join("")+
       R.ways.map(function(w,i){return '<details class="m-way" style="--wc:'+w.c+'"'+(i===0?' m-open':'')+'><summary><em>'+w.ic+'</em>'+w.k+'<small>'+w.lead+'</small></summary><ul>'+w.items.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></details>'}).join("");
-    var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(r.soon?'곧 오픈 🐣':(fut?'모집 중':(d?md(d):''))))+'</small></button>'; }).join("");
+    var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(r.soon?'곧 오픈 🐣':(r.openAt&&today()<dt(r.openAt)?md(dt(r.openAt)).replace(/\s/g,'')+' 오픈':(fut?'모집 중':(d?md(d):'')))))+'</small></button>'; }).join("");
     root.innerHTML=
       '<section class="m-hero"><div class="m-top"><img src="media/logo/logo_h_w.png" alt="동성여자고등학교"></div>'+
       '<img class="m-chr" src="media/char/wave.webp" alt="">'+
@@ -4547,9 +4562,13 @@ html.m #m{display:block}
     $$("#m-ctabs button").forEach(function(b){b.classList.toggle("m-on",+b.dataset.ci===i)});
     var d=r.date?dt(r.date):null, ph=(r.photos||[]).map(P);
     var h='<div class="m-cinfo"><b>'+r.n+(r.name?' '+r.name:'')+(d?' <small style="color:#9AA0AC;font-weight:700">'+md(d)+'</small>':'')+'</b><p>'+esc(r.info)+'</p>'+(r.steps?'<div class="m-steps">'+r.steps.map(function(s){return '<span>'+s+'</span>'}).join("")+'</div>':'')+'</div>';
+    if(r.form&&!r.soon&&d&&d>=today()){ var pre=r.openAt&&today()<dt(r.openAt);
+      h+=pre?'<div class="m-cinfo m-c-soon"><b>🐣 '+md(dt(r.openAt))+'부터 신청!</b><p>선착순이에요. 그날 바로 신청해요 ✨</p></div>'
+            :'<a class="m-btn m-c-go" href="'+r.form+'" target="_blank" rel="noopener">진로체험 '+r.n+' 신청하기 ↗</a>'; }
+    if(r.poster)h+='<img class="m-c-poster" src="'+r.poster+'" alt="진로체험 '+r.n+' 포스터" loading="lazy">';
     if(r.video)h+='<div class="m-cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="metadata"></video></div>';
     if(ph.length){ ph.sort(function(a,b){return ORD.indexOf(a.tag)-ORD.indexOf(b.tag)}); h+='<div class="m-pg">'+ph.map(function(x){return '<div class="m-ph"><img src="'+url(x.src)+'" alt="" loading="lazy">'+(x.cap?'<p>'+(x.tag?'<span style="color:'+(TC[x.tag]||"#C9A6FF")+'">'+x.tag+'</span> · ':'')+x.cap+'</p>':'')+'</div>'}).join("")+'</div>'; }
-    else h+='<div class="m-cinfo" style="text-align:center;color:#9AA0AC">아직 사진이 없어요. 신청하고 직접 만들어요!</div>';
+    else if(!r.poster) h+='<div class="m-cinfo" style="text-align:center;color:#9AA0AC">아직 사진이 없어요. 신청하고 직접 만들어요!</div>';
     $("#m-cbody").innerHTML=h;
   }
 
