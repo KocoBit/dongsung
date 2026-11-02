@@ -1684,7 +1684,7 @@ a.cv-go{text-decoration:none;display:inline-flex;align-items:center}
 .trk-b.trk-B b .ds-on .dstar{position:absolute;z-index:-1;left:-24px;top:-8px;width:50px;height:50px;margin-left:0;color:#E5383B;transform:rotate(-10deg);overflow:visible}
 .trk-b.trk-B span{color:#6B4E00}
 .trk-b.trk-B u{background:#fff;color:#A15C00}
-.trk-b.trk-B:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out 2;pointer-events:none}
+.trk-b.trk-B:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite;pointer-events:none}
 @keyframes shine{0%,70%{left:-40%}100%{left:130%}}
 .it .tk.tk-b{--mc:#F0B000;--rim:rgba(60,35,0,.55)}
 .it .tk.tk-ab{gap:0;padding:0;justify-content:space-between;min-width:80px}
@@ -1699,7 +1699,7 @@ a.cv-go{text-decoration:none;display:inline-flex;align-items:center}
  background-image:linear-gradient(180deg,rgba(255,255,255,.75) 0,rgba(255,255,255,.55) 22%,rgba(255,255,255,.1) 40%,rgba(0,0,0,.05) 46%,rgba(0,0,0,.22) 72%,rgba(255,255,255,.25) 86%,rgba(0,0,0,.35) 100%);
  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85),inset 0 0 0 3px var(--rim,rgba(40,25,0,.55)),inset 0 2px 1px rgba(255,255,255,.5),0 1.5px 2px rgba(0,0,0,.4);
  text-shadow:0 0 1px rgba(0,0,0,.7),0 1px 1px rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.25)}
-.mp:after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;background:linear-gradient(100deg,transparent 0,rgba(255,255,255,.35) 30%,rgba(255,255,255,1) 50%,rgba(255,255,255,.35) 70%,transparent 100%);transform:skewX(-22deg);animation:mpsh 6s ease-in-out 2;animation-delay:calc(var(--i,0)*.55s + var(--md,0s));z-index:1;mix-blend-mode:screen;pointer-events:none}
+.mp:after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;background:linear-gradient(100deg,transparent 0,rgba(255,255,255,.35) 30%,rgba(255,255,255,1) 50%,rgba(255,255,255,.35) 70%,transparent 100%);transform:skewX(-22deg);animation:mpsh 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*.55s + var(--md,0s));z-index:1;mix-blend-mode:screen;pointer-events:none}
 @keyframes mpsh{0%,86%{left:-60%}100%{left:160%}}
 .mp.silver{--mc:#B8BEC8;--rim:rgba(40,45,55,.55);color:#14161B;text-shadow:0 1px 0 rgba(255,255,255,.7);
  background-image:linear-gradient(180deg,rgba(255,255,255,.95) 0,rgba(255,255,255,.7) 22%,rgba(255,255,255,.15) 40%,rgba(0,0,0,.04) 46%,rgba(0,0,0,.2) 72%,rgba(255,255,255,.45) 86%,rgba(0,0,0,.3) 100%)}
@@ -1731,8 +1731,8 @@ body.calm .mp:after{animation:none}
 .dt-t .dt-star .dstar{width:100%;height:100%;display:block;overflow:visible}
 
 /* 손그림 별 반짝임: 별이 살짝 커졌다 돌아오고, 끝 근처에 반짝이 3개가 톡톡 */
-.dstar{transform-origin:50% 50%;animation:spop 2.4s ease-in-out 3;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
-.sp{position:absolute;width:.85em;height:.85em;font:inherit;pointer-events:none;opacity:0;color:inherit;transform:scale(.2);animation:sppop 2.4s ease-out 3;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
+.dstar{transform-origin:50% 50%;animation:spop 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
+.sp{position:absolute;width:.85em;height:.85em;font:inherit;pointer-events:none;opacity:0;color:inherit;transform:scale(.2);animation:sppop 2.4s ease-out infinite;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s))}
 .sp:before{content:"";position:absolute;inset:0;background:currentColor;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
 .sp1{left:88%;top:-18%}.sp2{left:104%;top:40%;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s) + .14s);width:.5em;height:.5em}.sp3{left:-30%;top:72%;animation-delay:calc(var(--i,0)*.5s + var(--sd,0s) + .26s);width:.56em;height:.56em}
 @keyframes spop{0%,100%{transform:scale(1)}6%{transform:scale(1.22) rotate(-6deg)}13%{transform:scale(1)}}
@@ -1754,7 +1754,7 @@ body.calm .dstar,body.calm .sp{animation:none}
 body.calm .dstar .core{animation:none}
 /* 움직임 줄이기: 기기에서 '동작 줄이기'를 켠 경우 반복 장식은 멈춤 */
 @media (prefers-reduced-motion: reduce){
-  .chr .b,.cls-pt i,.mp:after,.trk-b.trk-B:after,.dstar,.sp,.op-grain,.lb-hint,.i-go b,.op-go b,.fl-go b{animation:none!important}
+  .chr .b,.cls-pt i,.op-grain,.lb-hint,.i-go b,.op-go b,.fl-go b{animation:none!important}
   .rv{transform:none!important}
 }
 </style>
