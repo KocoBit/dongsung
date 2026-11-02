@@ -1809,7 +1809,7 @@ var CONFIG = {
     ]},
     {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], photos:[]},
     {n:"4차", name:"입학설명회 🎁", date:"2026-11-14", openAt:"2026-11-03", form:"https://form.naver.com/response/JfXkzcdxx3c", qr:"https://m.site.naver.com/2k0Rh", poster:"media/career/c4_poster.jpg",
-     info:"오전 10~12시 · 중3 여학생만 · 11.3(화)부터 선착순! 입학설명회 듣고 경품 추첨까지 해요", steps:["🎤 입학설명회","🎁 경품 추첨 (1~3등)"], photos:[]},   // 4차는 네이버 폼으로 신청(openAt 날짜 0시에 자동으로 열림)
+     info:"오전 10~12시 · 중3 여학생만 · 11.3(화)부터 선착순!<br>입학설명회 듣고 경품 추첨까지 해요.", steps:["🎤 입학설명회","🎁 경품 추첨 (1~3등)"], photos:[]},   // 4차는 네이버 폼으로 신청(openAt 날짜 0시에 자동으로 열림)
     {n:"5차", date:"2026-11-21", soon:true, info:"🐣 두근두근 준비 중! 신청은 곧 열려요. 조금만 기다려 줘요 ✨", photos:[]}   // soon:true = 신청 잠시 막음(곧 오픈). 열 때 soon 줄만 지우기
   ],
   // 입학 안내 (날짜는 "연-월-일", 시각은 "시:분" 24시간 형식 · 시각은 확인되면 고치세요)
@@ -3736,6 +3736,8 @@ var CV=(function(){
   function showBig(i){ if(!list.length)return; bi=(i+list.length)%list.length; var x=list[bi]; $("img",big).src=url(x.src); $(".cv-cap",big).innerHTML=(x.tag?'<i style="background:'+(TC[x.tag]||"#8A5CF0")+'">'+x.tag+'</i>':'')+(x.cap||"")+'<small>'+(bi+1)+' / '+list.length+'</small>'; big.classList.add("on");
     var cp=$(".cv-cap",big), ti=$("i",cp); cp.classList.remove("grow"); cp.style.setProperty("--w",((ti?ti.offsetWidth:60)+34)+"px"); void cp.offsetWidth; requestAnimationFrame(function(){ cp.classList.add("grow"); }); }
   tabs.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b)return; e.stopPropagation(); sel=+b.dataset.i; draw(); });
+  (function(){ var t=Date.now(), w=L.map(function(r){ return r.openAt?dt(r.openAt).getTime()-t:-1; }).filter(function(x){ return x>0; }).sort(function(a,b){return a-b})[0];
+    if(w&&w<2147483000) setTimeout(function(){ try{ draw(); }catch(e){} },w+1000); })();   // 화면을 켜 둔 채 자정(openAt)이 지나면 QR이 저절로 나타남
   body.addEventListener("click",function(e){ var pz=e.target.closest(".cv-poster"); if(pz){ e.stopPropagation(); var o=document.createElement("div"); o.className="cv-pz"; o.innerHTML='<img src="'+pz.dataset.poster+'" alt=""><span>✕ 닫기</span>'; o.addEventListener("click",function(ev){ ev.stopPropagation(); o.remove(); }); document.getElementById("stage").appendChild(o); return; }
     var c=e.target.closest("#cv-chips button"); if(c){ e.stopPropagation(); tag=c.dataset.t; grid(); return; }
     var p=e.target.closest(".cv-ph"); if(!p)return; e.stopPropagation(); showBig(+p.dataset.i); });
@@ -4557,8 +4559,11 @@ html.m #m{display:block}
   function pickRound(){ var k=-1; C.forEach(function(r,i){ if((r.photos||[]).length)k=i; }); if(k>=0)return k; for(var i=0;i<C.length;i++){ var d=C[i].date?dt(C[i].date):null; if(d&&d>=today())return i; } return 0; }
   function P(x){ return typeof x==="string"?{src:x,cap:"",tag:""}:x; }
   function url(f){ return /^(media|https?:)/.test(f)?f:DIR+f; }
+  var cSel=0;
+  (function(){ var t=Date.now(), w=C.map(function(r){ return r.openAt?dt(r.openAt).getTime()-t:-1; }).filter(function(x){ return x>0; }).sort(function(a,b){return a-b})[0];
+    if(w&&w<2147483000) setTimeout(function(){ try{ careerTab(cSel); }catch(e){} },w+1000); })();
   function careerTab(i){
-    var r=C[i]; if(!r)return;
+    var r=C[i]; if(!r)return; cSel=i;
     $$("#m-ctabs button").forEach(function(b){b.classList.toggle("m-on",+b.dataset.ci===i)});
     var d=r.date?dt(r.date):null, ph=(r.photos||[]).map(P);
     var h='<div class="m-cinfo"><b>'+r.n+(r.name?' '+r.name:'')+(d?' <small style="color:#9AA0AC;font-weight:700">'+md(d)+'</small>':'')+'</b><p>'+esc(r.info)+'</p>'+(r.steps?'<div class="m-steps">'+r.steps.map(function(s){return '<span>'+s+'</span>'}).join("")+'</div>':'')+'</div>';

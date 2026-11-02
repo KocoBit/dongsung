@@ -370,6 +370,8 @@ function tick(){
 tick(); setInterval(tick,1000);
 
 /* 진로체험 차수 */
+(function(){ var t=Date.now(), w=APPLY.rounds.map(function(r){ if(!r.openAt)return -1; var p=r.openAt.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).getTime()-t; }).filter(function(x){return x>0}).sort(function(a,b){return a-b})[0];
+  if(w&&w<2147483000) setTimeout(function(){ location.reload(); },w+1500); })();   // 열어 둔 채 오픈 시각(자정)이 지나면 새로고침해서 [신청하기]가 나타남
 var today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
 var open=APPLY.rounds.filter(function(r){return pd(r.date)>=today&&!r.soon&&!r.form});   // 네이버 폼 차수는 여기서 신청하지 않음
 $("#rounds").innerHTML=APPLY.rounds.map(function(r){ var d=pd(r.date), past=d<today, dd=Math.round((d-today)/864e5);
