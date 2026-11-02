@@ -99,9 +99,12 @@ select.in{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.or
 .rd b{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--pink2);color:var(--pink);font-size:15px;font-weight:900}
 .rd span{font-size:15px;font-weight:900}
 .rd small{display:block;margin-top:2px;font-size:12.5px;font-weight:700;color:var(--mute)}
-.rd em{margin-left:auto;font-style:normal;font-size:12.5px;font-weight:900;color:#fff;background:var(--pink);padding:4px 10px;border-radius:12px}
+.rd em{margin-left:auto;flex:none;white-space:nowrap;font-style:normal;font-size:12.5px;font-weight:900;color:#fff;background:var(--pink);padding:4px 10px;border-radius:12px}
 .rd.past{opacity:.45}
 .rd.past em{background:#B9B1C2}
+.rd.soon{border-style:dashed;border-color:#F9C6D9;background:#FFF9FB}.rd.soon b{background:#FFE9A8;color:#B77900}
+.rd.soon em{background:linear-gradient(90deg,#FFB547,#F0457E);letter-spacing:.5px;animation:soonP 1.8s ease-in-out infinite}
+@keyframes soonP{50%{transform:scale(1.07)}}
 
 /* Q&A */
 .qa-box{margin-top:16px;position:relative;height:430px;overflow:hidden;border-radius:20px;background:#fff;border:1.5px solid var(--line);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent);mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 93%,transparent)}
@@ -202,7 +205,7 @@ var APPLY = {
   rounds: [   // 진로체험 차수 (date가 지나면 자동으로 신청 목록에서 빠짐)
     {label:"3차", date:"2026-11-06", day:"금", tab:"진로체험 3차(11.6)",  info:"🌶️ 마라데이 · 퀴즈·게임으로 재료 모아 마라탕 + 진학 상담"},
     {label:"4차", date:"2026-11-14", day:"토", tab:"진로체험 4차(11.14)", info:""},
-    {label:"5차", date:"2026-11-21", day:"토", tab:"진로체험 5차(11.21)", info:""}
+    {label:"5차", date:"2026-11-21", day:"토", tab:"진로체험 5차(11.21)", info:"🐣 두근두근 준비 중! 조금만 기다려 줘요 ✨", soon:true}   // soon:true = 곧 오픈(신청 목록에서 빠짐). 열 때 soon만 지우기
   ],
   photos: []  // 진로체험 사진 (예: "img/round1-1.jpg")
 };
@@ -366,9 +369,9 @@ tick(); setInterval(tick,1000);
 
 /* 진로체험 차수 */
 var today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
-var open=APPLY.rounds.filter(function(r){return pd(r.date)>=today});
+var open=APPLY.rounds.filter(function(r){return pd(r.date)>=today&&!r.soon});
 $("#rounds").innerHTML=APPLY.rounds.map(function(r){ var d=pd(r.date), past=d<today, dd=Math.round((d-today)/864e5);
-  return '<div class="rd'+(past?' past':'')+'"><b>'+r.label+'</b><div><span>'+md(d)+'</span>'+(r.info?'<small>'+r.info+'</small>':'')+'</div><em>'+(past?'마감':(dd===0?'오늘':'D-'+dd))+'</em></div>'; }).join("");
+  return '<div class="rd'+(past?' past':'')+(r.soon&&!past?' soon':'')+'"><b>'+r.label+'</b><div><span>'+md(d)+'</span>'+(r.info?'<small>'+r.info+'</small>':'')+'</div><em>'+(past?'마감':(r.soon?'COMING SOON':(dd===0?'오늘':'D-'+dd)))+'</em></div>'; }).join("");
 $("#round-sel").innerHTML=open.length?'<option value="">차수를 골라 주세요</option>'+open.map(function(r){return '<option value="'+r.tab+'">'+r.label+' · '+md(pd(r.date))+(r.info?' · '+r.info:'')+'</option>'}).join(""):'<option value="">지금은 신청할 수 있는 차수가 없어요</option>';
 if(APPLY.photos&&APPLY.photos.length){ $("#gal-sec").style.display=""; $("#gallery").innerHTML=APPLY.photos.map(function(p){return '<img src="'+p+'" alt="" loading="lazy">'}).join(""); }
 

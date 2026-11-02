@@ -1798,7 +1798,7 @@ var CONFIG = {
     ]},
     {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], photos:[]},
     {n:"4차", date:"2026-11-14", info:"학과 4곳을 직접 체험해요", photos:[]},
-    {n:"5차", date:"2026-11-21", info:"학과 4곳을 직접 체험해요", photos:[]}
+    {n:"5차", date:"2026-11-21", soon:true, info:"🐣 두근두근 준비 중! 신청은 곧 열려요. 조금만 기다려 줘요 ✨", photos:[]}   // soon:true = 신청 잠시 막음(곧 오픈). 열 때 soon 줄만 지우기
   ],
   // 입학 안내 (날짜는 "연-월-일", 시각은 "시:분" 24시간 형식 · 시각은 확인되면 고치세요)
   admit: [
@@ -3633,7 +3633,7 @@ var SHEET=(function(){
   function base(){ return (CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""); }
   function abs(u){ try{ return new URL(u,location.href).href; }catch(e){ return u; } }
   var TXT={consult:["카메라로 QR을 찍으면<br>입학상담 신청이 열려요","성적은 적지 않아도 괜찮아요.<br>적으면 더 자세히 상담해 드려요."],
-           career:["카메라로 QR을 찍으면<br>진로체험 신청이 열려요","3차 마라데이 11.6(금) · 4차 11.14(토) · 5차 11.21(토)<br>원하는 차수를 골라요."],
+           career:["카메라로 QR을 찍으면<br>진로체험 신청이 열려요","3차 마라데이 11.6(금) · 4차 11.14(토) · 5차 11.21(토) <b>곧 오픈!</b><br>원하는 차수를 골라요."],
            qa:["카메라로 QR을 찍으면<br>질문 남기기가 열려요","질문은 이름을 가려서 올라가요.<br>예) 해운대중 김○하"]};
   function aps(t){ aTab=t||aTab; $$("#aps-tabs button").forEach(function(b){b.classList.toggle("on",b.dataset.t===aTab)});
     var u=abs(base())+"#"+aTab; if(window.makeQR){ try{ $("#aps-qr").innerHTML=qrSvg(u); }catch(e){} }
@@ -3697,7 +3697,7 @@ var CV=(function(){
     $("#cv-grid").scrollTop=0;
   }
   function draw(){
-    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(future(r)?'<i>모집 중</i>':''))+'</button>'; }).join("");
+    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(r.soon?'<i>곧 오픈</i>':(future(r)?'<i>모집 중</i>':'')))+'</button>'; }).join("");
     var r=L[sel]; if(!r){ body.innerHTML=""; return; }
     var ph=(r.photos||[]).map(P);
     if(ph.length){
@@ -4501,7 +4501,7 @@ html.m #m{display:block}
     var depts=DEPTS.map(function(d,i){ return '<button class="m-dc" data-dept="'+d.id+'" style="--c:'+d.color+'">'+(d.loop?'<video src="'+d.loop+'" muted autoplay loop playsinline poster="'+d.poster+'"></video>':'<img class="m-p" src="'+d.poster+'" alt="">')+'<span class="m-n">0'+(i+1)+'</span><div class="m-in"><b>'+d.name+'</b><span>'+d.card+'</span></div><em>→</em></button>'; }).join("");
     var rm=R.steps.map(function(s){return '<div class="m-rs"><i>'+s.y+'</i><b>'+s.t+'</b><span>'+s.d+'</span></div>'}).join("")+
       R.ways.map(function(w,i){return '<details class="m-way" style="--wc:'+w.c+'"'+(i===0?' m-open':'')+'><summary><em>'+w.ic+'</em>'+w.k+'<small>'+w.lead+'</small></summary><ul>'+w.items.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></details>'}).join("");
-    var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(fut?'모집 중':(d?md(d):'')))+'</small></button>'; }).join("");
+    var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(r.soon?'곧 오픈 🐣':(fut?'모집 중':(d?md(d):''))))+'</small></button>'; }).join("");
     root.innerHTML=
       '<section class="m-hero"><div class="m-top"><img src="media/logo/logo_h_w.png" alt="동성여자고등학교"></div>'+
       '<img class="m-chr" src="media/char/wave.webp" alt="">'+
