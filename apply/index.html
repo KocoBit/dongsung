@@ -424,7 +424,8 @@ $$(".form").forEach(function(f){
   var dn=f.nextElementSibling; $(".again",dn).onclick=function(){ reset(f,dn); };
   if(!KIOSK&&f.dataset.type!=="Q&A") $(".again",dn).style.display="none";
 });
-function reset(f,dn){ clearTimeout(dn._t); var sc=f.elements.school?f.elements.school.value:"", sg=f.elements.gu?f.elements.gu.value:"", sf=$(".f.sch",f), st=sf?[sf.className,sf.dataset.manual||"",$(".sch-gu",sf).textContent]:null; f.reset(); if(KIOSK&&f.elements.school){ f.elements.school.value=sc; f.elements.gu.value=sg; if(st){ sf.className=st[0]; if(st[1])sf.dataset.manual=st[1]; $(".sch-gu",sf).textContent=st[2]; } } else if(sf){ sf.classList.remove("picked"); delete sf.dataset.manual; $(".sch-gu",sf).textContent=""; } $$(".err",f).forEach(function(x){x.classList.remove("err")}); dn.classList.remove("on"); f.style.display=""; var p=f.closest(".pane"); window.scrollTo({top:KIOSK?0:$(".tabs").offsetTop,behavior:"smooth"}); }
+/* 다음 사람을 위해 학교 이름까지 모든 칸을 비움 (발표 화면에서 이전 학생 정보가 남지 않게) */
+function reset(f,dn){ clearTimeout(dn._t); var sf=$(".f.sch",f); f.reset(); if(f.elements.school)f.elements.school.value=""; if(f.elements.gu)f.elements.gu.value=""; if(sf){ sf.classList.remove("picked"); delete sf.dataset.manual; $(".sch-gu",sf).textContent=""; var ac=$(".ac",sf); if(ac){ac.innerHTML="";ac.classList.remove("on");} } $$(".err",f).forEach(function(x){x.classList.remove("err")}); dn.classList.remove("on"); f.style.display=""; var p=f.closest(".pane"); window.scrollTo({top:KIOSK?0:$(".tabs").offsetTop,behavior:"smooth"}); }
 
 /* Q&A 목록 (답변 달린 질문만, 자동으로 천천히 올라감) */
 var qaLoaded=0, QA=[], qtI=0;
