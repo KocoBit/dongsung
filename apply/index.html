@@ -207,7 +207,7 @@ var APPLY = {
   rounds: [   // 진로체험 차수 (date가 지나면 자동으로 신청 목록에서 빠짐)
     {label:"3차", date:"2026-11-06", day:"금", tab:"진로체험 3차(11.6)",  info:"🌶️ 마라데이 · 퀴즈·게임으로 재료 모아 마라탕 + 진학 상담"},
     {label:"4차", date:"2026-11-14", day:"토", tab:"진로체험 4차(11.14)", info:"🎁 입학설명회 + 경품 추첨 · 오전 10~12시 · 중3 여학생 · 선착순", form:"https://form.naver.com/response/JfXkzcdxx3c", openAt:"2026-11-03"},   // 4차는 네이버 폼(openAt 0시에 자동 오픈)
-    {label:"5차", date:"2026-11-21", day:"토", tab:"진로체험 5차(11.21)", info:"🐣 두근두근 준비 중! 조금만 기다려 줘요 ✨", soon:true}   // soon:true = 곧 오픈(신청 목록에서 빠짐). 열 때 soon만 지우기
+    {label:"5차", date:"2026-11-21", day:"토", tab:"진로체험 5차(11.21)", info:"🎄 크리스마스 체험 · 중3 여학생 · 11.11~11.19 선착순", form:"https://form.naver.com/response/Fb90rpqu7o1", openAt:"2026-11-11", closeAt:"2026-11-19"}   // 5차 네이버 폼(openAt 0시 오픈, closeAt 다음 날 마감)
   ],
   photos: []  // 진로체험 사진 (예: "img/round1-1.jpg")
 };
@@ -370,17 +370,17 @@ function tick(){
 tick(); setInterval(tick,1000);
 
 /* 진로체험 차수 */
-(function(){ var t=Date.now(), w=APPLY.rounds.map(function(r){ if(!r.openAt)return -1; var p=r.openAt.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).getTime()-t; }).filter(function(x){return x>0}).sort(function(a,b){return a-b})[0];
+(function(){ var t=Date.now(), w=[].concat.apply([],APPLY.rounds.map(function(r){ return [r.openAt,r.closeAt].map(function(x,k){ if(!x)return -1; var p=x.split("-"); return new Date(+p[0],+p[1]-1,+p[2]+k).getTime()-t; }); })).filter(function(x){return x>0}).sort(function(a,b){return a-b})[0];
   if(w&&w<2147483000) setTimeout(function(){ location.reload(); },w+1500); })();   // 열어 둔 채 오픈 시각(자정)이 지나면 새로고침해서 [신청하기]가 나타남
 var today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
 var open=APPLY.rounds.filter(function(r){return pd(r.date)>=today&&!r.soon&&!r.form});   // 네이버 폼 차수는 여기서 신청하지 않음
 $("#rounds").innerHTML=APPLY.rounds.map(function(r){ var d=pd(r.date), past=d<today, dd=Math.round((d-today)/864e5);
-  var pre=r.openAt&&today<pd(r.openAt), soon=(r.soon||pre)&&!past;
-  var em=past?'<em>마감</em>':(r.soon?'<em>COMING SOON</em>':(pre?'<em>'+md(pd(r.openAt)).replace(/\s/g,'')+' 오픈</em>':(r.form?'<a class="rd-go" href="'+r.form+'" target="_blank" rel="noopener">신청하기 ↗</a>':'<em>'+(dd===0?'오늘':'D-'+dd)+'</em>')));
-  return '<div class="rd'+(past?' past':'')+(soon?' soon':'')+(r.form&&!pre&&!past?' fm':'')+'"><b>'+r.label+'</b><div><span>'+md(d)+'</span>'+(r.info?'<small>'+r.info+'</small>':'')+'</div>'+em+'</div>'; }).join("");
+  var pre=r.openAt&&today<pd(r.openAt), soon=(r.soon||pre)&&!past, cl=r.closeAt&&today>pd(r.closeAt);
+  var em=past?'<em>마감</em>':cl?'<em>신청 마감</em>':(r.soon?'<em>COMING SOON</em>':(pre?'<em>'+md(pd(r.openAt)).replace(/\s/g,'')+' 오픈</em>':(r.form?'<a class="rd-go" href="'+r.form+'" target="_blank" rel="noopener">신청하기 ↗</a>':'<em>'+(dd===0?'오늘':'D-'+dd)+'</em>')));
+  return '<div class="rd'+(past?' past':'')+(soon?' soon':'')+(r.form&&!pre&&!past&&!cl?' fm':'')+'"><b>'+r.label+'</b><div><span>'+md(d)+'</span>'+(r.info?'<small>'+r.info+'</small>':'')+'</div>'+em+'</div>'; }).join("");
 $("#round-sel").innerHTML=open.length?'<option value="">차수를 골라 주세요</option>'+open.map(function(r){return '<option value="'+r.tab+'">'+r.label+' · '+md(pd(r.date))+(r.info?' · '+r.info:'')+'</option>'}).join(""):'<option value="">지금은 신청할 수 있는 차수가 없어요</option>';
-(function(){ var fm=APPLY.rounds.filter(function(r){return r.form&&pd(r.date)>=today}); if(!fm.length)return; var t=document.createElement("div"); t.className="tip";
-  t.innerHTML=fm.map(function(r){ return '🎁 '+r.label+'('+md(pd(r.date))+')는 여기서 고르지 않고, 위 차수 안내의 [신청하기]로 네이버 폼에서 신청해요'+(r.openAt&&today<pd(r.openAt)?' · '+md(pd(r.openAt))+'부터 열려요':''); }).join('<br>');
+(function(){ var fm=APPLY.rounds.filter(function(r){return r.form&&pd(r.date)>=today&&!(r.closeAt&&today>pd(r.closeAt))}); if(!fm.length)return; var t=document.createElement("div"); t.className="tip";
+  t.innerHTML=fm.map(function(r){ return '📝 '+r.label+'('+md(pd(r.date))+')는 여기서 고르지 않고, 위 차수 안내의 [신청하기]로 네이버 폼에서 신청해요'+(r.openAt&&today<pd(r.openAt)?' · '+md(pd(r.openAt))+'부터 열려요':''); }).join('<br>');
   $("#round-sel").parentNode.appendChild(t); })();
 if(APPLY.photos&&APPLY.photos.length){ $("#gal-sec").style.display=""; $("#gallery").innerHTML=APPLY.photos.map(function(p){return '<img src="'+p+'" alt="" loading="lazy">'}).join(""); }
 
