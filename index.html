@@ -1526,6 +1526,11 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .cv-l{width:760px;flex:none}
 .cv-vid{position:relative;border-radius:20px;overflow:hidden;background:#1E1828;box-shadow:var(--sh-l);aspect-ratio:16/9}
 .cv-vid video{width:100%;height:100%;display:block;object-fit:cover}
+.cv-vonly{display:grid;grid-template-columns:1.9fr 1fr;gap:32px;align-items:center;height:100%}
+.cv-vonly.vert{grid-template-columns:auto 1fr;gap:48px;padding-left:40px}.cv-vonly.vert .cv-vid{height:640px;aspect-ratio:421/720}   /* 세로 영상(16:9 합성본 가운데만 보이게) */
+.cv-vside h3{margin:0 0 14px;font-size:40px;line-height:1.25;font-weight:900}.cv-vside h3 em{font-style:normal;color:#8A5CF0}.cv-vside p{margin:0 0 18px;font-size:20px;line-height:1.6;color:#4A4458}
+.cv-vnote{margin-top:22px;padding:14px 18px;border-radius:14px;background:#fff;font-size:20px;font-weight:900;color:#2B2140}
+.cv-snd{position:absolute;right:16px;bottom:16px;height:44px;padding:0 18px;border-radius:22px;background:rgba(20,22,40,.82);color:#fff;font-size:18px;font-weight:900}
 .cv-vid span{position:absolute;left:18px;top:16px;padding:6px 14px;border-radius:14px;background:rgba(40,48,136,.92);color:#fff;font-size:18px;font-weight:900}
 .cv-sum{margin-top:24px}
 .cv-sum b{display:block;font-size:40px;font-weight:900;letter-spacing:-2px}
@@ -1819,7 +1824,7 @@ var CONFIG = {
       {tag:"박람회", src:"c1-v313969.webp", cap:"진로 박람회 · 대학 진학 부스"},
       {tag:"박람회", src:"c1-v319000.webp", cap:"퍼스널 컬러 진단 부스"}
     ]},
-    {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], photos:[]},
+    {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], video:"c3-mara.mp4", vert:1, photos:[]},   // 영상(얼굴 흐림판 blur/, 원본 orig/). 사진은 받으면 photos에 추가
     {n:"4차", name:"입학설명회 🎁", date:"2026-11-14", openAt:"2026-11-03", form:"https://form.naver.com/response/JfXkzcdxx3c", qr:"https://m.site.naver.com/2k0Rh", poster:"media/career/c4_poster.jpg",
      info:"오전 10~12시 · 중3 여학생만 · 11.3(화)부터 선착순!<br>입학설명회 듣고 경품 추첨까지 해요.", steps:["🎤 입학설명회","🎁 경품 추첨 (1~3등)"], photos:[]},   // 4차는 네이버 폼으로 신청(openAt 날짜 0시에 자동으로 열림)
     {n:"5차", name:"크리스마스 🎄", date:"2026-11-21", closeAt:"2026-11-19", form:"https://form.naver.com/response/Fb90rpqu7o1", poster:"media/career/c5_poster.jpg",
@@ -3717,7 +3722,7 @@ var CV=(function(){
     $("#cv-grid").scrollTop=0;
   }
   function draw(){
-    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(r.soon?'<i>곧 오픈</i>':(preOpen(r)?'<i>'+openLabel(r)+' 오픈</i>':(closed(r)&&future(r)?'<i>신청 마감</i>':(future(r)?'<i>모집 중</i>':'')))))+'</button>'; }).join("");
+    tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(r.video&&!future(r)?'<i>영상</i>':r.soon?'<i>곧 오픈</i>':(preOpen(r)?'<i>'+openLabel(r)+' 오픈</i>':(closed(r)&&future(r)?'<i>신청 마감</i>':(future(r)?'<i>모집 중</i>':'')))))+'</button>'; }).join("");
     var r=L[sel]; if(!r){ body.innerHTML=""; return; }
     var ph=(r.photos||[]).map(P);
     if(ph.length){
@@ -3728,6 +3733,10 @@ var CV=(function(){
         '<div class="cv-r"><div class="cv-chips" id="cv-chips">'+tags.map(function(t){ var n=t==="전체"?ph.length:ph.filter(function(x){return x.tag===t}).length; return '<button data-t="'+t+'" style="--tc:'+(TC[t]||"#2B2140")+'">'+(t==="전체"?"전체":t+(t==="박람회"?" 부스":""))+' <i>'+n+'</i></button>'; }).join("")+'</div>'+
         '<div class="cv-grid" id="cv-grid"></div></div></div>';
       grid();
+    } else if(r.video&&!future(r)){   // 사진은 아직, 영상만 있는 지난 차수
+      body.innerHTML='<div class="cv-vonly'+(r.vert?' vert':'')+'"><div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>진로체험 '+r.n+' 영상</span><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>'+
+        '<div class="cv-vside"><h3>진로체험 '+r.n+',<br><em>'+(r.name||"")+'</em></h3><p>'+(r.info||"")+'</p>'+(r.steps?'<div class="cv-steps">'+r.steps.map(function(x){return '<span>'+x+'</span>'}).join('<i>→</i>')+'</div>':'')+'<div class="cv-vnote">📷 사진은 정리해서 곧 올려요!</div></div></div>';
+      var sb=body.querySelector(".cv-snd"), vv=body.querySelector("video"); sb.onclick=function(){ vv.muted=!vv.muted; if(!vv.muted){vv.currentTime=0;vv.play();} sb.textContent=vv.muted?"🔇 소리 켜기":"🔊 소리 끄기"; };
     } else if(future(r)){
       var d=dt(r.date), u=r.qr||r.form||(new URL((CONFIG.applyUrl||"apply/index.html").replace(/#.*$/,""),location.href).href+"#career"), pre=preOpen(r);
       body.innerHTML='<div class="cv-soon"><div class="cv-cal"><b>'+(d.getMonth()+1)+'월</b><strong>'+d.getDate()+'</strong><span>'+WK[d.getDay()]+'요일</span></div>'+
@@ -4339,6 +4348,7 @@ html.m #m{display:block}
 #m .m-ph img{width:100%;aspect-ratio:4/3;object-fit:cover}
 #m .m-ph p{margin:0;padding:7px 9px;font-size:12px;font-weight:700;color:#C9CDD6}
 #m .m-cv-vid{border-radius:14px;overflow:hidden;margin-bottom:12px}
+#m .m-cv-vid.vert{width:min(100%,340px);margin:0 auto 12px;aspect-ratio:421/720}#m .m-cv-vid.vert video{width:100%;height:100%;object-fit:cover;display:block}
 /* Q&A */
 #m .m-qa{display:grid;gap:10px}
 #m .m-q{padding:12px 14px;border-radius:14px 14px 14px 4px;background:#fff;color:#14161B}
@@ -4530,7 +4540,7 @@ html.m #m{display:block}
     var depts=DEPTS.map(function(d,i){ return '<button class="m-dc" data-dept="'+d.id+'" style="--c:'+d.color+'">'+(d.loop?'<video src="'+d.loop+'" muted autoplay loop playsinline poster="'+d.poster+'"></video>':'<img class="m-p" src="'+d.poster+'" alt="">')+'<span class="m-n">0'+(i+1)+'</span><div class="m-in"><b>'+d.name+'</b><span>'+d.card+'</span></div><em>→</em></button>'; }).join("");
     var rm=R.steps.map(function(s){return '<div class="m-rs"><i>'+s.y+'</i><b>'+s.t+'</b><span>'+s.d+'</span></div>'}).join("")+
       R.ways.map(function(w,i){return '<details class="m-way" style="--wc:'+(w.c==="#283088"?"#A9B2FF":w.c)+'"'+(i===0?' m-open':'')+'><summary><em>'+w.ic+'</em>'+w.k+'<small>'+w.lead+'</small></summary><ul>'+w.items.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></details>'}).join("");
-    var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(r.soon?'곧 오픈 🐣':(r.openAt&&today()<dt(r.openAt)?md(dt(r.openAt)).replace(/\s/g,'')+' 오픈':(fut&&r.closeAt&&today()>dt(r.closeAt)?'신청 마감':(fut?'모집 중':(d?md(d):''))))))+'</small></button>'; }).join("");
+    var ctabs=C.map(function(r,i){ var n=(r.photos||[]).length, d=r.date?dt(r.date):null, fut=d&&d>=today(); return '<button data-ci="'+i+'">'+r.n+(r.name?' '+r.name:'')+'<small>'+(n?'사진 '+n:(r.video&&!fut?'영상 🎬':r.soon?'곧 오픈 🐣':(r.openAt&&today()<dt(r.openAt)?md(dt(r.openAt)).replace(/\s/g,'')+' 오픈':(fut&&r.closeAt&&today()>dt(r.closeAt)?'신청 마감':(fut?'모집 중':(d?md(d):''))))))+'</small></button>'; }).join("");
     root.innerHTML=
       '<section class="m-hero"><div class="m-top"><img src="media/logo/logo_h_w.png" alt="동성여자고등학교"></div>'+
       '<img class="m-chr" src="media/char/wave.webp" alt="">'+
@@ -4578,7 +4588,7 @@ html.m #m{display:block}
       h+=cl?'<div class="m-cinfo m-c-soon"><b>🙏 신청이 마감됐어요</b><p>신청한 친구들은 그날 만나요 ✨</p></div>':pre?'<div class="m-cinfo m-c-soon"><b>🐣 '+md(dt(r.openAt))+'부터 신청!</b><p>선착순이에요. 그날 바로 신청해요 ✨</p></div>'
             :'<a class="m-btn m-c-go" href="'+r.form+'" target="_blank" rel="noopener">진로체험 '+r.n+' 신청하기 ↗</a>'; }
     if(r.poster)h+='<img class="m-c-poster" src="'+r.poster+'" alt="진로체험 '+r.n+' 포스터" loading="lazy">';
-    if(r.video)h+='<div class="m-cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="metadata"></video></div>';
+    if(r.video)h+='<div class="m-cv-vid'+(r.vert?' vert':'')+'"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="metadata"></video></div>';
     if(ph.length){ ph.sort(function(a,b){return ORD.indexOf(a.tag)-ORD.indexOf(b.tag)}); h+='<div class="m-pg">'+ph.map(function(x){return '<div class="m-ph"><img src="'+url(x.src)+'" alt="" loading="lazy">'+(x.cap?'<p>'+(x.tag?'<span style="color:'+(TC[x.tag]||"#C9A6FF")+'">'+x.tag+'</span> · ':'')+x.cap+'</p>':'')+'</div>'}).join("")+'</div>'; }
     else if(!r.poster) h+='<div class="m-cinfo" style="text-align:center;color:#9AA0AC">아직 사진이 없어요. 신청하고 직접 만들어요!</div>';
     $("#m-cbody").innerHTML=h;
