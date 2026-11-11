@@ -1824,7 +1824,25 @@ var CONFIG = {
       {tag:"박람회", src:"c1-v313969.webp", cap:"진로 박람회 · 대학 진학 부스"},
       {tag:"박람회", src:"c1-v319000.webp", cap:"퍼스널 컬러 진단 부스"}
     ]},
-    {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], video:"c3-mara.mp4", vert:1, photos:[]},   // 영상(얼굴 흐림판 blur/, 원본 orig/). 사진은 받으면 photos에 추가
+    {n:"3차", name:"마라데이 🌶️", date:"2026-11-06", info:"퀴즈·게임으로 마라탕 재료를 모으고, 다 함께 마라탕! 진학 상담도 함께해요", steps:["🎯 퀴즈·게임","🥬 재료 획득","🍲 마라탕 먹기","💬 진학 상담"], video:"c3-mara.mp4", vert:1, photos:[
+      {tag:"입장", src:"c3-01.webp", cap:"\"다른 학교 가지 마라!\" 마라데이 시작"},
+      {tag:"입장", src:"c3-02.webp", cap:"입구부터 마라 포스터"},
+      {tag:"입장", src:"c3-03.webp", cap:"푸드트럭까지 왔어요"},
+      {tag:"입장", src:"c3-04.webp", cap:"입장권 QR로 재료 모으기 시작!"},
+      {tag:"입장", src:"c3-05.webp", cap:"휴대폰에 모이는 마라탕 재료"},
+      {tag:"게임", src:"c3-06.webp", cap:"마라 판다가 반겨 줘요"},
+      {tag:"게임", src:"c3-07.webp", cap:"체육관 가득 퀴즈·게임"},
+      {tag:"게임", src:"c3-08.webp", cap:"콩주머니 던지기 게임"},
+      {tag:"게임", src:"c3-09.webp", cap:"게임 성공하면 재료 획득!"},
+      {tag:"상담", src:"c3-10.webp", cap:"학과 선생님과 1:1 진학 상담"},
+      {tag:"마라탕", src:"c3-11.webp", cap:"모은 재료로 만드는 마라탕 세트"},
+      {tag:"마라탕", src:"c3-12.webp", cap:"마라탕을 끓여 줄 동성여고 언니들"},
+      {tag:"마라탕", src:"c3-13.webp", cap:"조리실에서 보글보글"},
+      {tag:"마라탕", src:"c3-14.webp", cap:"두근두근, 마라탕 받으러 줄 서기"},
+      {tag:"마라탕", src:"c3-15.webp", cap:"완성! 내가 모은 재료로 만든 마라탕"},
+      {tag:"마라탕", src:"c3-16.webp", cap:"저녁까지 이어진 푸드트럭"},
+      {tag:"마라탕", src:"c3-17.webp", cap:"오늘 수고한 마라 판다, 안녕!"},
+    ]},   // 영상(얼굴 흐림판 blur/, 원본 orig/). 사진은 받으면 photos에 추가
     {n:"4차", name:"입학설명회 🎁", date:"2026-11-14", openAt:"2026-11-03", form:"https://form.naver.com/response/JfXkzcdxx3c", qr:"https://m.site.naver.com/2k0Rh", poster:"media/career/c4_poster.jpg",
      info:"오전 10~12시 · 중3 여학생만 · 11.3(화)부터 선착순!<br>입학설명회 듣고 경품 추첨까지 해요.", steps:["🎤 입학설명회","🎁 경품 추첨 (1~3등)"], photos:[]},   // 4차는 네이버 폼으로 신청(openAt 날짜 0시에 자동으로 열림)
     {n:"5차", name:"크리스마스 🎄", date:"2026-11-21", closeAt:"2026-11-19", form:"https://form.naver.com/response/Fb90rpqu7o1", poster:"media/career/c5_poster.jpg",
@@ -3728,10 +3746,11 @@ var CV=(function(){
     if(ph.length){
       var ORD=["금융정보","관광서비스","보건간호","스포츠건강관리","박람회"], tags=[]; ph.forEach(function(x){ if(x.tag&&tags.indexOf(x.tag)<0)tags.push(x.tag); }); tags.sort(function(a,b){return ORD.indexOf(a)-ORD.indexOf(b)}); tags.unshift("전체"); tag="전체";
       body.innerHTML='<div class="cv-two">'+
-        '<div class="cv-l">'+(r.video?'<div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>하이라이트 · '+r.n+'</span></div>':'')+
+        '<div class="cv-l">'+(r.video?'<div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>하이라이트 · '+r.n+'</span><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>':'')+
           '<div class="cv-sum"><b>진로체험 '+r.n+'</b><span>'+(r.info||"")+'</span><small>사진 '+ph.length+'장'+(r.video?' · 영상 하이라이트':'')+' · 사진을 누르면 크게 보여요</small></div></div>'+
         '<div class="cv-r"><div class="cv-chips" id="cv-chips">'+tags.map(function(t){ var n=t==="전체"?ph.length:ph.filter(function(x){return x.tag===t}).length; return '<button data-t="'+t+'" style="--tc:'+(TC[t]||"#2B2140")+'">'+(t==="전체"?"전체":t+(t==="박람회"?" 부스":""))+' <i>'+n+'</i></button>'; }).join("")+'</div>'+
         '<div class="cv-grid" id="cv-grid"></div></div></div>';
+      var sb2=body.querySelector(".cv-snd"), vv2=body.querySelector(".cv-vid video"); if(sb2)sb2.onclick=function(){ vv2.muted=!vv2.muted; if(!vv2.muted){vv2.currentTime=0;vv2.play();} sb2.textContent=vv2.muted?"🔇 소리 켜기":"🔊 소리 끄기"; };
       grid();
     } else if(r.video&&!future(r)){   // 사진은 아직, 영상만 있는 지난 차수
       body.innerHTML='<div class="cv-vonly'+(r.vert?' vert':'')+'"><div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>진로체험 '+r.n+' 영상</span><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>'+
