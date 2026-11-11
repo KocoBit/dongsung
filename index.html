@@ -3418,7 +3418,7 @@ var LOBBY=(function(){
   function heart(v){ if(!ctx())return; var t=AC.currentTime+.03; if(HB){ smp(t,0,.95*v,1.04); smp(t+.24,1,.75*v,1.04); return; } thump(t,52,.95*v,.2); thump(t+.24,64,.72*v,.15); }
   function heartBig(v){ if(!ctx())return; var t=AC.currentTime+.03; if(HB){ smp(t,0,v,1,true); smp(t+.25,1,.8*v,1,true); return; } thump(t,50,1*v,.24); thump(t+.25,60,.8*v,.18); sub(t,[[0,38,.9,.9],[.25,46,.6,.7]],.55*v); }
   var BEATS=[[0,.55,.62],[.62,.65,.52],[1.14,.75,.42],[1.56,.85,.33],[1.89,.95,.26],[2.15,1,.22]], HIT=2.4;
-  function show(k){ slides.forEach(function(s,j){ s.classList.toggle("on",j===k); }); }   // 대기 화면 장면이 바뀔 때마다 나던 두근 소리는 끔(요청). 문 열 때 효과음만 남김
+  function show(k){ slides.forEach(function(s,j){ s.classList.toggle("on",j===k); }); if(armed&&!busy&&AC&&AC.state==="running"){ heartBig(HB?1:.8); setTimeout(function(){ if(!busy)heart(HB?.45:.35); },560); } }
   function loop(){ clearInterval(timer); show(i=0); timer=setInterval(function(){ if(!active()){ clearInterval(timer); timer=0; return; } i=(i+1)%slides.length; show(i); },3500); }
   function active(){ return cur==="open"&&OP.waiting&&!busy; }
   var sb=el.querySelector(".lb-snd");
