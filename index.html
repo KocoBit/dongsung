@@ -1531,6 +1531,16 @@ body.lounge.lpause #nav{opacity:1;pointer-events:auto}
 .cv-vside h3{margin:0 0 14px;font-size:40px;line-height:1.25;font-weight:900}.cv-vside h3 em{font-style:normal;color:#8A5CF0}.cv-vside p{margin:0 0 18px;font-size:20px;line-height:1.6;color:#4A4458}
 .cv-vnote{margin-top:22px;padding:14px 18px;border-radius:14px;background:#fff;font-size:20px;font-weight:900;color:#2B2140}
 .cv-snd{position:absolute;right:16px;bottom:16px;height:44px;padding:0 18px;border-radius:22px;background:rgba(20,22,40,.82);color:#fff;font-size:18px;font-weight:900}
+.cv-vid video{cursor:zoom-in}
+.cv-zoom{position:absolute;left:16px;bottom:16px;height:44px;padding:0 18px;border-radius:22px;background:rgba(20,22,40,.82);color:#fff;font-size:18px;font-weight:900}
+.cv-zoom:hover,.cv-snd:hover{background:rgba(40,48,136,.95)}
+.cv-vbig{position:absolute;inset:0;z-index:960;display:flex;align-items:center;justify-content:center;background:rgba(14,12,26,.94);animation:fin .25s}
+.cv-vbig .box{position:relative;height:1000px;max-width:1800px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.cv-vbig .box.vert{aspect-ratio:421/720}
+.cv-vbig video{width:100%;height:100%;display:block;object-fit:cover;cursor:default}
+.cv-vbig .x{position:absolute;right:40px;top:30px;height:56px;padding:0 24px;border-radius:28px;background:#fff;color:#1B1D26;font-size:22px;font-weight:900}
+.cv-vbig .cv-snd{right:20px;bottom:20px;height:52px;font-size:20px;border-radius:26px}
+.cv-vbig .t{position:absolute;left:40px;top:38px;color:#fff;font-size:26px;font-weight:900;opacity:.9}
 .cv-vid span{position:absolute;left:18px;top:16px;padding:6px 14px;border-radius:14px;background:rgba(40,48,136,.92);color:#fff;font-size:18px;font-weight:900}
 .cv-sum{margin-top:24px}
 .cv-sum b{display:block;font-size:40px;font-weight:900;letter-spacing:-2px}
@@ -3740,20 +3750,21 @@ var CV=(function(){
     $("#cv-grid").scrollTop=0;
   }
   function draw(){
+    closeVid();
     tabs.innerHTML=L.map(function(r,i){ var n=(r.photos||[]).length; return '<button data-i="'+i+'" class="'+(i===sel?"on":"")+'">'+r.n+(r.name?' '+r.name:'')+(r.date?'<small>'+md(r)+'</small>':'')+(n?'<i>사진 '+n+'</i>':(r.video&&!future(r)?'<i>영상</i>':r.soon?'<i>곧 오픈</i>':(preOpen(r)?'<i>'+openLabel(r)+' 오픈</i>':(closed(r)&&future(r)?'<i>신청 마감</i>':(future(r)?'<i>모집 중</i>':'')))))+'</button>'; }).join("");
     var r=L[sel]; if(!r){ body.innerHTML=""; return; }
     var ph=(r.photos||[]).map(P);
     if(ph.length){
       var ORD=["금융정보","관광서비스","보건간호","스포츠건강관리","박람회"], tags=[]; ph.forEach(function(x){ if(x.tag&&tags.indexOf(x.tag)<0)tags.push(x.tag); }); tags.sort(function(a,b){return ORD.indexOf(a)-ORD.indexOf(b)}); tags.unshift("전체"); tag="전체";
       body.innerHTML='<div class="cv-two">'+
-        '<div class="cv-l">'+(r.video?'<div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>하이라이트 · '+r.n+'</span><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>':'')+
+        '<div class="cv-l">'+(r.video?'<div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>하이라이트 · '+r.n+'</span><button class="cv-zoom" aria-label="영상 크게 보기">⛶ 크게 보기</button><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>':'')+
           '<div class="cv-sum"><b>진로체험 '+r.n+'</b><span>'+(r.info||"")+'</span><small>사진 '+ph.length+'장'+(r.video?' · 영상 하이라이트':'')+' · 사진을 누르면 크게 보여요</small></div></div>'+
         '<div class="cv-r"><div class="cv-chips" id="cv-chips">'+tags.map(function(t){ var n=t==="전체"?ph.length:ph.filter(function(x){return x.tag===t}).length; return '<button data-t="'+t+'" style="--tc:'+(TC[t]||"#2B2140")+'">'+(t==="전체"?"전체":t+(t==="박람회"?" 부스":""))+' <i>'+n+'</i></button>'; }).join("")+'</div>'+
         '<div class="cv-grid" id="cv-grid"></div></div></div>';
       var sb2=body.querySelector(".cv-snd"), vv2=body.querySelector(".cv-vid video"); if(sb2)sb2.onclick=function(){ vv2.muted=!vv2.muted; if(!vv2.muted){vv2.currentTime=0;vv2.play();} sb2.textContent=vv2.muted?"🔇 소리 켜기":"🔊 소리 끄기"; };
       grid();
     } else if(r.video&&!future(r)){   // 사진은 아직, 영상만 있는 지난 차수
-      body.innerHTML='<div class="cv-vonly'+(r.vert?' vert':'')+'"><div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>진로체험 '+r.n+' 영상</span><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>'+
+      body.innerHTML='<div class="cv-vonly'+(r.vert?' vert':'')+'"><div class="cv-vid"><video src="'+url(r.video)+'" muted autoplay loop playsinline preload="auto"></video><span>진로체험 '+r.n+' 영상</span><button class="cv-zoom" aria-label="영상 크게 보기">⛶ 크게 보기</button><button class="cv-snd" aria-label="소리 켜기">🔇 소리 켜기</button></div>'+
         '<div class="cv-vside"><h3>진로체험 '+r.n+',<br><em>'+(r.name||"")+'</em></h3><p>'+(r.info||"")+'</p>'+(r.steps?'<div class="cv-steps">'+r.steps.map(function(x){return '<span>'+x+'</span>'}).join('<i>→</i>')+'</div>':'')+'<div class="cv-vnote">📷 사진은 정리해서 곧 올려요!</div></div></div>';
       var sb=body.querySelector(".cv-snd"), vv=body.querySelector("video"); sb.onclick=function(){ vv.muted=!vv.muted; if(!vv.muted){vv.currentTime=0;vv.play();} sb.textContent=vv.muted?"🔇 소리 켜기":"🔊 소리 끄기"; };
     } else if(future(r)){
@@ -3768,17 +3779,28 @@ var CV=(function(){
       body.innerHTML='<div class="cv-wait"><div><b>📷 사진을 정리하고 있어요</b>진로체험 '+r.n+' 사진이 곧 올라와요!</div></div>';
     }
   }
+  var vb=null;   // 영상 크게 보기: 같은 video 요소를 옮겨 보던 장면·소리 그대로 이어 봄(발표 전체화면은 유지)
+  function sndTxt(v){ return v.muted?"🔇 소리 켜기":"🔊 소리 끄기"; }
+  function openVid(w){ if(vb)return; var v=$("video",w), r=L[sel]; if(!v)return;
+    vb=document.createElement("div"); vb.className="cv-vbig";
+    vb.innerHTML='<div class="t">진로체험 '+r.n+(r.name?' '+r.name:'')+'</div><button class="x" aria-label="닫기">✕ 닫기</button><div class="box'+(r.vert?' vert':'')+'"><button class="cv-snd">'+sndTxt(v)+'</button></div>';
+    var box=$(".box",vb); box.insertBefore(v,box.firstChild); vb._home=w; v.play&&v.play().catch(function(){});
+    $(".cv-snd",vb).onclick=function(e){ e.stopPropagation(); v.muted=!v.muted; if(!v.muted){v.currentTime=0;v.play();} this.textContent=sndTxt(v); };
+    vb.addEventListener("click",function(e){ e.stopPropagation(); if(e.target.closest(".cv-snd"))return; if(e.target.tagName==="VIDEO"){ v.paused?v.play():v.pause(); return; } closeVid(); });
+    document.getElementById("stage").appendChild(vb); }
+  function closeVid(){ if(!vb)return false; var w=vb._home, v=$("video",vb); if(w&&v){ w.insertBefore(v,w.firstChild); v.play&&v.play().catch(function(){}); var sb=$(".cv-snd",w); if(sb)sb.textContent=sndTxt(v); } vb.remove(); vb=null; return true; }
   function showBig(i){ if(!list.length)return; bi=(i+list.length)%list.length; var x=list[bi]; $("img",big).src=url(x.src); $(".cv-cap",big).innerHTML=(x.tag?'<i style="background:'+(TC[x.tag]||"#8A5CF0")+'">'+x.tag+'</i>':'')+(x.cap||"")+'<small>'+(bi+1)+' / '+list.length+'</small>'; big.classList.add("on");
     var cp=$(".cv-cap",big), ti=$("i",cp); cp.classList.remove("grow"); cp.style.setProperty("--w",((ti?ti.offsetWidth:60)+34)+"px"); void cp.offsetWidth; requestAnimationFrame(function(){ cp.classList.add("grow"); }); }
   tabs.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b)return; e.stopPropagation(); sel=+b.dataset.i; draw(); });
   (function(){ var t=Date.now(), w=[].concat.apply([],L.map(function(r){ return [r.openAt?dt(r.openAt).getTime()-t:-1, r.closeAt?dt(r.closeAt).getTime()+864e5-t:-1]; })).filter(function(x){ return x>0; }).sort(function(a,b){return a-b})[0];
     if(w&&w<2147483000) setTimeout(function(){ try{ draw(); }catch(e){} },w+1000); })();   // 화면을 켜 둔 채 자정(openAt)이 지나면 QR이 저절로 나타남
-  body.addEventListener("click",function(e){ var pz=e.target.closest(".cv-poster"); if(pz){ e.stopPropagation(); var o=document.createElement("div"); o.className="cv-pz"; o.innerHTML='<img src="'+pz.dataset.poster+'" alt=""><span>✕ 닫기</span>'; o.addEventListener("click",function(ev){ ev.stopPropagation(); o.remove(); }); document.getElementById("stage").appendChild(o); return; }
+  body.addEventListener("click",function(e){ var zv=e.target.closest(".cv-zoom")||(e.target.tagName==="VIDEO"&&e.target.closest(".cv-vid")); if(zv){ e.stopPropagation(); openVid(e.target.closest(".cv-vid")); return; }
+    var pz=e.target.closest(".cv-poster"); if(pz){ e.stopPropagation(); var o=document.createElement("div"); o.className="cv-pz"; o.innerHTML='<img src="'+pz.dataset.poster+'" alt=""><span>✕ 닫기</span>'; o.addEventListener("click",function(ev){ ev.stopPropagation(); o.remove(); }); document.getElementById("stage").appendChild(o); return; }
     var c=e.target.closest("#cv-chips button"); if(c){ e.stopPropagation(); tag=c.dataset.t; grid(); return; }
     var p=e.target.closest(".cv-ph"); if(!p)return; e.stopPropagation(); showBig(+p.dataset.i); });
   big.addEventListener("click",function(e){ e.stopPropagation(); var n=e.target.closest(".cv-nav"); if(n){ showBig(bi+(+n.dataset.d)); return; } big.classList.remove("on"); });
-  function key(k){ if(!big.classList.contains("on"))return false; if(k==="ArrowRight"){showBig(bi+1);return true;} if(k==="ArrowLeft"){showBig(bi-1);return true;} if(k==="Escape"){big.classList.remove("on");return true;} return false; }
-  return {show:function(i){ sel=(i==null)?pick():i; draw(); }, closeBig:function(){ big.classList.remove("on"); var v=$("video",body); if(v)v.pause(); }, key:key};
+  function key(k){ if(vb){ if(k==="Escape"||k===" "){ if(k===" "){ var v=$("video",vb); v.paused?v.play():v.pause(); } else closeVid(); return true; } return true; } if(!big.classList.contains("on"))return false; if(k==="ArrowRight"){showBig(bi+1);return true;} if(k==="ArrowLeft"){showBig(bi-1);return true;} if(k==="Escape"){big.classList.remove("on");return true;} return false; }
+  return {show:function(i){ sel=(i==null)?pick():i; draw(); }, closeBig:function(){ closeVid(); big.classList.remove("on"); var v=$("video",body); if(v)v.pause(); }, key:key};
 })();
 
 /* ── 홈: 말풍선 안내 · 창문으로 들어오는 벚꽃 ── */
