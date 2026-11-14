@@ -529,6 +529,16 @@ body.lounge #nav{opacity:0;pointer-events:none}
 .sf-foot span{font-size:18px;font-weight:700;letter-spacing:2px;opacity:.7;white-space:nowrap}
 .scene.in .strip{animation:sdrop .95s cubic-bezier(.2,.85,.3,1.18) both;animation-delay:calc(var(--k)*280ms + 250ms)}
 @keyframes sdrop{0%{opacity:1;transform:translateY(-1150px) rotate(calc(var(--r)*-3))}100%{opacity:1;transform:rotate(var(--r))}}
+.l-vid{position:absolute;left:0;top:440px;width:500px;display:flex;gap:22px;align-items:center;padding:16px;border-radius:22px;background:#fff;box-shadow:0 2px 0 var(--line),0 18px 40px -26px rgba(20,22,27,.45);text-align:left;color:var(--ink);cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s}
+.l-vid:hover{transform:translateY(-3px);box-shadow:0 2px 0 var(--line),0 26px 50px -24px rgba(20,22,27,.5)}
+.l-vid .th{position:relative;flex:none;width:168px;height:224px;border-radius:14px;overflow:hidden;background:#14161B}
+.l-vid .th img{width:100%;height:100%;object-fit:cover;display:block}
+.l-vid .th i{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-style:normal;font-size:24px;color:#E0457E;padding-left:5px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.l-vid small{display:block;font-size:18px;font-weight:800;color:#E0457E}
+.l-vid b{display:block;margin-top:6px;font-size:34px;font-weight:900;letter-spacing:-1.5px;line-height:1.15}
+.l-vid span{display:block;margin-top:10px;font-size:19px;font-weight:700;color:var(--ink2);line-height:1.5}
+.l-vid em{display:inline-block;margin-top:16px;font-style:normal;font-size:18px;font-weight:900;padding:9px 18px;border-radius:20px;background:#14161B;color:#fff}
+.cv-vbig .box.r34{aspect-ratio:3/4}
 .lflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5}
 .lflash.go{animation:flash .35s ease-out}
 #lbox{position:absolute;inset:0;z-index:86;background:rgba(10,12,18,.78);backdrop-filter:blur(6px);display:none;place-items:center;cursor:zoom-out}
@@ -2212,6 +2222,9 @@ var LIFE = [
   {title:"우리가 해냈다", en:"CHALLENGE", frame:"#C8F1DF", ink:"#0B4A30", cells:[["media/learn/sports_tball_team.jpg","2026 전국 티볼대회 3위"],["media/life/d2.jpg","2026 부산교육감배 티볼 우승"],["media/life/d3.jpg","국가고시 응원"],["media/learn/sports_marathon_beach.jpg","미포 철길 마라톤 · 해운대"]]}
 ];
 
+/* 학교생활 영상(학교생활 화면 왼쪽 카드 · 모바일 학교생활 아래). 바꿀 때는 이 칸만 고치면 돼요 */
+var LIFE_VIDEO = {title:"리더스 스쿨캠핑", when:"매년 10월 · 1박 2일", d:"텐트 치고 고기 굽고,<br>캠프파이어까지!<br>학교에서 하룻밤 자요", src:"media/life/camping.mp4", poster:"media/life/camping.jpg", len:"56초"};
+
 /* ── 대회 입상 ── */
 var CONTESTS = [
   // 상업경진대회 (2026) — 학생 이름은 넣지 않습니다
@@ -2393,7 +2406,8 @@ if(IS_MOBILE)document.documentElement.classList.add("m");
         <h1 class="l-title rv" style="--i:1"><span>선배 언니들의</span><br>진짜 학교생활</h1>
         <p class="l-sub rv" style="--i:2">행사도, 실습도, 친구도 전부 진짜.<br>학교 영상 속 실제 장면이에요.</p>
         <div class="l-tags rv" style="--i:3"><b style="--r:-3deg">#축제</b><b style="--r:2deg">#실습</b><b style="--r:-1deg">#친구</b><b style="--r:3deg">#도전</b></div>
-        <div class="l-hint rv" style="--i:4"><i>+</i>사진을 누르면 크게 볼 수 있어요</div>
+        <button class="l-vid rv" style="--i:4" type="button" id="l-vid"></button>
+        <div class="l-hint rv" style="--i:5"><i>+</i>사진을 누르면 크게 볼 수 있어요</div>
       </div>
       <div class="strips" id="strips"></div>
     </div>
@@ -2813,6 +2827,30 @@ function lifeEnter(){
   },250+k*280+620)); });
 }
 var lbox=$("#lbox");
+document.addEventListener("click",function(e){ var b=e.target.closest&&e.target.closest("#m .m-lv"); if(!b)return; var v=b.querySelector("video"); v.controls=true; v.currentTime=0; var pr=v.play(); if(pr&&pr.catch)pr.catch(function(){});
+  try{ if(v.requestFullscreen)v.requestFullscreen().catch(function(){}); else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen(); }catch(err){}
+  var off=function(){ if(!document.fullscreenElement){ v.pause(); v.controls=false; document.removeEventListener("fullscreenchange",off); } }; document.addEventListener("fullscreenchange",off); v.addEventListener("webkitendfullscreen",function(){ v.pause(); v.controls=false; },{once:true}); });
+/* 학교생활 영상 카드 → 크게 보기(사이트 안, 발표 전체화면 유지) */
+var LV=(function(){
+  var el=null, btn=document.getElementById("l-vid"), V=typeof LIFE_VIDEO!=="undefined"?LIFE_VIDEO:null;
+  if(!btn)return {close:function(){}};
+  if(!V||!V.src){ btn.style.display="none"; return {close:function(){}}; }
+  btn.innerHTML='<div class="th"><img src="'+V.poster+'" alt=""><i>▶</i></div><div><small>'+V.when+'</small><b>'+V.title+'</b><span>'+V.d+'</span><em>▶ 영상 보기'+(V.len?' · '+V.len:'')+'</em></div>';
+  function close(){ if(!el)return false; var v=$("video",el); try{v.pause()}catch(e){} el.remove(); el=null; return true; }
+  function open(){ if(el)return;
+    el=document.createElement("div"); el.className="cv-vbig";
+    el.innerHTML='<div class="t">'+V.title+'</div><button class="x" aria-label="닫기">✕ 닫기</button><div class="box r34"><video src="'+V.src+'" poster="'+V.poster+'" playsinline preload="auto"></video><button class="cv-snd">🔊 소리 끄기</button></div>';
+    var v=$("video",el), sb=$(".cv-snd",el);
+    v.addEventListener("ended",function(){ close(); });
+    sb.onclick=function(e){ e.stopPropagation(); v.muted=!v.muted; this.textContent=v.muted?"🔇 소리 켜기":"🔊 소리 끄기"; };
+    el.addEventListener("click",function(e){ e.stopPropagation(); if(e.target.closest(".cv-snd"))return; if(e.target.tagName==="VIDEO"){ v.paused?v.play():v.pause(); return; } close(); });
+    document.getElementById("stage").appendChild(el);
+    var pr=v.play(); if(pr&&pr.catch)pr.catch(function(){ v.muted=true; sb.textContent="🔇 소리 켜기"; v.play().catch(function(){}); });
+  }
+  btn.addEventListener("click",function(e){ e.stopPropagation(); open(); });
+  window.addEventListener("keydown",function(e){ if(!el)return; e.stopPropagation(); e.preventDefault(); if(e.key==="Escape")close(); else if(e.key===" "){ var v=$("video",el); v.paused?v.play():v.pause(); } },true);
+  return {close:close};
+})();
 function openLb(img){ $("img",lbox).src=img.src; $("p b",lbox).textContent=img.dataset.cap; lbox.classList.add("on"); }
 lbox.onclick=function(){lbox.classList.remove("on")};
 
@@ -3932,7 +3970,7 @@ function goNow(id){
   if(id==="jobs"){ buildRoll(); startRoll(); }
   if(id==="life"){ lifeEnter(); }
   if(id==="admit"){ ADM.render(); ADM.anim(); }
-  closeReveal(); lbox.classList.remove("on"); pop.classList.remove("on"); if(DT.on)DT.close();
+  closeReveal(); lbox.classList.remove("on"); pop.classList.remove("on"); if(DT.on)DT.close(); LV.close();
   runCounters(next);
   fillNotes();
 }
@@ -4305,6 +4343,15 @@ html.m #m{display:block}
 #m .m-hs::-webkit-scrollbar{display:none}
 #m .m-hs>*{flex:none;scroll-snap-align:start}
 /* 네컷 */
+#m .m-lv{margin-top:18px;display:flex;gap:14px;align-items:center;padding:12px;border-radius:18px;background:#fff;color:#14161B;box-shadow:0 14px 30px -18px rgba(0,0,0,.8)}
+#m .m-lv{width:100%;text-align:left;font:inherit;border:0}
+#m .m-lvt{position:relative;flex:none;width:120px;height:160px;border-radius:12px;overflow:hidden;background:#000}
+#m .m-lvt video{width:100%;height:100%;object-fit:cover;display:block}
+#m .m-lvt i{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-style:normal;font-size:16px;color:#E0457E;padding-left:3px}
+#m .m-lv em{display:inline-block;margin-top:10px;font-style:normal;font-size:13px;font-weight:900;padding:6px 12px;border-radius:14px;background:#14161B;color:#fff}
+#m .m-lv small{display:block;font-size:12px;font-weight:800;color:#E0457E}
+#m .m-lv b{display:block;margin-top:4px;font-size:20px;font-weight:900;letter-spacing:-.5px}
+#m .m-lv span{display:block;margin-top:6px;font-size:13.5px;font-weight:600;color:#555;line-height:1.5}
 #m .m-strip{width:200px;padding:10px 10px 12px;border-radius:14px;color:#14161B;box-shadow:0 14px 30px -18px rgba(0,0,0,.8)}
 #m .m-strip .m-g{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 #m .m-strip img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px}
@@ -4592,7 +4639,7 @@ html.m #m{display:block}
       '<div class="m-act"><i>ACT 1 · 1학년</i><b>배움으로</b><span>1학년은 다 함께, 동성여고에서 시작해요</span></div>'+
       '<section><div class="m-k">1학년 공통모집</div><h2>학과는 <mark>2학년</mark> 때,<br>지금은 <mark>함께</mark> 시작해요</h2><p class="m-lead">중3인 지금 학과를 정하지 않아도 지원할 수 있어요.</p>'+
       '<div class="m-pros"><div class="m-pro"><i>1</i><div><b>학과 몰라도 지원 OK</b><span>중3인 지금 진로를 정하지 않아도 돼요</span></div></div><div class="m-pro"><i>2</i><div><b>1년 동안 직접 보고</b><span>금융·관광·보건 기초를 모두 배우며 학과를 가까이서 봐요</span></div></div><div class="m-pro"><i>3</i><div><b>2학년 때 내 길 선택</b><span>충분히 알아본 뒤 학과를 골라요</span></div></div></div></section>'+
-      '<section style="padding-top:0"><h2>선배 언니들의<br>진짜 학교생활</h2><p class="m-lead">학교 영상 속 실제 장면이에요. 옆으로 넘겨 보세요.</p><div class="m-hs">'+life+'</div></section>'+
+      '<section style="padding-top:0"><h2>선배 언니들의<br>진짜 학교생활</h2><p class="m-lead">학교 영상 속 실제 장면이에요. 옆으로 넘겨 보세요.</p><div class="m-hs">'+life+'</div>'+(LIFE_VIDEO&&LIFE_VIDEO.src?'<button class="m-lv" type="button"><span class="m-lvt"><video src="'+LIFE_VIDEO.src+'" poster="'+LIFE_VIDEO.poster+'" playsinline preload="none"></video><i>▶</i></span><div><small>'+LIFE_VIDEO.when+'</small><b>'+LIFE_VIDEO.title+'</b><span>'+LIFE_VIDEO.d.replace(/<br>/g," ")+'</span><em>▶ 영상 보기 · '+LIFE_VIDEO.len+'</em></div></button>':'')+'</section>'+
       '<section style="padding-top:0"><h2>숫자로 보는 동성여고</h2><div class="m-wall">'+wall+'</div></section>'+
       '<div class="m-act"><i>ACT 2 · 2학년</i><b>이루고</b><span>2학년, 나의 길을 골라 실력을 쌓아요</span></div>'+
       '<section id="m-depts"><h2>2학년 때 고를<br><mark>네 개의 길</mark></h2><p class="m-lead">학과를 누르면 영상·배우는 것·졸업 후 진로가 열려요.</p><div class="m-depts">'+depts+'</div></section>'+
